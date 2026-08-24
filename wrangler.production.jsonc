@@ -10,7 +10,7 @@
     {
       "binding": "DB",
       "database_name": "angeles-studio-db",
-      "database_id": "a59c65af-883e-4b8d-a6ee-14ff85f7c5d2",
+      "database_id": "PENDING_OWNER_CLOUDFLARE_ACCOUNT",
       "migrations_dir": "drizzle"
     }
   ],
@@ -21,7 +21,7 @@
     }
   ],
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.canodent741.workers.dev",
+    "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.invalid",
     "SITE_LAUNCH_READY": "false"
   },
   "observability": {
