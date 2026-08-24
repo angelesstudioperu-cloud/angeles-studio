@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "angeles-studio",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2026-05-15",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "angeles-studio-db",
+      "database_id": "a59c65af-883e-4b8d-a6ee-14ff85f7c5d2",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "FILES",
+      "bucket_name": "angeles-studio-files"
+    }
+  ],
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.canodent741.workers.dev",
+    "SITE_LAUNCH_READY": "false"
+  },
+  "observability": {
+    "enabled": true
+  }
+}
