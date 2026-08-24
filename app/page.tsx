@@ -107,7 +107,8 @@ export default function Home() {
           <h2 id="looks-title">Detalles que hablan.</h2>
           <p>Forma, curvatura y textura. Tres maneras de elevar tu expresión sin dejar de verte tú.</p>
         </div>
-        <div className="looks-image" role="img" aria-label="Resultados editoriales de uñas, lifting y extensiones de pestañas">
+        <div className="looks-image">
+          <span className="looks-media" role="img" aria-label="Resultados editoriales de uñas, lifting y extensiones de pestañas" />
           <span className="look-tag look-one">Micro French</span>
           <span className="look-tag look-two">Lifting natural</span>
           <span className="look-tag look-three">Clásicas definidas</span>
@@ -145,9 +146,10 @@ export default function Home() {
           <dl><div><dt>Lun — Sáb</dt><dd>9:00 a.m. — 8:00 p.m.</dd></div><div><dt>Domingo</dt><dd>Previa cita</dd></div></dl>
           <a className="button button-primary" href="#reservar">Reservar en Miraflores</a>
         </div>
-        <div className="visit-map" aria-label="Ubicación referencial de Ángeles Studio">
-          <div className="map-grid" /><span className="map-pin"><b>A</b></span>
-          <p>Flagship Miraflores <small>Una sede hoy. Una marca preparada para crecer.</small></p>
+        <div className="visit-map">
+          <div className="map-grid" aria-hidden="true" />
+          <span className="map-pin" aria-hidden="true"><b>A</b></span>
+          <div className="map-caption"><p>Flagship Miraflores</p><small>Una sede hoy. Una marca preparada para crecer.</small></div>
         </div>
       </section>
 

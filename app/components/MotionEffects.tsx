@@ -1,6 +1,6 @@
 'use client';
 
-import { useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 
 export function MotionEffects() {
   useLayoutEffect(() => {
@@ -36,6 +36,33 @@ export function MotionEffects() {
 
     [...blocks, ...items].forEach((element) => observer.observe(element));
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
+    if (!menu) return;
+    const summary = menu.querySelector<HTMLElement>('summary');
+
+    // The panel overlays the page, so it steps aside once it has done its job.
+    const closeMenu = (event: PointerEvent) => {
+      const target = event.target;
+      if (!menu.open || !(target instanceof Element)) return;
+      if (menu.contains(target) && !target.closest('.mobile-menu nav a')) return;
+      menu.open = false;
+    };
+
+    const closeMenuWithKeyboard = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape' || !menu.open) return;
+      menu.open = false;
+      summary?.focus();
+    };
+
+    document.addEventListener('pointerdown', closeMenu);
+    document.addEventListener('keydown', closeMenuWithKeyboard);
+    return () => {
+      document.removeEventListener('pointerdown', closeMenu);
+      document.removeEventListener('keydown', closeMenuWithKeyboard);
+    };
   }, []);
 
   return null;
