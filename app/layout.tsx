@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Montserrat } from 'next/font/google';
 import './globals.css';
 
@@ -19,14 +19,21 @@ export const metadata: Metadata = {
     description: 'Uñas, lifting y pestañas con precisión editorial en un beauty studio de Lima.',
     type: 'website',
     locale: 'es_PE',
-    images: [{ url: '/og.png', width: 1734, height: 907, alt: 'Ángeles Studio — Belleza de autor en Lima' }],
+    images: [{ url: '/og-palette.png', width: 1734, height: 907, alt: 'Ángeles Studio — Uñas, lifting y pestañas' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Ángeles Studio | Uñas, lifting y pestañas en Lima',
     description: 'Uñas, lifting y pestañas con precisión editorial en un beauty studio de Lima.',
-    images: ['/og.png'],
+    images: ['/og-palette.png'],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F4F3F1' },
+    { media: '(prefers-color-scheme: dark)', color: '#344C3D' },
+  ],
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
