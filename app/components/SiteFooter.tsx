@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { BrandLogo } from './BrandLogo';
-import { addressLines, business, emailUrl, whatsappUrl } from '../content/business';
+import { addressLines, business, emailUrl, hoursLine, whatsappUrl } from '../content/business';
 
 export function SiteFooter() {
   return (
@@ -12,7 +12,8 @@ export function SiteFooter() {
           {addressLines.map((line) => (
             <span key={line}>{line}</span>
           ))}
-          <span>{business.hours.display} · {business.bookingPolicy.toLowerCase()}</span>
+          <span>{hoursLine}</span>
+          <span>{business.hours.closed} · {business.bookingPolicy.toLowerCase()}</span>
         </address>
       </div>
 

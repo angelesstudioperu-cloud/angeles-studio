@@ -56,7 +56,7 @@ const structuredData = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: `${business.address.street}, ${business.address.area}`,
+    streetAddress: `${business.address.street}, ${business.address.unit}, ${business.address.area}`,
     addressLocality: business.address.district,
     addressRegion: business.address.city,
     postalCode: business.address.postalCode,
@@ -64,8 +64,14 @@ const structuredData = {
   },
   geo: { '@type': 'GeoCoordinates', latitude: business.geo.lat, longitude: business.geo.lng },
   hasMap: business.mapsUrl,
-  // Los días aún no están confirmados; publicamos solo el rango horario.
-  openingHoursSpecification: [{ '@type': 'OpeningHoursSpecification', opens: business.hours.opens, closes: business.hours.closes }],
+  openingHoursSpecification: [
+    {
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: business.hours.schemaDays,
+      opens: business.hours.opens,
+      closes: business.hours.closes,
+    },
+  ],
   sameAs: [business.social.instagram.url, business.social.tiktok.url],
   priceRange: 'S/ 10 — S/ 60',
   areaServed: 'Lima, Perú',

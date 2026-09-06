@@ -19,7 +19,10 @@ const steps = [
   ['03', 'Queda reservada', 'Tu cita solo está confirmada cuando te lo decimos por escrito. Si necesitas mover la hora, avísanos con anticipación.'],
 ];
 
-export default function BookingPage() {
+export default async function BookingPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const query = await searchParams;
+  const preselect = typeof query.servicio === 'string' ? query.servicio : undefined;
+
   return (
     <main className="subpage subpage-reservar">
       <MotionEffects />
@@ -58,9 +61,16 @@ export default function BookingPage() {
             Ningún dato se guarda en este sitio: el formulario solo arma el mensaje y lo abre en tu WhatsApp para
             que lo envíes tú.
           </p>
+          <ul className="booking-perks">
+            <li>Sin pagos por adelantado</li>
+            <li>Te confirmamos disponibilidad el mismo día</li>
+            <li>Lunes a sábado, de 10 a.m. a 8:30 p.m.</li>
+          </ul>
           <Link className="text-link" href="/servicios">Revisar precios antes <span aria-hidden="true">↗</span></Link>
         </div>
-        <BookingForm />
+        <div className="booking-card">
+          <BookingForm preselect={preselect} />
+        </div>
       </section>
 
       <SiteFooter />

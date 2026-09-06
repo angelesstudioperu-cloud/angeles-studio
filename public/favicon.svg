@@ -1,9 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
   <rect width="100" height="100" rx="24" fill="#F2D1D4"/>
-  <g transform="translate(50 52) scale(1.28) translate(-50 -50)" fill="none" stroke="#344C3D" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M76 78 C50 60 22 42 26 12 C44 42 62 60 76 78 Z"/>
-    <path d="M76 78 C48 72 20 60 10 34 C24 62 46 72 76 78 Z"/>
-    <path d="M76 78 C52 78 28 74 12 66 C34 84 56 88 76 78 Z"/>
-    <circle cx="80" cy="82" r="4.8"/>
+  <defs>
+    <g id="ang-wing">
+      <path d="M2 98 C1.9 56 19.9 24.4 56 3 C56.1 45 38.1 76.6 2 98 Z"/>
+      <path d="M2 98 C10.4 64.4 31 42.4 64 32 C55.6 65.6 35 87.6 2 98 Z"/>
+      <path d="M2 98 C12.7 75 30.7 64.4 56 66 C45.3 89 27.3 99.6 2 98 Z"/>
+    </g>
+  </defs>
+  <g transform="translate(50 52) scale(0.68) translate(-70 -55)" fill="none" stroke="#344C3D" stroke-width="5.4" stroke-linecap="round" stroke-linejoin="round">
+    <use href="#ang-wing" transform="translate(74,5)"/>
+    <use href="#ang-wing" transform="translate(66,5) scale(-1,1)"/>
   </g>
 </svg>

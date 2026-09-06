@@ -43,6 +43,18 @@ export function MotionEffects() {
     return () => observer.disconnect();
   }, []);
 
+  // Con enrutado de cliente el navegador no siempre salta al ancla (#manos, #mirada…):
+  // lo hacemos nosotras una vez que el layout ya está resuelto.
+  useEffect(() => {
+    if (!window.location.hash) return;
+    const target = document.getElementById(decodeURIComponent(window.location.hash.slice(1)));
+    if (!target) return;
+    const frame = requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
+
   useEffect(() => {
     const menu = document.querySelector<HTMLDetailsElement>('.mobile-menu');
     if (!menu) return;

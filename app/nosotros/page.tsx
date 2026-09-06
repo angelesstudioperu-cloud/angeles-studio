@@ -99,14 +99,17 @@ export default function AboutPage() {
           <p className="eyebrow">Quién te atiende</p>
           <h2 id="team-title">Dos manicuristas,<br />sin apuro.</h2>
           <p>
-            Hoy somos dos manicuristas. Trabajamos con cita previa justamente para que ninguna de las dos tenga
-            que apurar un servicio.
+            Kiara y Liliana. Trabajamos con cita previa justamente para que ninguna de las dos tenga que apurar
+            un servicio.
           </p>
         </div>
         <div className="team-grid">
           {team.map((member, index) => (
             <article className={`team-card team-card-${index + 1}`} key={member.id}>
-              <div className="team-portrait"><span aria-hidden="true">{member.initials}</span></div>
+              <div className="team-portrait">
+                <img src={member.photo.src} alt={member.photo.alt} width={member.photo.width} height={member.photo.height} loading="lazy" />
+                <span aria-hidden="true">{member.initials}</span>
+              </div>
               <h3>{member.name}</h3>
               <p className="team-role">{member.role}</p>
               <p className="team-bio">{member.bio}</p>

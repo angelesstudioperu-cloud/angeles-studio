@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LocationMap } from '../components/LocationMap';
 import { MotionEffects } from '../components/MotionEffects';
 import { PageHero } from '../components/PageHero';
 import { SiteFooter } from '../components/SiteFooter';
@@ -50,7 +51,7 @@ export default function ContactPage() {
         breadcrumb="Contacto"
         eyebrow="Cómo llegar"
         title={<>Estamos en<br /><em>Los Olivos.</em></>}
-        intro="Atendemos de 10:00 a.m. a 8:00 p.m. con cita previa, para que nadie espere de más. Escríbenos por el canal que prefieras y coordinamos la hora que te acomode."
+        intro="Abrimos de lunes a sábado, de 10:00 a.m. a 8:30 p.m., siempre con cita previa para que nadie espere de más. Escríbenos por el canal que prefieras y coordinamos la hora que te acomode."
         actions={
           <>
             <a className="button button-primary" href={whatsappLink(`Hola, ${business.name}. Quisiera reservar una cita.`)} target="_blank" rel="noreferrer">
@@ -69,8 +70,10 @@ export default function ContactPage() {
           <address>{addressLines.map((line) => <span key={line}>{line}</span>)}</address>
           <dl>
             <div><dt>Horario</dt><dd>{business.hours.display}</dd></div>
+            <div><dt>Días</dt><dd>{business.hours.days}</dd></div>
             <div><dt>Atención</dt><dd>{business.bookingPolicy}</dd></div>
             <div><dt>Distrito</dt><dd>{business.address.district}</dd></div>
+            <div><dt>Tienda</dt><dd>{business.address.unit}</dd></div>
             <div><dt>Referencia</dt><dd>{business.address.area}</dd></div>
           </dl>
           <a className="button button-primary" href={business.mapsUrl} target="_blank" rel="noreferrer">
@@ -99,15 +102,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      <section className="map-band" aria-label="Ubicación de Ángeles Nails Salon">
-        <div className="map-grid" aria-hidden="true" />
-        <span className="map-pin" aria-hidden="true"><b>A</b></span>
-        <div className="map-caption">
-          <p>{business.address.district}</p>
-          <small>{business.address.area} · {business.address.city}</small>
-          <a href={business.mapsUrl} target="_blank" rel="noreferrer">Abrir en Google Maps ↗</a>
-        </div>
-      </section>
+      <LocationMap tone="peony" />
 
       <section className="cta-band">
         <div>

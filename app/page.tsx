@@ -1,14 +1,16 @@
 /* eslint-disable @next/next/no-img-element -- el shim de next/image de Vinext duplica React en los builds locales y de Workers; estos assets ya vienen dimensionados en WebP. */
 import Link from 'next/link';
 import { BookingForm } from './components/BookingForm';
+import { HeroCarousel } from './components/HeroCarousel';
+import { LocationMap } from './components/LocationMap';
 import { MotionEffects } from './components/MotionEffects';
 import { ServiceExplorer } from './components/ServiceExplorer';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
-import { addressLines, business, emailUrl } from './content/business';
+import { business } from './content/business';
 import { gallery } from './content/gallery';
-import { featuredServices, formatPrice } from './content/services';
+import { featuredServices, formatDuration, formatPrice, servicePath } from './content/services';
 
 const steps = [
   { number: '01', title: 'Observamos', copy: 'Revisamos la condición de tus uñas, tus cejas o tus pestañas naturales, tu estilo y el mantenimiento que deseas.' },
@@ -35,26 +37,7 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <SiteHeader current="/" />
-
-        <div className="hero-grid">
-          <div className="hero-copy">
-            <p className="eyebrow">Nail salon · Los Olivos, Lima</p>
-            <h1>Pequeños detalles.<br /><em>Gran presencia.</em></h1>
-            <p className="hero-intro">
-              Uñas, pedicure spa y diseño de mirada con técnica y sin prisa. Esmaltado en gel desde S/ 30,
-              pedicure spa desde S/ 40 y lifting de pestañas desde S/ 35.
-            </p>
-            <div className="hero-actions">
-              <Link className="button button-primary" href="/reservar">Agenda tu momento</Link>
-              <Link className="text-link" href="/servicios">Ver precios <span aria-hidden="true">↗</span></Link>
-            </div>
-          </div>
-          <div className="hero-visual hero-photo">
-            <img src="/images/angeles-nails-hero.webp" alt="Manicure en proceso en Ángeles Nails Salon" width="1536" height="1024" fetchPriority="high" />
-            <div className="hero-caption"><span>01</span><p>Precisión de cerca.<br />Belleza que se siente tuya.</p></div>
-          </div>
-        </div>
-        <a className="scroll-cue" href="#servicios"><span aria-hidden="true">↓</span> Explora</a>
+        <HeroCarousel />
       </section>
 
       <section className="brand-ribbon" role="region" tabIndex={0} aria-label="Principios de Ángeles Nails Salon; desliza horizontalmente para ver todos">
@@ -62,7 +45,7 @@ export default function Home() {
         <p><span>✦</span> Diseño personalizado</p>
         <p><span>✦</span> Técnica delicada</p>
         <p><span>✦</span> Atención con cita previa</p>
-        <p><span>✦</span> 10 a.m. — 8 p.m.</p>
+        <p><span>✦</span> Lun — Sáb · 10 a.m. — 8:30 p.m.</p>
       </section>
 
       <section className="services-preview" id="servicios">
@@ -74,13 +57,33 @@ export default function Home() {
         </div>
         <div className="service-list">
           {featuredServices.map((service, index) => (
-            <Link className="service-row" href="/servicios" key={service.slug}>
+            <Link className="service-row" href={servicePath(service.slug)} key={service.slug}>
               <span>{String(index + 1).padStart(2, '0')}</span>
               <h3>{service.shortName ?? service.name}</h3>
-              <div><p>{service.note}</p><small>{formatPrice(service.priceFrom)}</small></div>
+              <div>
+                <p>{service.note}</p>
+                <small>{formatPrice(service.priceFrom)} · {formatDuration(service.durationMinutes)}</small>
+              </div>
               <b aria-hidden="true">↗</b>
             </Link>
           ))}
+        </div>
+      </section>
+
+      {/* La reserva sube: es la acción principal de la página. */}
+      <section className="booking" id="reservar">
+        <div className="booking-heading">
+          <p className="eyebrow">Reserva en 1 minuto</p>
+          <h2>Hagamos espacio<br /><em>para ti.</em></h2>
+          <p>Solo necesitamos tu nombre, tu WhatsApp y qué te quieres hacer. El resto lo coordinamos por chat.</p>
+          <ul className="booking-perks">
+            <li>Sin pagos por adelantado</li>
+            <li>Te confirmamos disponibilidad el mismo día</li>
+            <li>Lunes a sábado, de 10 a.m. a 8:30 p.m.</li>
+          </ul>
+        </div>
+        <div className="booking-card">
+          <BookingForm />
         </div>
       </section>
 
@@ -113,24 +116,13 @@ export default function Home() {
         </div>
         <div className="looks-strip">
           {galleryPreview.map((item) => (
-            <figure key={item.src}>
-              <img src={item.src} alt={item.alt} width={item.width} height={item.height} loading="lazy" />
-              <figcaption>{item.caption}</figcaption>
-            </figure>
+            <Link href="/galeria" key={item.src}>
+              <figure>
+                <img src={item.src} alt={item.alt} width={item.width} height={item.height} loading="lazy" />
+                <figcaption>{item.caption}</figcaption>
+              </figure>
+            </Link>
           ))}
-        </div>
-      </section>
-
-      <section className="studio-story" id="studio">
-        <div className="story-number" aria-hidden="true">A / S</div>
-        <div>
-          <p className="eyebrow">Nuestro manifiesto</p>
-          <blockquote>«A mal tiempo, uñas lindas: algo se endereza por dentro cuando te ves las manos bonitas.»</blockquote>
-          <p>
-            Ángeles Nails Salon trabaja en Los Olivos con una idea simple: que un servicio de belleza pueda sentirse
-            cuidado, higiénico y sin prisa. Atendemos con cita previa para dedicarle a cada clienta el tiempo real
-            que su servicio necesita.
-          </p>
         </div>
       </section>
 
@@ -158,26 +150,17 @@ export default function Home() {
         <div className="visit-card">
           <p className="eyebrow">Visítanos</p>
           <h2>Tu próxima pausa<br />empieza aquí.</h2>
-          <address>{addressLines.map((line) => <span key={line}>{line}</span>)}</address>
           <dl>
-            <div><dt>Horario</dt><dd>{business.hours.display}</dd></div>
+            <div><dt>Horario</dt><dd>{business.hours.daysShort} · {business.hours.display}</dd></div>
             <div><dt>Atención</dt><dd>{business.bookingPolicy}</dd></div>
             <div><dt>WhatsApp</dt><dd>{business.whatsappDisplay}</dd></div>
-            <div><dt>Correo</dt><dd><a href={emailUrl}>{business.email}</a></dd></div>
           </dl>
           <div className="hero-actions">
             <Link className="button button-primary" href="/reservar">Reservar cita</Link>
-            <a className="text-link" href={business.mapsUrl} target="_blank" rel="noreferrer">Cómo llegar <span aria-hidden="true">↗</span></a>
+            <Link className="text-link" href="/contacto">Más formas de contacto <span aria-hidden="true">↗</span></Link>
           </div>
         </div>
-        <div className="visit-map">
-          <div className="map-grid" aria-hidden="true" />
-          <span className="map-pin" aria-hidden="true"><b>A</b></span>
-          <div className="map-caption">
-            <p>{business.address.district}</p>
-            <small>{business.address.area} · {business.address.city}</small>
-          </div>
-        </div>
+        <LocationMap />
       </section>
 
       <section className="faq" aria-labelledby="faq-title">
@@ -187,15 +170,6 @@ export default function Home() {
             <details key={question}><summary>{question}<span aria-hidden="true">＋</span></summary><p>{answer}</p></details>
           ))}
         </div>
-      </section>
-
-      <section className="booking" id="reservar">
-        <div className="booking-heading">
-          <p className="eyebrow">Reserva</p>
-          <h2>Hagamos espacio<br /><em>para ti.</em></h2>
-          <p>Elige lo que buscas y tu horario ideal. Te escribiremos para confirmar disponibilidad.</p>
-        </div>
-        <BookingForm />
       </section>
 
       <SiteFooter />

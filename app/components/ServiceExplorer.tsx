@@ -2,16 +2,16 @@
 
 import Link from 'next/link';
 import { useMemo, useState, type KeyboardEvent } from 'react';
-import { categories, categoryContent, formatDuration, formatPrice, servicesByCategory, type ServiceCategory } from '../content/services';
+import { categories, categoryContent, formatDuration, formatPrice, servicePath, services, servicesByCategory, type ServiceCategory } from '../content/services';
 
 type Finish = 'natural' | 'definido' | 'duradero';
 
 const finishes: Finish[] = ['natural', 'definido', 'duradero'];
 
 const recommendations: Record<ServiceCategory, Record<Finish, string>> = {
-  manos: { natural: 'Esmaltado en gel', definido: 'Uñas soft gel', duradero: 'Uñas acrílicas' },
-  pies: { natural: 'Solo limpieza', definido: 'Pedicure spa en gel', duradero: 'Acripie' },
-  mirada: { natural: 'Laminado de cejas', definido: 'Lifting de pestañas', duradero: 'Pigmentación con henna' },
+  manos: { natural: 'esmaltado-en-gel', definido: 'unas-soft-gel', duradero: 'unas-acrilicas' },
+  pies: { natural: 'solo-limpieza', definido: 'pedicure-spa-en-gel', duradero: 'acripie' },
+  mirada: { natural: 'laminado-de-cejas', definido: 'lifting-de-pestanas', duradero: 'pigmentacion-con-henna' },
 };
 
 export function ServiceExplorer() {
@@ -20,7 +20,10 @@ export function ServiceExplorer() {
   const [finish, setFinish] = useState<Finish>('natural');
   const menu = categoryContent[category];
   const visibleServices = servicesByCategory(category);
-  const recommendation = useMemo(() => recommendations[category][finish], [category, finish]);
+  const recommendation = useMemo(() => {
+    const slug = recommendations[category][finish];
+    return services.find((service) => service.slug === slug)!;
+  }, [category, finish]);
   const panelId = `${idPrefix}-service-panel`;
 
   function handleTabKey(event: KeyboardEvent<HTMLButtonElement>, current: ServiceCategory) {
@@ -75,14 +78,15 @@ export function ServiceExplorer() {
             <p>{menu.intro}</p>
             <div className="mini-service-grid">
               {visibleServices.map((service) => (
-                <article key={service.slug}>
+                <Link className="mini-service" href={servicePath(service.slug)} key={service.slug}>
                   <h3>{service.shortName ?? service.name}</h3>
                   <p>{service.note}</p>
                   <strong>
                     {formatPrice(service.priceFrom)}
                     <small>{formatDuration(service.durationMinutes)}</small>
                   </strong>
-                </article>
+                  <span className="mini-service-go" aria-hidden="true">↗</span>
+                </Link>
               ))}
             </div>
             <Link className="panel-link" href="/servicios">
@@ -107,9 +111,9 @@ export function ServiceExplorer() {
         </fieldset>
         <div className="finder-result" role="status" aria-live="polite">
           <span>Te sugerimos</span>
-          <strong key={`${category}-${finish}`}>{recommendation}</strong>
-          <Link href="/reservar">
-            Reservar este servicio <span aria-hidden="true">↗</span>
+          <strong key={`${category}-${finish}`}>{recommendation.name}</strong>
+          <Link href={servicePath(recommendation.slug)}>
+            Ver este servicio <span aria-hidden="true">↗</span>
           </Link>
         </div>
       </div>

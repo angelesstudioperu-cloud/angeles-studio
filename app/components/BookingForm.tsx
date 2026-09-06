@@ -4,22 +4,41 @@ import { useState, type FormEvent } from 'react';
 import { business, whatsappUrl } from '../content/business';
 import { categoryContent, categories, formatPrice, servicesByCategory } from '../content/services';
 
-export function BookingForm() {
+/**
+ * `preselect` es el slug que llega en /reservar?servicio=… desde las fichas de
+ * servicio. Lo resuelve la página en el servidor para que el valor ya venga
+ * renderizado y no haya salto al hidratar.
+ */
+export function BookingForm({ preselect }: { preselect?: string } = {}) {
+  const initial = preselect
+    ? categories
+        .flatMap((category) => servicesByCategory(category))
+        .find((item) => item.slug === preselect)
+    : undefined;
+
   const [status, setStatus] = useState<'idle' | 'opened' | 'blocked'>('idle');
+  const [service, setService] = useState(initial ? `${initial.name} (${formatPrice(initial.priceFrom)})` : '');
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = new FormData(event.currentTarget);
+    const optional = (label: string, key: string) => {
+      const value = form.get(key);
+      return value ? `${label}: ${value}` : null;
+    };
+
     const message = [
       `Hola, ${business.name}. Quisiera solicitar una cita.`,
       `Nombre: ${form.get('name')}`,
       `Servicio: ${form.get('service')}`,
-      `Fecha preferida: ${form.get('date')}`,
-      `Horario: ${form.get('time')}`,
-      `Primera visita: ${form.get('firstVisit')}`,
-      `Retiro previo: ${form.get('removal')}`,
       `Teléfono: ${form.get('phone')}`,
-    ].join('\n');
+      optional('Fecha preferida', 'date'),
+      optional('Horario', 'time'),
+      optional('Primera visita', 'firstVisit'),
+      optional('Retiro previo', 'removal'),
+    ]
+      .filter(Boolean)
+      .join('\n');
 
     const openedWindow = window.open(`${whatsappUrl}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
     setStatus(openedWindow ? 'opened' : 'blocked');
@@ -27,13 +46,13 @@ export function BookingForm() {
 
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
-      <div className="form-grid">
+      <div className="booking-essentials">
         <label>
-          <span>Nombre y apellido</span>
-          <input name="name" autoComplete="name" required placeholder="Cuéntanos cómo llamarte" />
+          <span>Tu nombre</span>
+          <input name="name" autoComplete="name" required placeholder="Cómo te llamamos" />
         </label>
         <label>
-          <span>WhatsApp</span>
+          <span>Tu WhatsApp</span>
           <input
             name="phone"
             type="tel"
@@ -42,20 +61,20 @@ export function BookingForm() {
             required
             pattern="(?:\+?51\s?)?9\d{8}"
             title="Ingresa un celular peruano de 9 dígitos"
-            placeholder="+51 999 999 999"
+            placeholder="999 999 999"
           />
         </label>
         <label>
-          <span>Servicio</span>
-          <select name="service" required defaultValue="">
+          <span>Qué te quieres hacer</span>
+          <select name="service" required value={service} onChange={(event) => setService(event.target.value)}>
             <option value="" disabled>
-              Elige una experiencia
+              Elige un servicio
             </option>
             {categories.map((category) => (
               <optgroup key={category} label={categoryContent[category].label}>
-                {servicesByCategory(category).map((service) => (
-                  <option key={service.slug} value={`${service.name} (${formatPrice(service.priceFrom)})`}>
-                    {service.name} · {formatPrice(service.priceFrom)}
+                {servicesByCategory(category).map((item) => (
+                  <option key={item.slug} value={`${item.name} (${formatPrice(item.priceFrom)})`}>
+                    {item.name} · {formatPrice(item.priceFrom)}
                   </option>
                 ))}
               </optgroup>
@@ -63,53 +82,58 @@ export function BookingForm() {
             <option>No estoy segura — quiero asesoría</option>
           </select>
         </label>
-        <label>
-          <span>Fecha preferida</span>
-          <input name="date" type="date" required />
-        </label>
-        <label className="form-wide">
-          <span>Horario ideal</span>
-          <select name="time" required defaultValue="">
-            <option value="" disabled>
-              Selecciona un rango
-            </option>
-            <option>Mañana</option>
-            <option>Tarde</option>
-            <option>Noche</option>
-          </select>
-        </label>
-        <label>
-          <span>¿Es tu primera visita?</span>
-          <select name="firstVisit" required defaultValue="">
-            <option value="" disabled>
-              Selecciona
-            </option>
-            <option>Sí, es mi primera vez</option>
-            <option>No, ya soy clienta</option>
-          </select>
-        </label>
-        <label>
-          <span>¿Necesitas retiro previo?</span>
-          <select name="removal" required defaultValue="">
-            <option value="" disabled>
-              Selecciona
-            </option>
-            <option>No</option>
-            <option>Sí, esmaltado en gel (S/ 10)</option>
-            <option>Sí, acrílicas o polygel (S/ 15)</option>
-            <option>Sí, rubber / builder / soft gel (S/ 20)</option>
-            <option>No estoy segura</option>
-          </select>
-        </label>
       </div>
+
+      <details className="booking-extras">
+        <summary>
+          <span>Agregar fecha y detalles</span>
+          <small>Opcional · lo podemos coordinar por WhatsApp</small>
+        </summary>
+        <div className="booking-extras-grid">
+          <label>
+            <span>Fecha preferida</span>
+            <input name="date" type="date" />
+          </label>
+          <label>
+            <span>Horario ideal</span>
+            <select name="time" defaultValue="">
+              <option value="">Cualquiera</option>
+              <option>Mañana</option>
+              <option>Tarde</option>
+              <option>Noche</option>
+            </select>
+          </label>
+          <label>
+            <span>¿Es tu primera visita?</span>
+            <select name="firstVisit" defaultValue="">
+              <option value="">Prefiero no decirlo</option>
+              <option>Sí, es mi primera vez</option>
+              <option>No, ya soy clienta</option>
+            </select>
+          </label>
+          <label>
+            <span>¿Necesitas retiro previo?</span>
+            <select name="removal" defaultValue="">
+              <option value="">No lo sé aún</option>
+              <option>No</option>
+              <option>Sí, esmaltado en gel (S/ 10)</option>
+              <option>Sí, acrílicas o polygel (S/ 15)</option>
+              <option>Sí, rubber / builder / soft gel (S/ 20)</option>
+            </select>
+          </label>
+        </div>
+      </details>
+
       <label className="consent">
         <input name="consent" type="checkbox" required />
-        <span>Acepto que {business.name} use estos datos únicamente para coordinar mi solicitud de cita.</span>
+        <span>Acepto que {business.name} use estos datos solo para coordinar mi cita.</span>
       </label>
-      <button className="button button-light" type="submit">
-        Solicitar por WhatsApp <span aria-hidden="true">↗</span>
+
+      <button className="button button-book" type="submit">
+        Enviar por WhatsApp <span aria-hidden="true">↗</span>
       </button>
-      <p className="form-note">La solicitud no confirma la cita. Nuestro equipo validará disponibilidad contigo.</p>
+      <p className="form-note">Son 3 datos. Te respondemos para confirmar disponibilidad.</p>
+
       {status === 'opened' && (
         <p className="form-status" role="status">
           Abrimos WhatsApp con tu solicitud lista para enviar.

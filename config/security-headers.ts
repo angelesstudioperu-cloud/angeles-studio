@@ -5,7 +5,8 @@ const directives = [
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
-  "frame-src 'none'",
+  // Solo para el mapa de la ficha de contacto; no se abre a otros orígenes.
+  'frame-src https://www.google.com',
   "img-src 'self' data: blob:",
   "font-src 'self' data:",
   "style-src 'self' 'unsafe-inline'",

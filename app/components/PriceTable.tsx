@@ -1,6 +1,15 @@
 /* eslint-disable @next/next/no-img-element -- ver PageHero. */
 import Link from 'next/link';
-import { categoryContent, formatDuration, formatFlatPrice, formatPrice, removals, servicesByCategory, type ServiceCategory } from '../content/services';
+import {
+  categoryContent,
+  formatDuration,
+  formatFlatPrice,
+  formatPrice,
+  removals,
+  servicePath,
+  servicesByCategory,
+  type ServiceCategory,
+} from '../content/services';
 
 export function PriceTable({ category, index }: { category: ServiceCategory; index: number }) {
   const content = categoryContent[category];
@@ -20,20 +29,23 @@ export function PriceTable({ category, index }: { category: ServiceCategory; ind
         <h2>{content.title}</h2>
         <p className="price-block-intro">{content.intro}</p>
 
-        <dl className="price-list">
+        <ul className="price-list">
           {list.map((service) => (
-            <div className="price-row" key={service.slug}>
-              <div>
-                <dt>{service.name}</dt>
-                <p>{service.note}</p>
-              </div>
-              <dd>
-                <strong>{formatPrice(service.priceFrom)}</strong>
-                <small>{formatDuration(service.durationMinutes)}</small>
-              </dd>
-            </div>
+            <li key={service.slug}>
+              <Link className="price-row" href={servicePath(service.slug)}>
+                <span className="price-row-main">
+                  <strong>{service.name}</strong>
+                  <span className="price-row-note">{service.note}</span>
+                </span>
+                <span className="price-row-meta">
+                  <b>{formatPrice(service.priceFrom)}</b>
+                  <small>{formatDuration(service.durationMinutes)}</small>
+                </span>
+                <span className="price-row-go" aria-hidden="true">↗</span>
+              </Link>
+            </li>
           ))}
-        </dl>
+        </ul>
 
         <Link className="text-link" href="/reservar">
           Reservar {content.label.toLowerCase()} <span aria-hidden="true">↗</span>
@@ -50,8 +62,8 @@ export function RemovalTable() {
         <p className="eyebrow">Retiros</p>
         <h2 id="removals-title">Empezamos por dejar la uña sana.</h2>
         <p>
-          Si vienes con un trabajo anterior, el retiro se cobra aparte del servicio nuevo. Lo hacemos con lima y
-          sin dañar tu uña natural.
+          Si vienes con un trabajo anterior, el retiro se cobra aparte del servicio nuevo. Lo hacemos con lima y sin
+          dañar tu uña natural.
         </p>
       </div>
       <ul className="removal-grid">

@@ -1,8 +1,10 @@
 import type { MetadataRoute } from 'next';
+import { services, servicePath } from './content/services';
 
 const routes = [
   { path: '', priority: 1, changeFrequency: 'weekly' as const },
   { path: '/servicios', priority: 0.9, changeFrequency: 'monthly' as const },
+  ...services.map((service) => ({ path: servicePath(service.slug), priority: 0.8, changeFrequency: 'monthly' as const })),
   { path: '/galeria', priority: 0.7, changeFrequency: 'weekly' as const },
   { path: '/nosotros', priority: 0.6, changeFrequency: 'yearly' as const },
   { path: '/contacto', priority: 0.8, changeFrequency: 'monthly' as const },

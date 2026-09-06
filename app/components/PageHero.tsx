@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- el shim de next/image de Vinext duplica React en los builds de Workers; estos assets ya vienen dimensionados en WebP. */
 import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { BrandWing } from './BrandLogo';
+import { BrandWings } from './BrandLogo';
 
 type PageHeroProps = {
   eyebrow: string;
@@ -30,7 +30,7 @@ export function PageHero({ eyebrow, title, intro, image, caption, actions, bread
 
       {!image && (
         <span className="page-hero-emblem" data-reveal="off" aria-hidden="true">
-          <BrandWing />
+          <BrandWings />
         </span>
       )}
 
