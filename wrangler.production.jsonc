@@ -16,7 +16,7 @@
     }
   ],
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.danielgonzales200427.workers.dev",
+    "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.angelesstudioperu.workers.dev",
     "SITE_LAUNCH_READY": "false"
   },
   "observability": {
