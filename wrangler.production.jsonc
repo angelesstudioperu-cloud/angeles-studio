@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "angeles-studio",
+  "account_id": "43f8d75bcf1cb80313616876155f09e0",
   "main": "dist/server/index.js",
   "compatibility_date": "2026-05-15",
   "compatibility_flags": ["nodejs_compat"],
@@ -10,14 +11,8 @@
     {
       "binding": "DB",
       "database_name": "angeles-studio-db",
-      "database_id": "1d773b61-1c35-40a1-b995-f021050362de",
+      "database_id": "dd667116-68d1-410f-a46e-8a6e45fd979b",
       "migrations_dir": "drizzle"
-    }
-  ],
-  "r2_buckets": [
-    {
-      "binding": "FILES",
-      "bucket_name": "angeles-studio-files"
     }
   ],
   "vars": {
