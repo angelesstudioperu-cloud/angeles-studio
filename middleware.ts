@@ -14,5 +14,5 @@ export function middleware() {
 }
 
 export const config = {
-  matcher: ['/((?!_next/static|images/|favicon.svg|og.png).*)'],
+  matcher: ['/((?!_next/static|images/|brand/|favicon.svg|og.png|apple-touch-icon.png|icon-192.png|icon-512.png|site.webmanifest).*)'],
 };

@@ -1,24 +1,25 @@
 'use client';
 
+import Link from 'next/link';
 import { useMemo, useState, type KeyboardEvent } from 'react';
-import { categoryContent, formatDuration, formatPrice, services, type ServiceCategory } from '../content/services';
+import { categories, categoryContent, formatDuration, formatPrice, servicesByCategory, type ServiceCategory } from '../content/services';
 
 type Finish = 'natural' | 'definido' | 'duradero';
 
-const categories: ServiceCategory[] = ['unas', 'lifting', 'pestanas'];
+const finishes: Finish[] = ['natural', 'definido', 'duradero'];
 
 const recommendations: Record<ServiceCategory, Record<Finish, string>> = {
-  unas: { natural: 'Manicure editorial', definido: 'Rubber gel', duradero: 'Gel X' },
-  lifting: { natural: 'Lifting esencial', definido: 'Lifting + tinte', duradero: 'Lifting ritual' },
-  pestanas: { natural: 'Clásicas', definido: 'Efecto húmedo', duradero: 'Volumen ligero' },
+  manos: { natural: 'Esmaltado en gel', definido: 'Uñas soft gel', duradero: 'Uñas acrílicas' },
+  pies: { natural: 'Solo limpieza', definido: 'Pedicure spa en gel', duradero: 'Acripie' },
+  mirada: { natural: 'Laminado de cejas', definido: 'Lifting de pestañas', duradero: 'Pigmentación con henna' },
 };
 
 export function ServiceExplorer() {
   const idPrefix = 'studio-services';
-  const [category, setCategory] = useState<ServiceCategory>('unas');
+  const [category, setCategory] = useState<ServiceCategory>('manos');
   const [finish, setFinish] = useState<Finish>('natural');
   const menu = categoryContent[category];
-  const visibleServices = services.filter((service) => service.category === category);
+  const visibleServices = servicesByCategory(category);
   const recommendation = useMemo(() => recommendations[category][finish], [category, finish]);
   const panelId = `${idPrefix}-service-panel`;
 
@@ -42,7 +43,11 @@ export function ServiceExplorer() {
     <section className="service-explorer" aria-labelledby="explorer-title">
       <div className="explorer-heading">
         <p className="eyebrow">Explora a tu manera</p>
-        <h2 id="explorer-title">Elige el detalle<br />que quieres elevar.</h2>
+        <h2 id="explorer-title">
+          Elige el detalle
+          <br />
+          que quieres elevar.
+        </h2>
       </div>
 
       <div className="explorer-shell">
@@ -51,6 +56,7 @@ export function ServiceExplorer() {
             <button
               id={`${idPrefix}-tab-${key}`}
               key={key}
+              type="button"
               role="tab"
               tabIndex={category === key ? 0 : -1}
               aria-selected={category === key}
@@ -58,7 +64,8 @@ export function ServiceExplorer() {
               onClick={() => setCategory(key)}
               onKeyDown={(event) => handleTabKey(event, key)}
             >
-              {categoryContent[key].label}<span aria-hidden="true">↗</span>
+              {categoryContent[key].label}
+              <span aria-hidden="true">↗</span>
             </button>
           ))}
         </div>
@@ -68,24 +75,42 @@ export function ServiceExplorer() {
             <p>{menu.intro}</p>
             <div className="mini-service-grid">
               {visibleServices.map((service) => (
-                <article key={service.slug}><h3>{service.shortName ?? service.name}</h3><p>{formatDuration(service.durationMinutes, service.addOn)}</p><strong>{formatPrice(service.priceFrom)}</strong></article>
+                <article key={service.slug}>
+                  <h3>{service.shortName ?? service.name}</h3>
+                  <p>{service.note}</p>
+                  <strong>
+                    {formatPrice(service.priceFrom)}
+                    <small>{formatDuration(service.durationMinutes)}</small>
+                  </strong>
+                </article>
               ))}
             </div>
+            <Link className="panel-link" href="/servicios">
+              Ver la lista de precios completa <span aria-hidden="true">↗</span>
+            </Link>
           </div>
         </div>
       </div>
 
       <div className="finder">
-        <div><p className="eyebrow">Tu match Ángeles</p><h3>¿Qué resultado te representa hoy?</h3></div>
+        <div>
+          <p className="eyebrow">Tu match Ángeles</p>
+          <h3>¿Qué resultado te representa hoy?</h3>
+        </div>
         <fieldset className="finder-options">
           <legend>Estilo de resultado</legend>
-          {(['natural', 'definido', 'duradero'] as Finish[]).map((option) => (
-            <button key={option} aria-pressed={finish === option} onClick={() => setFinish(option)}>{option}</button>
+          {finishes.map((option) => (
+            <button key={option} type="button" aria-pressed={finish === option} onClick={() => setFinish(option)}>
+              {option}
+            </button>
           ))}
         </fieldset>
         <div className="finder-result" role="status" aria-live="polite">
-          <span>Te sugerimos</span><strong key={`${category}-${finish}`}>{recommendation}</strong>
-          <a href="#reservar">Solicitar evaluación <span aria-hidden="true">↗</span></a>
+          <span>Te sugerimos</span>
+          <strong key={`${category}-${finish}`}>{recommendation}</strong>
+          <Link href="/reservar">
+            Reservar este servicio <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </div>
     </section>

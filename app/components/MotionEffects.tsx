@@ -6,7 +6,12 @@ export function MotionEffects() {
   useLayoutEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const sections = Array.from(document.querySelectorAll<HTMLElement>('main > section:not(.hero), main > footer'));
-    const blocks = sections.flatMap((section) => Array.from(section.children).filter((element): element is HTMLElement => element instanceof HTMLElement));
+    const blocks = sections.flatMap((section) =>
+      Array.from(section.children).filter(
+        // Los adornos decorativos ya traen su propia transformación: revelarlos se la borraría.
+        (element): element is HTMLElement => element instanceof HTMLElement && element.dataset.reveal !== 'off',
+      ),
+    );
     const items = Array.from(document.querySelectorAll<HTMLElement>('.service-row, .mini-service-grid article, .steps article, .team-card'));
 
     if (reducedMotion || !('IntersectionObserver' in window)) {

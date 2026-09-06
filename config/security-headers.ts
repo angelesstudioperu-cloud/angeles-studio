@@ -41,5 +41,6 @@ export function renderCloudflareHeadersFile() {
   const global = ['/*', ...securityHeaders().map(({ key, value }) => `  ${key}: ${value}`)].join('\n');
   const immutable = ['/_next/static/*', '  Cache-Control: public, max-age=31536000, immutable'].join('\n');
   const images = ['/images/*', '  Cache-Control: public, max-age=86400'].join('\n');
-  return `${global}\n\n${immutable}\n\n${images}\n`;
+  const brand = ['/brand/*', '  Cache-Control: public, max-age=604800'].join('\n');
+  return `${global}\n\n${immutable}\n\n${images}\n\n${brand}\n`;
 }

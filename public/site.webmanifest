@@ -1,0 +1,15 @@
+{
+  "name": "Ángeles Nails Salon",
+  "short_name": "Ángeles",
+  "description": "Uñas, pedicure spa y diseño de mirada en Los Olivos, Lima.",
+  "lang": "es-PE",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F4F3F1",
+  "theme_color": "#F2D1D4",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

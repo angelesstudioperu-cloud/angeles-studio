@@ -1,16 +1,34 @@
 import Link from 'next/link';
+import { business, emailUrl, whatsappUrl } from '../content/business';
 
-export const metadata = { title: 'Libro de reclamaciones | Ángeles Studio' };
+export const metadata = { title: 'Libro de reclamaciones' };
 
 export default function ComplaintsPage() {
   return (
     <main className="legal-page">
-      <Link className="legal-back" href="/">← Volver al studio</Link>
+      <Link className="legal-back" href="/">← Volver al salón</Link>
       <article>
-        <p className="eyebrow">Atención al cliente</p><h1>Libro de reclamaciones</h1>
-        <p>Este espacio está reservado para el Libro de Reclamaciones virtual de Ángeles Studio conforme a la normativa peruana.</p>
-        <div className="legal-placeholder"><strong>Integración pendiente de datos legales</strong><p>Antes de habilitar envíos necesitamos la razón social, RUC, domicilio fiscal y canal responsable reales. Mientras tanto, puedes escribir a reclamos@angelesstudio.pe.</p></div>
-        <aside>Esta página evita publicar un formulario legal con identidad empresarial inventada. Se habilitará cuando proporciones los datos oficiales.</aside>
+        <p className="eyebrow">Atención al cliente</p>
+        <h1>Libro de reclamaciones</h1>
+        <p>
+          Este espacio está reservado para el Libro de Reclamaciones virtual de {business.name}, conforme al
+          Código de Protección y Defensa del Consumidor del Perú.
+        </p>
+
+        <div className="legal-placeholder">
+          <strong>Formulario pendiente de constitución formal</strong>
+          <p>
+            El salón todavía no cuenta con razón social ni RUC, y sin esos datos no podemos publicar un libro de
+            reclamaciones virtual válido. Mientras tanto, puedes hacernos llegar cualquier reclamo por WhatsApp al{' '}
+            <a href={whatsappUrl} target="_blank" rel="noreferrer">{business.whatsappDisplay}</a> o al correo{' '}
+            <a href={emailUrl}>{business.email}</a>, y lo registramos en el libro físico del local.
+          </p>
+        </div>
+
+        <aside>
+          Esta página no publica un formulario legal con identidad empresarial inventada. Se habilitará en cuanto
+          el negocio proporcione los datos oficiales.
+        </aside>
       </article>
     </main>
   );
