@@ -9,7 +9,7 @@ sube sus fotos reales y define su razón social.
 
 | Ruta | Contenido |
 | --- | --- |
-| `/` | Portada: carrusel, carta destacada, **reserva**, explorador de servicios, proceso, galería breve, redes, mapa real y FAQ. |
+| `/` | Portada: carrusel (solo swipe), franja de datos clave, carta con foto por servicio, **reserva**, videos, galería, redes y mapa real. Sin descripciones largas: viven en las fichas. |
 | `/servicios` | Lista de precios completa por categoría (manos, pies, mirada y cejas) y tabla de retiros. |
 | `/servicios/[slug]` | Ficha de cada uno de los 15 servicios: para quién es, qué incluye, cuidados, hueco para video, FAQ y servicios relacionados. |
 | `/galeria` | Galería de trabajos. |

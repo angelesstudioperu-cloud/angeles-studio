@@ -137,3 +137,23 @@ config/security-headers.ts   frame-src para Google Maps
 public/_headers              mismo CSP
 README.md, docs/creditos-imagenes.md
 ```
+
+
+---
+
+## 5. Segunda tanda (rediseño de portada)
+
+- **Logo retrazado** con más fidelidad al PNG del cliente (plumas que nacen finas en la punta y
+  ensanchan hacia la base). Sigue siendo una aproximación hecha a mano: si el cliente deja el
+  archivo en `public/brand/`, conviene usarlo tal cual en lugar del SVG.
+- Portada reducida a: carrusel → datos clave → carta → reserva → videos → galería → redes → mapa.
+- **Eliminado**: «Tu match Ángeles» y el explorador (`ServiceExplorer.tsx` borrado, fusionado en
+  `ServiceMenu.tsx`), las FAQ de la portada, «La experiencia Ángeles» y los textos largos del feed.
+- **Carrusel**: sin flechas ni puntos, se cambia arrastrando; línea de avance que no revela cuántos
+  slides hay. Sin texto encima de la foto.
+- **`ServiceMenu.tsx`**: carta única con foto por servicio, pestañas por categoría y enlace directo
+  a cada ficha. Resuelve que las subpáginas no se encontraban desde la portada.
+- **`VideoShowcase.tsx`**: tres huecos de video en la portada, además de los 15 de las fichas.
+- **Móvil**: pase completo — orden invertido en el hero (foto primero), rejillas de dos columnas,
+  campos de 54 px, botones a ancho completo, más aire vertical. La portada pasó de 9.958 px a
+  7.242 px de alto en 390 px.
