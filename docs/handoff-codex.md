@@ -1,159 +1,103 @@
 # Handoff para Codex — Ángeles Nails Salon
 
-Estado del árbol de trabajo: **todos los cambios están sin commitear**. `npm run qa`
-(lint + typecheck + build) pasa limpio. Rama `main`, remoto `github`
-(`angelesstudioperu-cloud/angeles-studio`).
+Última actualización: commit `81cb82f`, versión desplegada `abe74cac`.
+`npm run qa` (lint + typecheck + build) pasa limpio. Rama `main`, remoto `github`.
+
+Este documento reemplaza al anterior. Cubre lo avanzado desde tu último despliegue
+(`a0c6b46`, «Use official Angeles Studio wing logo») y, sobre todo, **lo que te toca a ti**.
 
 ---
 
-## 1. Qué se hizo en esta sesión
+## 1. Lo que ya está hecho y desplegado
 
-### Identidad
-- Logotipo reemplazado por el **par de alas simétricas** que envió el cliente, recreado como SVG
-  vectorial (`public/brand/wings.svg`, componente `BrandWings` en `app/components/BrandLogo.tsx`).
-- Regenerados con ese logo: `favicon.svg`, `brand/badge.svg`, `apple-touch-icon.png`,
-  `icon-192.png`, `icon-512.png` y `og.png`.
-- El logo es **provisional**: el cliente todavía no confirma si será el oficial.
+Cinco tandas de trabajo, todas en producción:
 
-### Contenido nuevo
-- **15 fichas de servicio** en `app/servicios/[slug]/page.tsx` (ruta dinámica, `generateStaticParams`
-  con los 15 slugs). Cada una: intro, «para quién es», «qué incluye», «cuidados después»,
-  hueco de video, FAQ propia y servicios relacionados.
-- Todo el copy y los datos por servicio viven en `app/content/services.ts`.
-- Preselección del servicio: `/reservar?servicio=<slug>` — resuelto en servidor
-  (`app/reservar/page.tsx` lee `searchParams` y lo pasa como prop a `BookingForm`).
-
-### Portada
-- **Carrusel** (`app/components/HeroCarousel.tsx`): 4 slides, auto-avance 6,5 s, pausa en hover/foco,
-  flechas, puntos, teclado y respeto a `prefers-reduced-motion`.
-- Eliminada la sección «Nuestro manifiesto» de la portada (se mantiene en `/nosotros`).
-  Queda solo «Míranos trabajar».
-- **Reserva movida arriba** (tercera sección) y rediseñada: fondo rosa, tarjeta blanca elevada,
-  3 campos visibles + `<details>` opcional con fecha, horario, primera visita y retiro.
-- Jerarquía de fondos: reserva rosa → bandas CTA `#344C3D` → **pie `#22332A`, el más oscuro**.
-- `Reservar cita` de la cabecera pasó a píldora verde sólida con sombra.
-
-### Mapa
-- `app/components/LocationMap.tsx` embebe Google Maps con las coordenadas reales.
-- **CSP modificado**: `frame-src 'none'` → `frame-src https://www.google.com`
-  en `config/security-headers.ts` y `public/_headers`. No se abrió ningún otro origen.
-  `X-Frame-Options: DENY` y `frame-ancestors 'none'` se mantienen intactos.
-
-### Datos confirmados por el cliente (ya aplicados)
-| Dato | Valor |
+| Commit | Qué entró |
 | --- | --- |
-| Dirección | Calle Los Olivos 66 · Tienda 64, Urb. Rosario del Norte, Los Olivos |
-| Horario | Lunes a sábado, 10:00 a.m. — 8:30 p.m. (domingos cerrado) |
-| Correo | angelesstudioperu@gmail.com |
-| WhatsApp | +51 947 117 905 |
-| Equipo | Kiara Alvarado · Liliana Minaya (ambas manicuristas) |
+| `0aee04f` | Rediseño de portada alrededor de la foto: carrusel, catálogo con foto por servicio, reserva, videos, galería. Se borró `ServiceExplorer`. |
+| `4e8ae65` | Cabecera nueva (marca centrada en móvil + navegación de cuatro), lettering en el rosa del logo, pase de densidad móvil. |
+| `bd6a441` | Botones con relieve, logos de Instagram/TikTok, precios como píldora, encabezados en barra. |
+| `7ddc9cd` | Adelanto de S/ 10, formulario sin plegable ni consentimiento. |
+| `81cb82f` | Reserva desde el precio, «Catálogo», formulario minimalista, Visítanos compacto. |
 
-Propagados a: `business.ts`, cinta de la portada, carrusel, perks de reserva, tarjeta de visita,
-`/contacto`, pie y JSON-LD (`openingHoursSpecification` Mo–Sa 10:00–20:30).
+Detalles que conviene que conozcas antes de tocar nada:
 
-### Imágenes
-- 15 nuevas en `public/images/servicios/`, todas WebP y **bajo 100 KB**. `public/` pesa 1,5 MB.
-- Origen y licencia en `docs/creditos-imagenes.md` (Pexels, uso comercial libre sin atribución).
-
----
-
-## 2. Verificado
-
-- Los **25 destinos internos** responden 200; no hay `href` vacíos ni botones sin acción.
-- Recorrido probado en navegador: fila de precio → ficha de servicio → «Reservar este servicio»
-  → formulario con el servicio ya seleccionado.
-- Sin desbordamiento horizontal en `/`, `/servicios`, `/servicios/[slug]`, `/galeria`,
-  `/nosotros`, `/contacto`, `/reservar` a 375 px.
-- El iframe de Google Maps carga y muestra el pin en la ubicación correcta.
+- **Puente catálogo → formulario.** `app/components/bookingBridge.ts` define el evento
+  `angeles:select-service`. `ServiceMenu` lo emite al tocar un precio y `BookingForm` lo
+  escucha, preselecciona el servicio y lo destella 2,2 s. Sin JS, el `href` del precio lleva
+  a `/reservar?servicio=<slug>`, que la página resuelve en servidor.
+- **CSP.** `config/security-headers.ts` y `public/_headers` abren `frame-src` solo a
+  `https://www.google.com`, para el mapa. `X-Frame-Options: DENY` y `frame-ancestors 'none'`
+  siguen intactos. Si tocas headers, no lo pierdas.
+- **`globals.css` crece por capas.** Cada tanda añadió un bloque comentado al final
+  (`v3` … `v9`). Hay reglas muertas de la paleta antigua (`.consent`, `.booking-perks`,
+  `.finder`, `.looks-image`) que no borré porque comparten líneas con selectores vivos.
+  Si lo limpias, hazlo con el sitio corriendo delante.
+- **Precios.** `priceFrom` es el precio promocional vigente y `priceRegular` el de lista.
+  El tachado solo aparece si `priceRegular > priceFrom`.
 
 ---
 
-## 3. Lo que queda para ti, Codex
+## 2. Lo que te toca a ti
 
-### 3.1 Desplegar (prioridad)
-```bash
-npm run qa && npm run cf:deploy
-```
-Después revisar en producción: el carrusel, el mapa (que el CSP nuevo no lo bloquee en el
-Worker — `public/_headers` ya está actualizado) y las 15 rutas `/servicios/<slug>`.
+### 2.1 Bloqueante legal — promoción con precio tachado
 
-### 3.2 Cosas que no pude hacer desde aquí
-1. **GitHub App de Cloudflare.** No tengo acceso a la cuenta. Verificar en
-   GitHub → Settings → Applications → Installed GitHub Apps si sigue «Cloudflare Workers and Pages»
-   y desinstalarla si el despliegue manual es suficiente.
-2. **Commit y push.** El cliente no autorizó commitear todavía; el árbol está limpio de errores
-   pero sin commit.
-3. **R2.** Sigue sin activar (requiere suscripción de consumo). El sitio no lo necesita hoy.
-4. **`SITE_LAUNCH_READY`** sigue en `false` — el sitio no se indexa. Cambiar a `true` recién
-   cuando entren las fotos reales y se decida sobre el libro de reclamaciones.
+El salón decidió **subir la lista** en los servicios caros y correr una promoción real
+sobre ella (polygel/rubber/builder/soft gel S/ 75 → 50; acrílicas S/ 80 → 50;
+acripie S/ 85 → 60).
 
-### 3.3 Pendientes de negocio (bloqueados por el cliente)
-- **Razón social y RUC.** Sin esto `/libro-de-reclamaciones` no publica formulario, solo deriva a
-  WhatsApp y correo. Es obligación legal en Perú antes de operar de cara al público.
-- **Fotos y videos propios.** Todo el material es stock. Los huecos de video ya están maquetados en
-  las 15 fichas (`.video-slot`); solo hay que reemplazar el bloque por `<video>` o un embed.
-- **Retratos del equipo.** Decisión tomada: en vez de poner la cara de una desconocida como si fuera
-  Kiara o Liliana, las tarjetas usan una foto de trabajo en cabina (sin rostro) más un badge con
-  las iniciales. Cambiar en `app/content/team.ts` cuando lleguen los retratos reales.
-- **Duraciones.** Las de `services.ts` son estimaciones y se muestran siempre como «aprox.».
+Para que el tachado se sostenga ante INDECOPI falta lo que yo no puedo decidir:
 
-### 3.4 Detalle a confirmar con el cliente
-La dirección llegó como «Tienda número 64, Los Olivos 66» y se interpretó como
-**Calle Los Olivos 66, tienda 64**. Si el orden es al revés, es un cambio de una línea en
-`app/content/business.ts` (`address.street` / `address.unit`).
+1. Que esa lista esté **efectivamente vigente** (cartel del local, lista de WhatsApp, redes).
+2. Una **fecha de inicio y fin** de la promoción, visible en la web.
 
----
+Hoy `services.ts` no tiene fechas. Si el salón confirma el periodo, conviene añadir
+`promoFrom` / `promoTo` y mostrarlo junto al precio; si no lo confirma, hay que quitar
+`priceRegular` de los seis servicios y el tachado desaparece solo.
 
-## 4. Mapa de archivos tocados
+### 2.2 Libro de reclamaciones
 
-**Nuevos**
-```
-app/components/HeroCarousel.tsx
-app/components/LocationMap.tsx
-app/servicios/[slug]/page.tsx
-public/brand/wings.svg
-public/images/servicios/*.webp   (15 archivos)
-docs/handoff-codex.md
-```
+Sigue sin formulario porque el negocio **no tiene razón social ni RUC**. `/libro-de-reclamaciones`
+deriva a WhatsApp y correo, y lo explica. Es obligación legal antes de operar de cara al
+público: hay que empujar al cliente a constituirse o registrar el libro físico.
 
-**Modificados**
-```
-app/content/business.ts      datos reales del negocio
-app/content/services.ts      copy largo, media y FAQ de los 15 servicios
-app/content/team.ts          nombres reales + foto de trabajo
-app/page.tsx                 carrusel, reserva arriba, mapa, sin manifiesto
-app/layout.tsx               JSON-LD con horario y dirección completos
-app/components/BrandLogo.tsx BrandWings (par de alas)
-app/components/BookingForm.tsx  3 campos + extras plegables + preselección
-app/components/PriceTable.tsx   filas como enlaces a las fichas
-app/components/ServiceExplorer.tsx  tarjetas enlazadas
-app/components/SiteFooter.tsx   horario y correo
-app/components/MotionEffects.tsx  salto a anclas tras montar
-app/components/PageHero.tsx     emblema nuevo
-app/{contacto,nosotros,reservar}/page.tsx
-app/globals.css              ~340 líneas nuevas
-app/sitemap.ts               incluye las 15 fichas
-config/security-headers.ts   frame-src para Google Maps
-public/_headers              mismo CSP
-README.md, docs/creditos-imagenes.md
-```
+### 2.3 `SITE_LAUNCH_READY`
 
+Sigue en `false`, así que el sitio **no se indexa**. Pásalo a `true` recién cuando entren
+las fotos reales y se resuelva 2.1 y 2.2.
+
+### 2.4 Credenciales de Cloudflare
+
+Hubo un despliegue fallido porque wrangler quedó logueado con `canodent741@gmail.com`
+mientras el proyecto apunta a la cuenta `43f8d75b…` de Ángeles Studio. Ahora está con
+`angelesstudioperu@gmail.com` y funciona. Conviene fijar un token de la cuenta correcta en
+vez de depender del login interactivo, para que no se vuelva a cruzar.
+
+### 2.5 GitHub App de Cloudflare
+
+Quedó pendiente de tu handoff anterior: revisar en GitHub → Settings → Applications si
+sigue instalada «Cloudflare Workers and Pages» y desinstalarla, ya que el despliegue es
+manual con `npm run cf:deploy`.
 
 ---
 
-## 5. Segunda tanda (rediseño de portada)
+## 3. Pendientes del cliente (no son tuyos, pero condicionan el lanzamiento)
 
-- **Logo retrazado** con más fidelidad al PNG del cliente (plumas que nacen finas en la punta y
-  ensanchan hacia la base). Sigue siendo una aproximación hecha a mano: si el cliente deja el
-  archivo en `public/brand/`, conviene usarlo tal cual en lugar del SVG.
-- Portada reducida a: carrusel → datos clave → carta → reserva → videos → galería → redes → mapa.
-- **Eliminado**: «Tu match Ángeles» y el explorador (`ServiceExplorer.tsx` borrado, fusionado en
-  `ServiceMenu.tsx`), las FAQ de la portada, «La experiencia Ángeles» y los textos largos del feed.
-- **Carrusel**: sin flechas ni puntos, se cambia arrastrando; línea de avance que no revela cuántos
-  slides hay. Sin texto encima de la foto.
-- **`ServiceMenu.tsx`**: carta única con foto por servicio, pestañas por categoría y enlace directo
-  a cada ficha. Resuelve que las subpáginas no se encontraban desde la portada.
-- **`VideoShowcase.tsx`**: tres huecos de video en la portada, además de los 15 de las fichas.
-- **Móvil**: pase completo — orden invertido en el hero (foto primero), rejillas de dos columnas,
-  campos de 54 px, botones a ancho completo, más aire vertical. La portada pasó de 9.958 px a
-  7.242 px de alto en 390 px.
+- **Fotos y videos propios.** Todo el material visual es stock con licencia libre
+  (`docs/creditos-imagenes.md`). Los huecos de video están maquetados: tres en la portada
+  (`VideoShowcase`) y uno por ficha (`.video-slot`). Se reemplaza el bloque por `<video>`.
+- **Retratos del equipo.** Kiara Alvarado y Liliana Minaya aparecen con una foto de trabajo
+  sin rostro más un badge de iniciales, a propósito: no quise poner la cara de una
+  desconocida como si fuera parte del equipo. Cambiar en `app/content/team.ts`.
+- **Duraciones reales.** Las de `services.ts` son estimaciones y se muestran como «aprox.».
+- **Periodo de la promoción**, ver 2.1.
+
+---
+
+## 4. Verificado en esta tanda
+
+- Los 15 servicios de la lista de precios coinciden **exacto** con `services.ts`: mismos
+  nombres, mismos montos, ninguno de más ni de menos (auditado por script contra la imagen).
+- Recorrido probado: precio del catálogo → el formulario baja, preselecciona y destella.
+- Todas las rutas responden 200 en producción, incluida `/reservar?servicio=acripie`.
+- Sin desbordamiento horizontal a 390 px.
