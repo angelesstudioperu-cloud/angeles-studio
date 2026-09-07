@@ -32,7 +32,7 @@ export default function ServicesPage() {
         showEmblem={false}
         breadcrumb="Servicios"
         eyebrow="Descubre todo"
-        title={<>Lo que tenemos <em>para ti.</em></>}
+        title={<>Lo que tenemos <em>para ti</em></>}
         intro="Manos, pies y mirada. Sin letra chica: acá está la carta completa tal como la trabajamos en el salón."
       />
 
@@ -73,7 +73,7 @@ export default function ServicesPage() {
       <section className="cta-band">
         <div>
           <p className="eyebrow">¿Lista?</p>
-          <h2>Elegimos juntas<br />lo que te queda mejor.</h2>
+          <h2>Elegimos juntas<br />lo que te queda mejor</h2>
           <p>Si no sabes qué técnica pedir, escríbenos y te orientamos según la condición de tu uña y el mantenimiento que puedas darle.</p>
         </div>
         <div className="cta-actions">

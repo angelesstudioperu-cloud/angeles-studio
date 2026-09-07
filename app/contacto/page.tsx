@@ -51,7 +51,7 @@ export default function ContactPage() {
         className="page-hero-location"
         breadcrumb="Contacto"
         eyebrow="Cómo llegar"
-        title={<>Estamos en<br /><em>Los Olivos.</em></>}
+        title={<>Estamos en<br /><em>Los Olivos</em></>}
         intro="Abrimos de lunes a sábado, de 10:00 a.m. a 8:30 p.m., siempre con cita previa para que nadie espere de más. Escríbenos por el canal que prefieras y coordinamos la hora que te acomode."
         visual={<LocationMap tone="peony" />}
         actions={
@@ -87,7 +87,7 @@ export default function ContactPage() {
 
         <div className="contact-channels">
           <p className="eyebrow">Canales</p>
-          <h2>Escríbenos por donde te quede cómodo.</h2>
+          <h2>Escríbenos por donde te quede cómodo</h2>
           <ul>
             {channels.map((channel) => (
               <li key={channel.label}>

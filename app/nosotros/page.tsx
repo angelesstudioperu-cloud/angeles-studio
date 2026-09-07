@@ -13,8 +13,12 @@ export const metadata = {
 };
 
 /** Fotos del salón para la escalera de la derecha. Se reemplazan por las propias. */
-const shots = [
+const shotsLeft = [
   { src: '/images/servicios/cabina.webp', width: 1200, height: 800, alt: 'Cabina de atención del salón', caption: 'La cabina' },
+  { src: '/images/studio-asesoria.webp', width: 1400, height: 933, alt: 'Muestrario de colores sobre la mesa de trabajo', caption: 'Elegir color' },
+];
+
+const shotsRight = [
   { src: '/images/studio-atencion.webp', width: 1400, height: 933, alt: 'Especialista atendiendo a una clienta', caption: 'Atención sin apuro' },
   { src: '/images/servicios/herramientas.webp', width: 1200, height: 1800, alt: 'Herramientas ordenadas y esterilizadas', caption: 'Todo esterilizado' },
 ];
@@ -30,7 +34,7 @@ export default function AboutPage() {
         <div className="experience-intro-copy">
           <p className="eyebrow">El studio</p>
           <h1>
-            Contamos con <em>{business.yearsOfExperience} años de experiencia.</em>
+            Contamos con <em>{business.yearsOfExperience} años de experiencia</em>
           </h1>
           <p className="experience-lead">
             Tres años trabajando uñas, pedicure spa y diseño de mirada en Los Olivos. En ese tiempo aprendimos
@@ -55,11 +59,21 @@ export default function AboutPage() {
       <section className="tour" aria-labelledby="tour-title">
         <div className="tour-head">
           <p className="eyebrow">El espacio</p>
-          <h2 id="tour-title" className="tour-title">Así se ve por dentro.</h2>
+          <h2 id="tour-title" className="tour-title">Así se ve por dentro</h2>
           <p className="tour-lead">
-            Un salón chico, ordenado y sin música a todo volumen. Atendemos con cita previa
-            justamente para que nunca haya dos clientas esperando su turno de pie.
+            Un salón chico y ordenado. Atendemos con cita previa justamente para que nunca haya
+            dos clientas esperando su turno de pie.
           </p>
+        </div>
+
+        {/* El video manda al centro y las cuatro fotos lo flanquean. */}
+        <div className="tour-shots tour-shots-left">
+          {shotsLeft.map((shot) => (
+            <figure key={shot.src} className="tour-shot">
+              <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
+              <figcaption>{shot.caption}</figcaption>
+            </figure>
+          ))}
         </div>
 
         <div className="tour-video video-frame video-frame-portrait" role="img" aria-label="Espacio reservado para el recorrido en video">
@@ -68,26 +82,20 @@ export default function AboutPage() {
           <small>Próximamente</small>
         </div>
 
-        <div className="tour-shots">
-          {shots.map((shot, index) => (
-            <figure key={shot.src} className={`tour-shot tour-shot-${index + 1}`}>
+        <div className="tour-shots tour-shots-right">
+          {shotsRight.map((shot) => (
+            <figure key={shot.src} className="tour-shot">
               <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
               <figcaption>{shot.caption}</figcaption>
             </figure>
           ))}
         </div>
-
-        <a className="tour-address" href="/contacto">
-          <span className="tour-address-label">Estamos en</span>
-          <b>{business.address.street} · {business.address.unit}</b>
-          <span className="tour-address-go">Cómo llegar <span aria-hidden="true">↗</span></span>
-        </a>
       </section>
 
       <section className="team" id="equipo" aria-labelledby="team-title">
         <div className="team-heading">
           <p className="eyebrow">Quién te atiende</p>
-          <h2 id="team-title">Experiencia<br />a tu cuidado.</h2>
+          <h2 id="team-title">Experiencia<br />a tu cuidado</h2>
           <p>
             Kiara y Liliana. Trabajamos con cita previa justamente para que ninguna de las dos tenga que apurar
             un servicio.

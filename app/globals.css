@@ -2363,41 +2363,35 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 }
 
 /* --- Recorrido: video a la izquierda, fotos en escalera a la derecha ----- */
-/* Fondo propio: separa esta banda de la experiencia (rosa) y del equipo (peony). */
+/* Fondo sage, de la propia paleta: separa la banda del rosa que tiene arriba y abajo. */
 .tour {
-  display:grid; grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);
-  grid-template-areas:'head head' 'video shots' 'address shots';
-  grid-template-rows:auto auto 1fr;
-  gap:clamp(22px,3vw,44px) clamp(24px,3.4vw,56px);
+  display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+  grid-template-areas:'head head head' 'left video right';
+  gap:clamp(20px,2.6vw,38px);
   padding:var(--section-y) var(--edge);
-  background:linear-gradient(170deg,#EDF0E9 0%,#E6EBE2 100%);
+  background:var(--sage); color:var(--mist);
 }
-.tour-head { grid-area:head; max-width:62ch; }
-.tour-title { margin:10px 0 0; font:500 clamp(30px,3.4vw,50px) var(--font-display),serif; letter-spacing:-.035em; }
-.tour-lead { margin:14px 0 0; color:var(--evergreen); font-size:14px; line-height:1.8; opacity:.82; }
+.tour-head { grid-area:head; max-width:60ch; margin-inline:auto; text-align:center; }
+.tour .eyebrow { color:var(--mist); opacity:.85; }
+.tour-title { margin:10px 0 0; color:var(--mist); font:500 clamp(30px,3.4vw,50px) var(--font-display),serif; letter-spacing:-.035em; }
+.tour-lead { margin:14px auto 0; max-width:52ch; color:var(--mist); font-size:14px; line-height:1.8; opacity:.9; }
 
-.tour-video { grid-area:video; align-self:start; justify-self:start; width:100%; max-width:420px; background:linear-gradient(150deg,rgba(242,209,212,.4),rgba(130,150,114,.16)); }
-
-/* Las tres fotos se achican para terminar a la par del video vertical. */
-.tour-shots { grid-area:shots; display:grid; align-content:space-between; gap:clamp(12px,1.5vw,18px); }
-.tour-shot { margin:0; overflow:hidden; background:var(--mist); border:1px solid rgba(52,76,61,.16); box-shadow:var(--lift-1); }
-.tour-shot img { display:block; width:100%; aspect-ratio:1.4; object-fit:cover; }
-.tour-shot figcaption { padding:9px 12px 10px; color:var(--evergreen); font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.72; }
-/* Escalonado: bajan y se desplazan, no quedan en columna recta. */
-.tour-shot-1 { width:47%; margin-left:0; }
-.tour-shot-2 { width:47%; margin-left:auto; margin-right:0; }
-.tour-shot-3 { width:47%; margin-left:26%; }
-
-.tour-address {
-  grid-area:address; align-self:end; display:grid; gap:3px; justify-items:start;
-  padding:18px 20px; border:1px solid rgba(52,76,61,.22); border-radius:4px;
-  background:rgba(244,243,241,.72); max-width:420px;
-  transition:transform .24s ease, background .24s ease, border-color .24s ease;
+.tour-video {
+  grid-area:video; align-self:center; justify-self:center;
+  width:min(38vw,360px); max-width:none;
+  border-color:rgba(244,243,241,.6);
+  background:linear-gradient(150deg,rgba(244,243,241,.22),rgba(52,76,61,.16));
 }
-.tour-address:hover { transform:translateY(-3px); background:var(--mist); border-color:var(--mauve); }
-.tour-address-label { color:var(--sage); font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
-.tour-address b { font:500 17px var(--font-display),serif; }
-.tour-address-go { margin-top:5px; color:var(--evergreen); font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; border-bottom:1px solid var(--mauve); padding-bottom:2px; }
+.tour-video p { color:var(--mist); }
+.tour-video small { color:var(--mist); opacity:.8; }
+.tour-video .video-frame-icon { background:rgba(244,243,241,.9); border-color:rgba(244,243,241,.8); color:var(--evergreen); }
+
+.tour-shots { display:grid; align-content:center; gap:clamp(14px,1.8vw,24px); }
+.tour-shots-left { grid-area:left; }
+.tour-shots-right { grid-area:right; }
+.tour-shot { margin:0; overflow:hidden; background:var(--mist); border:1px solid rgba(244,243,241,.4); box-shadow:var(--lift-2); }
+.tour-shot img { display:block; width:100%; aspect-ratio:1.5; object-fit:cover; }
+.tour-shot figcaption { padding:9px 12px 10px; color:var(--evergreen); font-size:10px; letter-spacing:.14em; text-transform:uppercase; opacity:.75; }
 
 /* --- El studio: equipo -------------------------------------------------- */
 .subpage-nosotros .team { background:var(--peony); }
@@ -2457,22 +2451,16 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 
 
   .tour {
-    grid-template-columns:minmax(0,1fr);
-    grid-template-areas:'head' 'video' 'shots' 'address';
-    grid-template-rows:auto auto auto auto;
-    gap:18px;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    grid-template-areas:'head head' 'video video' 'left right';
+    gap:16px;
   }
   .tour-title { font-size:clamp(27px,7.6vw,34px); }
   .tour-lead { font-size:13.5px; line-height:1.7; }
-  .tour-video { width:min(100%,300px); max-width:none; margin-inline:auto; }
-  /* En móvil la escalera pasa a mosaico: dos arriba, una ancha abajo. */
-  .tour-shots { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; align-content:start; }
-  .tour-shot { width:auto!important; margin:0!important; }
-  .tour-shot img { aspect-ratio:1.1; }
+  .tour-video { width:min(100%,290px); }
+  .tour-shots { align-content:start; gap:12px; }
+  .tour-shot img { aspect-ratio:1.25; }
   .tour-shot figcaption { padding:7px 9px 8px; font-size:8.5px; letter-spacing:.1em; }
-  .tour-shot-3 { grid-column:1/-1; }
-  .tour-shot-3 img { aspect-ratio:2.2; }
-  .tour-address { max-width:none; padding:15px 16px; }
 
   /* Servicios: la ficha usa el ancho, no apila foto sobre texto */
   .price-block { grid-template-columns:minmax(0,1fr); gap:14px; }

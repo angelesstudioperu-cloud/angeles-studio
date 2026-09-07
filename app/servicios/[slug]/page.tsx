@@ -132,7 +132,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="service-video" aria-labelledby="video-title">
         <div className="service-video-copy">
           <p className="eyebrow">En video</p>
-          <h2 id="video-title">Míralo en cabina.</h2>
+          <h2 id="video-title">Míralo en cabina</h2>
           <p>
             Estamos grabando el proceso de cada servicio. Mientras tanto puedes ver trabajos reales en{' '}
             <a href={business.social.tiktok.url} target="_blank" rel="noreferrer">
@@ -152,7 +152,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       <section className="service-faq" aria-labelledby="service-faq-title">
         <div>
           <p className="eyebrow">Antes de reservar</p>
-          <h2 id="service-faq-title">Dudas frecuentes.</h2>
+          <h2 id="service-faq-title">Dudas frecuentes</h2>
           <p className="service-faq-note">
             El retiro de un trabajo anterior se cobra aparte:{' '}
             {removals.map((removal, index) => (
@@ -181,7 +181,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <section className="related-services" aria-labelledby="related-title">
           <div className="related-heading">
             <p className="eyebrow">También en {category.label.toLowerCase()}</p>
-            <h2 id="related-title">Te puede interesar.</h2>
+            <h2 id="related-title">Te puede interesar</h2>
           </div>
           <div className="related-grid">
             {related.map((item) => (

@@ -16,7 +16,7 @@ export function VideoShowcase() {
       <div className="section-bar">
         <div>
           <p className="eyebrow">En video</p>
-          <h2 id="videos-title">Míranos trabajar.</h2>
+          <h2 id="videos-title">Míranos trabajar</h2>
           <p className="section-lead">
             Estamos grabando el proceso de cada servicio en cabina. Mientras tanto, los trabajos del día
             salen en nuestro TikTok.

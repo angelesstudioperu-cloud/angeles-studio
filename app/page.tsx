@@ -47,7 +47,7 @@ export default function Home() {
 
       <section className="booking" id="reservar">
         <div className="booking-heading">
-          <h2 className="booking-title">Hagamos espacio <em>para ti.</em></h2>
+          <h2 className="booking-title">Hagamos espacio <em>para ti</em></h2>
           <p className="booking-note">
             Separas tu cita con un adelanto de <strong>S/ {business.bookingDeposit}</strong>, que se
             descuenta del total del servicio.
@@ -78,7 +78,7 @@ export default function Home() {
         <div className="section-bar">
           <div>
             <p className="eyebrow">The Ángeles edit</p>
-            <h2 id="edit-title">Diseños y resultados.</h2>
+            <h2 id="edit-title">Diseños y resultados</h2>
             <p className="section-lead">
               Formas, colores y acabados que trabajamos en cabina. Guarda el que te represente y muéstranoslo
               el día de tu cita.
@@ -100,7 +100,7 @@ export default function Home() {
       <section className="social-proof" aria-labelledby="social-title">
         <div className="social-heading">
           <p className="eyebrow">Síguenos</p>
-          <h2 id="social-title">Cada semana,<br />trabajos nuevos.</h2>
+          <h2 id="social-title">Cada semana,<br />trabajos nuevos</h2>
           <p className="section-lead">
             Publicamos diseños, procesos y la disponibilidad de la semana. Es la forma más rápida de ver
             resultados reales antes de reservar.
@@ -129,7 +129,7 @@ export default function Home() {
       <section className="visit" id="contacto">
         <div className="visit-card">
           <p className="eyebrow">Visítanos</p>
-          <h2>Tu próxima pausa<br />empieza aquí.</h2>
+          <h2>Tu próxima pausa<br />empieza aquí</h2>
           <ul className="visit-facts">
             <li><span>Dirección</span><b>{business.address.street} · {business.address.unit}</b></li>
             <li><span>Horario</span><b>{business.hours.daysShort} · {business.hours.display}</b></li>

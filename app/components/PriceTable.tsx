@@ -57,7 +57,7 @@ export function RemovalTable() {
     <section className="removals" aria-labelledby="removals-title">
       <div className="removals-heading">
         <p className="eyebrow">Retiros</p>
-        <h2 id="removals-title">Empezamos por dejar la uña sana.</h2>
+        <h2 id="removals-title">Empezamos por dejar la uña sana</h2>
         <p>
           Si vienes con un trabajo anterior, el retiro se cobra aparte del servicio nuevo. Lo hacemos con lima y sin
           dañar tu uña natural.

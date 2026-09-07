@@ -36,7 +36,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
         </div>
 
         <div className="booking-heading">
-          <h2 className="booking-title">Hagamos espacio <em>para ti.</em></h2>
+          <h2 className="booking-title">Hagamos espacio <em>para ti</em></h2>
           <p className="booking-note">
             El formulario arma el mensaje y lo abre en tu WhatsApp. Separas la cita con un adelanto de{' '}
             <strong>S/ {business.bookingDeposit}</strong>, que se descuenta del total.

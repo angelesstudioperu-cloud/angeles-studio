@@ -25,7 +25,7 @@ export default function GalleryPage() {
         showEmblem={false}
         breadcrumb="Galería"
         eyebrow="The Ángeles edit"
-        title={<>Detalles que <em>hablan por ti.</em></>}
+        title={<>Detalles que <em>hablan por ti</em></>}
       />
 
       <GalleryGrid />
@@ -44,7 +44,7 @@ export default function GalleryPage() {
       <section className="cta-band">
         <div>
           <p className="eyebrow">Tu turno</p>
-          <h2>Traes la idea.<br />Nosotras la técnica.</h2>
+          <h2>Traes la idea,<br />nosotras la técnica</h2>
           <p>Cuéntanos qué diseño te gustó y evaluamos juntas si conviene esmaltado, soft gel, polygel o acrílico según tu uña.</p>
         </div>
         <div className="cta-actions">
