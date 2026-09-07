@@ -94,7 +94,7 @@ export function ServiceMenu() {
               onClick={(event) => pickService(event, service.slug)}
               aria-label={`Reservar ${service.name}`}
             >
-              <PriceTag service={service} showFrom={false} />
+              <PriceTag service={service} />
             </a>
           </article>
         ))}

@@ -14,7 +14,7 @@ const sans = Montserrat({ variable: '--font-sans', subsets: ['latin'], weight: [
 const brand = Jost({ variable: '--font-brand', subsets: ['latin'], weight: ['300', '400'] });
 
 const title = `${business.name} | Uñas, pedicure y diseño de mirada en Los Olivos`;
-const description = `${business.description} Esmaltado en gel desde S/ 30, pedicure spa desde S/ 40 y lifting de pestañas desde S/ 35.`;
+const description = `${business.description} Esmaltado en gel S/ 30, pedicure spa S/ 40 y lifting de pestañas S/ 35.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),

@@ -20,7 +20,7 @@ export default function TermsPage() {
 
         <h2>Precios</h2>
         <p>
-          Los precios publicados son precios «desde» y corresponden al servicio estándar. Pueden variar según
+          Los precios publicados corresponden al servicio estándar. Pueden variar según
           diseño, largo, pedrería, productos y tiempo técnico. El precio final se informa antes de iniciar el
           servicio.
         </p>

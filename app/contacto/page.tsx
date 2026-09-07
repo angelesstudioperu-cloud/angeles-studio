@@ -48,10 +48,12 @@ export default function ContactPage() {
       <SiteHeader current="/contacto" />
 
       <PageHero
+        className="page-hero-location"
         breadcrumb="Contacto"
         eyebrow="Cómo llegar"
         title={<>Estamos en<br /><em>Los Olivos.</em></>}
         intro="Abrimos de lunes a sábado, de 10:00 a.m. a 8:30 p.m., siempre con cita previa para que nadie espere de más. Escríbenos por el canal que prefieras y coordinamos la hora que te acomode."
+        visual={<LocationMap tone="peony" />}
         actions={
           <>
             <a className="button button-primary" href={whatsappLink(`Hola, ${business.name}. Quisiera reservar una cita.`)} target="_blank" rel="noreferrer">
@@ -101,8 +103,6 @@ export default function ContactPage() {
           </ul>
         </div>
       </section>
-
-      <LocationMap tone="peony" />
 
       <section className="cta-band">
         <div>

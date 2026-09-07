@@ -681,10 +681,121 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 .page-hero-copy > *:nth-child(4) { animation-delay:180ms; }
 .page-hero-copy > *:nth-child(5) { animation-delay:240ms; }
 
+/* Cabeceras editoriales que usan todo el ancho sin una imagen de relleno. */
+.page-hero-wide {
+  grid-template-columns:minmax(0,1fr);
+  min-height:auto;
+  padding-block:clamp(42px,5vw,74px) clamp(48px,6vw,88px);
+  background:
+    radial-gradient(circle at 14% 14%,rgba(216,149,155,.18),transparent 28%),
+    radial-gradient(circle at 86% 82%,rgba(130,150,114,.16),transparent 30%),
+    var(--mist);
+  border-bottom:1px solid rgba(52,76,61,.14);
+}
+.page-hero-wide .page-hero-copy {
+  width:100%;
+  max-width:1400px;
+  margin:0 auto;
+  display:grid;
+  justify-items:center;
+  text-align:center;
+}
+.page-hero-wide .breadcrumb { width:100%; justify-content:flex-start; }
+.page-hero-wide h1 {
+  max-width:14ch;
+  margin:18px auto 22px;
+  font-size:clamp(58px,6.6vw,108px);
+  line-height:.9;
+}
+.page-hero-wide .page-hero-intro { max-width:760px; }
+.page-hero-wide .hero-actions { justify-content:center; }
+
+/* En contacto el mapa ocupa el espacio visual derecho desde el primer
+   vistazo; deja de repetirse como una banda independiente más abajo. */
+.page-hero-location {
+  grid-template-columns:minmax(0,.82fr) minmax(480px,1.18fr);
+  align-items:stretch;
+  gap:clamp(34px,4vw,70px);
+  padding:0 0 0 var(--edge);
+}
+.page-hero-location .page-hero-copy {
+  align-self:center;
+  padding-block:clamp(44px,5vw,76px) clamp(54px,6vw,92px);
+}
+.page-hero-location > .location-map,
+.page-hero-location > .location-map iframe {
+  min-height:clamp(560px,70vh,720px);
+}
+
 /* --- Navegación por anclas -------------------------------------------- */
 .anchor-nav { position:sticky; top:0; z-index:6; display:flex; gap:6px; overflow-x:auto; padding:14px var(--edge); background:rgba(244,243,241,.92); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); scrollbar-width:thin; }
 .anchor-nav a { flex:none; min-height:40px; display:inline-flex; align-items:center; padding:0 16px; border:1px solid var(--line); border-radius:999px; font-size:10px; letter-spacing:.12em; text-transform:uppercase; transition:background .22s, border-color .22s, color .22s; }
 .anchor-nav a:hover { border-color:var(--mauve); background:var(--peony); }
+
+/* Accesos a Manos, Pies, Mirada y Retiros: una portada del catálogo, no
+   una fila de chips pequeña. */
+.services-anchor-nav {
+  position:relative;
+  top:auto;
+  z-index:2;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  overflow:visible;
+  padding:clamp(22px,3vw,38px) var(--edge) clamp(36px,4vw,58px);
+  background:var(--mist);
+  border-bottom:1px solid rgba(52,76,61,.12);
+  backdrop-filter:none;
+}
+.services-anchor-nav a {
+  position:relative;
+  min-height:154px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  align-items:start;
+  align-content:space-between;
+  gap:12px;
+  padding:22px 24px;
+  overflow:hidden;
+  border:1px solid rgba(52,76,61,.2);
+  border-radius:6px;
+  background:var(--peony);
+  color:var(--evergreen);
+  box-shadow:var(--lift-1);
+  text-transform:none;
+  transition:transform .28s cubic-bezier(.2,.7,.2,1),box-shadow .28s ease,background .28s ease;
+}
+.services-anchor-nav a:nth-child(2) { background:var(--evergreen); color:var(--mist); }
+.services-anchor-nav a:nth-child(3) { background:#e3e8df; }
+.services-anchor-nav a:nth-child(4) { background:var(--mauve); }
+.services-anchor-nav a:hover {
+  border-color:rgba(52,76,61,.34);
+  background:var(--peony);
+  color:var(--evergreen);
+  transform:translateY(-5px);
+  box-shadow:var(--lift-3);
+}
+.services-anchor-nav a:nth-child(2):hover { background:var(--evergreen-soft); color:var(--mist); }
+.service-anchor-index { font:500 12px/1 var(--font-display),serif; letter-spacing:.12em; opacity:.68; }
+.services-anchor-nav strong {
+  align-self:end;
+  font:500 clamp(27px,2.2vw,38px)/1 var(--font-display),serif;
+  letter-spacing:-.025em;
+}
+.services-anchor-nav small { font-size:9px; letter-spacing:.14em; text-transform:uppercase; opacity:.72; }
+.service-anchor-go {
+  position:absolute;
+  right:20px;
+  top:20px;
+  display:grid;
+  place-items:center;
+  width:34px;
+  height:34px;
+  border:1px solid currentColor;
+  border-radius:50%;
+  font-size:14px;
+  opacity:.72;
+}
 
 /* --- Lista de precios -------------------------------------------------- */
 .price-sheet { display:grid; gap:clamp(60px,7vw,110px); padding:var(--section-y) var(--edge); background:var(--mist); }
@@ -2161,4 +2272,55 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
     font-size:9.5px;
     letter-spacing:.12em;
   }
+}
+
+/* --- Adaptación de las nuevas cabeceras y accesos de subpágina --------- */
+@media (max-width:1000px) {
+  .services-anchor-nav { grid-template-columns:repeat(2,minmax(0,1fr)); }
+
+  .page-hero-location {
+    gap:32px;
+    padding:clamp(34px,5vw,54px) var(--edge) 0;
+  }
+  .page-hero-location .page-hero-copy { padding:0; }
+  .page-hero-location > .location-map {
+    margin-inline:calc(var(--edge) * -1);
+  }
+  .page-hero-location > .location-map,
+  .page-hero-location > .location-map iframe { min-height:420px; }
+}
+
+@media (max-width:700px) {
+  .page-hero-wide {
+    padding:30px var(--page-gutter) 42px;
+    background:
+      radial-gradient(circle at 88% 14%,rgba(216,149,155,.2),transparent 34%),
+      var(--mist);
+  }
+  .page-hero-wide .breadcrumb { margin-bottom:22px; }
+  .page-hero-wide h1 {
+    max-width:11ch;
+    margin:12px auto 18px;
+    font-size:clamp(42px,12vw,58px);
+  }
+  .page-hero-wide .hero-actions { width:100%; }
+
+  .services-anchor-nav {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+    padding:18px var(--page-gutter) 34px;
+  }
+  .services-anchor-nav a {
+    min-height:122px;
+    gap:8px;
+    padding:16px;
+  }
+  .services-anchor-nav strong { font-size:clamp(22px,6.5vw,29px); }
+  .services-anchor-nav small { font-size:8px; letter-spacing:.1em; }
+  .service-anchor-go { top:14px; right:14px; width:28px; height:28px; font-size:12px; }
+
+  .page-hero-location { padding:30px var(--page-gutter) 0; }
+  .page-hero-location > .location-map { margin-inline:calc(var(--page-gutter) * -1); }
+  .page-hero-location > .location-map,
+  .page-hero-location > .location-map iframe { min-height:340px; }
 }

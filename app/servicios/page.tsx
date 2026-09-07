@@ -6,16 +6,16 @@ import { SiteFooter } from '../components/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader';
 import { WhatsAppFloat } from '../components/WhatsAppFloat';
 import { business } from '../content/business';
-import { categories, categoryContent } from '../content/services';
+import { categories, categoryContent, removals, servicesByCategory } from '../content/services';
 
 export const metadata = {
   title: 'Servicios y precios',
   description:
-    'Lista de precios de Ángeles Nails Salon: esmaltado en gel desde S/ 30, uñas acrílicas y polygel desde S/ 50, pedicure spa desde S/ 40, lifting de pestañas desde S/ 35 y diseño de cejas desde S/ 15.',
+    'Lista de precios de Ángeles Nails Salon: esmaltado en gel S/ 30, uñas acrílicas y polygel S/ 50, pedicure spa S/ 40, lifting de pestañas S/ 35 y diseño de cejas S/ 15.',
 };
 
 const notes = [
-  ['Precios «desde»', 'Cubren el servicio estándar. El diseño, el largo, la pedrería o el tiempo técnico adicional pueden ajustarlo, y siempre te lo confirmamos antes de empezar.'],
+  ['Precios claros', 'El monto mostrado cubre el servicio estándar. Si agregas diseño, largo, pedrería o tiempo técnico adicional, siempre te confirmamos el total antes de empezar.'],
   ['Retiros aparte', 'Si llegas con un trabajo anterior, el retiro se cobra por separado. Lo encuentras al final de esta página.'],
   ['Con cita previa', `Reservamos por WhatsApp al ${business.whatsappDisplay}. La cita se separa con un adelanto de S/ ${business.bookingDeposit}, que se descuenta del total.`],
 ];
@@ -28,12 +28,12 @@ export default function ServicesPage() {
       <SiteHeader current="/servicios" />
 
       <PageHero
+        className="page-hero-wide"
+        showEmblem={false}
         breadcrumb="Servicios"
         eyebrow="Lista de precios"
-        title={<>Todo lo que hacemos,<br /><em>con su precio.</em></>}
+        title={<>Todo lo que hacemos, <em>con su precio.</em></>}
         intro="Manos, pies y mirada. Sin letra chica: acá está la carta completa tal como la trabajamos en el salón."
-        image={{ src: '/images/servicio-manos.webp', alt: 'Manicure nude con nail art delicado', width: 1400, height: 937 }}
-        caption={{ index: '01', text: <>Esmaltado en gel<br />desde S/ 30.</> }}
         actions={
           <>
             <Link className="button button-primary" href="/reservar">Reservar cita</Link>
@@ -42,11 +42,21 @@ export default function ServicesPage() {
         }
       />
 
-      <nav className="anchor-nav" aria-label="Categorías de servicio">
-        {categories.map((category) => (
-          <a key={category} href={`#${category}`}>{categoryContent[category].label}</a>
+      <nav className="anchor-nav services-anchor-nav" aria-label="Categorías de servicio">
+        {categories.map((category, index) => (
+          <a key={category} href={`#${category}`}>
+            <span className="service-anchor-index">{String(index + 1).padStart(2, '0')}</span>
+            <strong>{categoryContent[category].label}</strong>
+            <small>{servicesByCategory(category).length} servicios</small>
+            <span className="service-anchor-go" aria-hidden="true">↘</span>
+          </a>
         ))}
-        <a href="#retiros">Retiros</a>
+        <a href="#retiros">
+          <span className="service-anchor-index">04</span>
+          <strong>Retiros</strong>
+          <small>{removals.length} opciones</small>
+          <span className="service-anchor-go" aria-hidden="true">↘</span>
+        </a>
       </nav>
 
       <section className="price-sheet" id="lista">

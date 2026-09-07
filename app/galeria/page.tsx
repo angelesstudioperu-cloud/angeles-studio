@@ -23,9 +23,11 @@ export default function GalleryPage() {
       <SiteHeader current="/galeria" />
 
       <PageHero
+        className="page-hero-wide"
+        showEmblem={false}
         breadcrumb="Galería"
         eyebrow="The Ángeles edit"
-        title={<>Detalles que<br /><em>hablan por ti.</em></>}
+        title={<>Detalles que <em>hablan por ti.</em></>}
         intro="Formas, colores y acabados que trabajamos en cabina. Guarda el que te represente y muéstranoslo el día de tu cita: es la manera más rápida de que salga exactamente como lo imaginas."
         actions={
           <>

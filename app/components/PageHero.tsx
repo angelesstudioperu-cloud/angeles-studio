@@ -11,11 +11,27 @@ type PageHeroProps = {
   caption?: { index: string; text: ReactNode };
   actions?: ReactNode;
   breadcrumb: string;
+  visual?: ReactNode;
+  className?: string;
+  showEmblem?: boolean;
 };
 
-export function PageHero({ eyebrow, title, intro, image, caption, actions, breadcrumb }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  intro,
+  image,
+  caption,
+  actions,
+  breadcrumb,
+  visual,
+  className = '',
+  showEmblem = true,
+}: PageHeroProps) {
+  const hasVisual = Boolean(image || visual);
+
   return (
-    <section className={`page-hero${image ? '' : ' page-hero-plain'}`}>
+    <section className={`page-hero${hasVisual ? '' : ' page-hero-plain'}${className ? ` ${className}` : ''}`}>
       <div className="page-hero-copy">
         <nav className="breadcrumb" aria-label="Ruta de navegación">
           <Link href="/">Inicio</Link>
@@ -28,11 +44,13 @@ export function PageHero({ eyebrow, title, intro, image, caption, actions, bread
         {actions && <div className="hero-actions">{actions}</div>}
       </div>
 
-      {!image && (
+      {!hasVisual && showEmblem && (
         <span className="page-hero-emblem" data-reveal="off" aria-hidden="true">
           <BrandWings />
         </span>
       )}
+
+      {visual}
 
       {image && (
         <div className="page-hero-visual hero-photo">

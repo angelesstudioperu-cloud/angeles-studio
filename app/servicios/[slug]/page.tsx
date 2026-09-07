@@ -64,7 +64,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <dl className="service-facts">
             <div>
               <dt>Precio</dt>
-              <dd><PriceTag service={service} showFrom={false} /></dd>
+              <dd><PriceTag service={service} /></dd>
             </div>
             <div>
               <dt>Duración</dt>
@@ -190,7 +190,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <div>
                   <h3>{item.name}</h3>
                   <p>{item.note}</p>
-                  <PriceTag service={item} showFrom={false} />
+                  <PriceTag service={item} />
                 </div>
               </Link>
             ))}

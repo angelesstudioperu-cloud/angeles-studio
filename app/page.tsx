@@ -14,7 +14,7 @@ import { business, whatsappLink } from './content/business';
 import { gallery } from './content/gallery';
 
 const facts = [
-  { value: 'Desde S/ 30', label: 'Esmaltado en gel' },
+  { value: 'S/ 30', label: 'Esmaltado en gel' },
   { value: business.hours.daysShort, label: business.hours.display },
   { value: business.address.district, label: `${business.address.street} · ${business.address.unit}` },
   { value: 'Cita previa', label: 'Reserva por WhatsApp' },

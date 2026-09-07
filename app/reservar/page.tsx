@@ -35,7 +35,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
         title={<span className="booking-title">Hagamos espacio <em>para ti.</em></span>}
         intro="Atendemos con cita previa. Cuéntanos qué buscas y cuándo te queda cómodo, y coordinamos el resto por WhatsApp."
         image={{ src: '/images/servicio-pies.webp', alt: 'Pedicure spa en gel en proceso', width: 1400, height: 2100 }}
-        caption={{ index: '02', text: <>Pedicure spa<br />desde S/ 40.</> }}
+        caption={{ index: '02', text: <>Pedicure spa<br />S/ 40.</> }}
         actions={
           <a className="text-link" href={whatsappLink(`Hola, ${business.name}. Quisiera reservar una cita.`)} target="_blank" rel="noreferrer">
             Prefiero escribir directo <span aria-hidden="true">↗</span>
