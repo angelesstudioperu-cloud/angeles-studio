@@ -24,15 +24,6 @@ export type StudioService = {
   shortName?: string;
   note: string;
   priceFrom: number;
-  /**
-   * Precio de lista del servicio. `priceFrom` es el precio promocional vigente.
-   *
-   * Decisión del salón: subir la lista en los servicios más caros y correr una
-   * promoción real sobre ella. Para que el tachado sea válido ante INDECOPI, la
-   * lista debe estar efectivamente vigente y la promoción necesita fecha de
-   * inicio y fin definidas por el negocio.
-   */
-  priceRegular?: number;
   /** La lista original dice «desde» en manos y pies; en mirada los precios son cerrados. */
   priceIsFrom?: boolean;
   /** Estimado provisional, pendiente de confirmación del salón. */
@@ -144,7 +135,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas polygel',
     note: 'Extensión moldeable, ligera y resistente para largos medianos.',
-    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
+    priceFrom: 50, priceIsFrom: true,
     durationMinutes: 120,
     media: { src: '/images/servicios/unas-polygel.webp', width: 1200, height: 1800, alt: 'Uñas de polygel terminadas con esmalte rosa' },
     intro:
@@ -171,7 +162,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas acrílicas',
     note: 'El sistema más firme: ideal si buscas largo y durabilidad.',
-    priceFrom: 50, priceIsFrom: true, priceRegular: 80,
+    priceFrom: 50, priceIsFrom: true,
     durationMinutes: 120,
     featured: true,
     media: { src: '/images/servicios/unas-acrilicas.webp', width: 1200, height: 1800, alt: 'Uñas acrílicas largas en rojo trabajadas en cabina' },
@@ -199,7 +190,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas rubber',
     note: 'Refuerzo flexible que protege la uña natural y da brillo.',
-    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
+    priceFrom: 50, priceIsFrom: true,
     durationMinutes: 105,
     media: { src: '/images/servicios/unas-rubber.webp', width: 1200, height: 1797, alt: 'Manos curando gel bajo lámpara en cabina' },
     intro:
@@ -226,7 +217,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas builder gel',
     note: 'Estructura de gel para nivelar y fortalecer sin peso extra.',
-    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
+    priceFrom: 50, priceIsFrom: true,
     durationMinutes: 105,
     media: { src: '/images/servicios/unas-builder-gel.webp', width: 1200, height: 1800, alt: 'Manos con uñas rojas terminadas apoyadas en la mesa de trabajo' },
     intro:
@@ -253,7 +244,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas soft gel',
     note: 'Tips preformados de acabado natural y aplicación rápida.',
-    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
+    priceFrom: 50, priceIsFrom: true,
     durationMinutes: 90,
     featured: true,
     media: { src: '/images/galeria/nailart-floral.webp', width: 1000, height: 1500, alt: 'Uñas soft gel con nail art floral pintado a mano' },
@@ -311,7 +302,7 @@ export const services: StudioService[] = [
     category: 'pies',
     name: 'Acripie',
     note: 'Refuerzo acrílico en pies para un acabado firme y parejo.',
-    priceFrom: 60, priceIsFrom: true, priceRegular: 85,
+    priceFrom: 60, priceIsFrom: true,
     durationMinutes: 120,
     media: { src: '/images/servicios/acripie.webp', width: 1200, height: 800, alt: 'Cabina de pedicure con esmaltes y herramientas ordenadas' },
     intro:

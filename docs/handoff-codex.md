@@ -1,7 +1,7 @@
 # Handoff para Codex — Ángeles Nails Salon
 
-Última actualización: commit `81cb82f`, versión desplegada `abe74cac`.
-`npm run qa` (lint + typecheck + build) pasa limpio. Rama `main`, remoto `github`.
+Última actualización: commit `2dd7ce6` + ajuste de precios. `npm run qa` limpio.
+Rama `main`, remoto `github`.
 
 Este documento reemplaza al anterior. Cubre lo avanzado desde tu último despliegue
 (`a0c6b46`, «Use official Angeles Studio wing logo») y, sobre todo, **lo que te toca a ti**.
@@ -40,20 +40,18 @@ Detalles que conviene que conozcas antes de tocar nada:
 
 ## 2. Lo que te toca a ti
 
-### 2.1 Bloqueante legal — promoción con precio tachado
+### 2.1 Precios — cerrado, no hay nada pendiente
 
-El salón decidió **subir la lista** en los servicios caros y correr una promoción real
-sobre ella (polygel/rubber/builder/soft gel S/ 75 → 50; acrílicas S/ 80 → 50;
-acripie S/ 85 → 60).
+Se evaluó mostrar un precio de lista tachado para que se leyera como promoción y **el salón
+decidió no hacerlo**: los precios quedan exactamente como en su lista oficial. Se eliminó el
+campo `priceRegular` y el estilo del tachado.
 
-Para que el tachado se sostenga ante INDECOPI falta lo que yo no puedo decidir:
+Si más adelante quieren una promoción, hay que volver a introducir el precio de lista **y**
+un periodo con fecha de inicio y fin: en Perú, tachar un precio que nunca estuvo vigente es
+publicidad engañosa (INDECOPI). No se reintroduzca el tachado sin esas dos cosas.
 
-1. Que esa lista esté **efectivamente vigente** (cartel del local, lista de WhatsApp, redes).
-2. Una **fecha de inicio y fin** de la promoción, visible en la web.
-
-Hoy `services.ts` no tiene fechas. Si el salón confirma el periodo, conviene añadir
-`promoFrom` / `promoTo` y mostrarlo junto al precio; si no lo confirma, hay que quitar
-`priceRegular` de los seis servicios y el tachado desaparece solo.
+`priceIsFrom` se mantiene: marca «desde» solo en manos y pies, que es donde la lista original
+lo dice; en mirada y cejas los precios van cerrados.
 
 ### 2.2 Libro de reclamaciones
 
@@ -90,7 +88,6 @@ manual con `npm run cf:deploy`.
   sin rostro más un badge de iniciales, a propósito: no quise poner la cara de una
   desconocida como si fuera parte del equipo. Cambiar en `app/content/team.ts`.
 - **Duraciones reales.** Las de `services.ts` son estimaciones y se muestran como «aprox.».
-- **Periodo de la promoción**, ver 2.1.
 
 ---
 
