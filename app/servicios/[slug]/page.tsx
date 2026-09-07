@@ -3,14 +3,15 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { MotionEffects } from '../../components/MotionEffects';
 import { SiteFooter } from '../../components/SiteFooter';
+import { PriceTag } from '../../components/PriceTag';
 import { SiteHeader } from '../../components/SiteHeader';
 import { WhatsAppFloat } from '../../components/WhatsAppFloat';
 import { business, whatsappLink } from '../../content/business';
 import {
   categoryContent,
   formatDuration,
-  formatPrice,
   getService,
+  priceLabel,
   relatedServices,
   removals,
   services,
@@ -27,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: 'Servicio no encontrado' };
   return {
     title: service.name,
-    description: `${service.note} ${formatPrice(service.priceFrom)} en ${business.name}, Los Olivos.`,
+    description: `${service.note} ${priceLabel(service)} en ${business.name}, Los Olivos.`,
     alternates: { canonical: servicePath(service.slug) },
   };
 }
@@ -39,7 +40,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   const category = categoryContent[service.category];
   const related = relatedServices(service);
-  const bookMessage = `Hola, ${business.name}. Quisiera reservar «${service.name}» (${formatPrice(service.priceFrom)}).`;
+  const bookMessage = `Hola, ${business.name}. Quisiera reservar «${service.name}» (${priceLabel(service)}).`;
 
   return (
     <main className="subpage subpage-servicio">
@@ -63,7 +64,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <dl className="service-facts">
             <div>
               <dt>Precio</dt>
-              <dd>{formatPrice(service.priceFrom)}</dd>
+              <dd><PriceTag service={service} /></dd>
             </div>
             <div>
               <dt>Duración</dt>
@@ -189,7 +190,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <div>
                   <h3>{item.name}</h3>
                   <p>{item.note}</p>
-                  <strong>{formatPrice(item.priceFrom)}</strong>
+                  <PriceTag service={item} />
                 </div>
               </Link>
             ))}
@@ -203,7 +204,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h2>
             {service.name}
             <br />
-            <em>{formatPrice(service.priceFrom).toLowerCase()}.</em>
+            <em>{priceLabel(service)}.</em>
           </h2>
           <p>Escríbenos y coordinamos el día y la hora. Te confirmamos disponibilidad antes de que salgas de casa.</p>
         </div>

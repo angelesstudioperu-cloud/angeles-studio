@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from 'react';
 import { business, whatsappUrl } from '../content/business';
-import { categoryContent, categories, formatPrice, servicesByCategory } from '../content/services';
+import { categoryContent, categories, priceLabel, servicesByCategory } from '../content/services';
 
 /**
  * `preselect` es el slug que llega en /reservar?servicio=… desde las fichas de
@@ -17,7 +17,7 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
     : undefined;
 
   const [status, setStatus] = useState<'idle' | 'opened' | 'blocked'>('idle');
-  const [service, setService] = useState(initial ? `${initial.name} (${formatPrice(initial.priceFrom)})` : '');
+  const [service, setService] = useState(initial ? `${initial.name} (${priceLabel(initial)})` : '');
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -74,8 +74,8 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
             {categories.map((category) => (
               <optgroup key={category} label={categoryContent[category].label}>
                 {servicesByCategory(category).map((item) => (
-                  <option key={item.slug} value={`${item.name} (${formatPrice(item.priceFrom)})`}>
-                    {item.name} · {formatPrice(item.priceFrom)}
+                  <option key={item.slug} value={`${item.name} (${priceLabel(item)})`}>
+                    {item.name} · {priceLabel(item)}
                   </option>
                 ))}
               </optgroup>

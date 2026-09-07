@@ -18,7 +18,7 @@ Todas fueron reconvertidas a WebP y reducidas antes de entrar al repositorio
 | `images/galeria/nailart-flor.webp` | pexels.com/photo/20758448 |
 | `images/galeria/nailart-floral.webp` | pexels.com/photo/34885842 |
 | `images/galeria/nailart-glitter.webp` | pexels.com/photo/34835286 |
-| `images/galeria/nailart-rojo.webp` | pexels.com/photo/34871553 |
+| `images/galeria/nailart-rosa.webp` | pexels.com/photo/939834 |
 | `images/galeria/manos-proceso.webp` | pexels.com/photo/3997390 |
 | `images/galeria/pies-detalle.webp` | pexels.com/photo/17056219 |
 | `images/galeria/lashes-detalle.webp` | pexels.com/photo/7755525 |

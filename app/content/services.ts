@@ -24,6 +24,15 @@ export type StudioService = {
   shortName?: string;
   note: string;
   priceFrom: number;
+  /**
+   * Precio regular tachado que se muestra junto al vigente para leerlo como
+   * promoción. Solo debe llevarlo un servicio que efectivamente se haya
+   * cobrado a ese precio antes: en Perú, tachar un precio que nunca se aplicó
+   * es publicidad engañosa (INDECOPI).
+   */
+  priceRegular?: number;
+  /** La lista original dice «desde» en manos y pies; en mirada los precios son cerrados. */
+  priceIsFrom?: boolean;
   /** Estimado provisional, pendiente de confirmación del salón. */
   durationMinutes: number;
   featured?: boolean;
@@ -105,7 +114,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Esmaltado en gel',
     note: 'Preparación, forma y color de larga duración sobre tu uña natural.',
-    priceFrom: 30,
+    priceFrom: 30, priceIsFrom: true,
     durationMinutes: 60,
     featured: true,
     media: { src: '/images/servicios/esmaltado-en-gel.webp', width: 1200, height: 2133, alt: 'Aplicación de esmalte en gel sobre la uña natural' },
@@ -133,7 +142,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas polygel',
     note: 'Extensión moldeable, ligera y resistente para largos medianos.',
-    priceFrom: 50,
+    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
     durationMinutes: 120,
     media: { src: '/images/servicios/unas-polygel.webp', width: 1200, height: 1800, alt: 'Uñas de polygel terminadas con esmalte rosa' },
     intro:
@@ -160,7 +169,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas acrílicas',
     note: 'El sistema más firme: ideal si buscas largo y durabilidad.',
-    priceFrom: 50,
+    priceFrom: 50, priceIsFrom: true, priceRegular: 80,
     durationMinutes: 120,
     featured: true,
     media: { src: '/images/servicios/unas-acrilicas.webp', width: 1200, height: 1800, alt: 'Uñas acrílicas largas en rojo trabajadas en cabina' },
@@ -188,7 +197,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas rubber',
     note: 'Refuerzo flexible que protege la uña natural y da brillo.',
-    priceFrom: 50,
+    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
     durationMinutes: 105,
     media: { src: '/images/servicios/unas-rubber.webp', width: 1200, height: 1797, alt: 'Manos curando gel bajo lámpara en cabina' },
     intro:
@@ -215,7 +224,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas builder gel',
     note: 'Estructura de gel para nivelar y fortalecer sin peso extra.',
-    priceFrom: 50,
+    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
     durationMinutes: 105,
     media: { src: '/images/servicios/unas-builder-gel.webp', width: 1200, height: 1800, alt: 'Manos con uñas rojas terminadas apoyadas en la mesa de trabajo' },
     intro:
@@ -242,7 +251,7 @@ export const services: StudioService[] = [
     category: 'manos',
     name: 'Uñas soft gel',
     note: 'Tips preformados de acabado natural y aplicación rápida.',
-    priceFrom: 50,
+    priceFrom: 50, priceIsFrom: true, priceRegular: 75,
     durationMinutes: 90,
     featured: true,
     media: { src: '/images/galeria/nailart-floral.webp', width: 1000, height: 1500, alt: 'Uñas soft gel con nail art floral pintado a mano' },
@@ -272,7 +281,7 @@ export const services: StudioService[] = [
     category: 'pies',
     name: 'Pedicure spa en gel',
     note: 'Limpieza completa, cuidado de cutícula y esmaltado en gel.',
-    priceFrom: 40,
+    priceFrom: 40, priceIsFrom: true,
     durationMinutes: 75,
     featured: true,
     media: { src: '/images/servicios/pedicure-spa-en-gel.webp', width: 1200, height: 2136, alt: 'Aplicación de esmalte en gel rosa durante un pedicure spa' },
@@ -300,7 +309,7 @@ export const services: StudioService[] = [
     category: 'pies',
     name: 'Acripie',
     note: 'Refuerzo acrílico en pies para un acabado firme y parejo.',
-    priceFrom: 60,
+    priceFrom: 60, priceIsFrom: true, priceRegular: 85,
     durationMinutes: 120,
     media: { src: '/images/servicios/acripie.webp', width: 1200, height: 800, alt: 'Cabina de pedicure con esmaltes y herramientas ordenadas' },
     intro:
@@ -327,7 +336,7 @@ export const services: StudioService[] = [
     category: 'pies',
     name: 'Solo limpieza',
     note: 'Higiene, corte y cuidado de cutícula sin esmaltado.',
-    priceFrom: 20,
+    priceFrom: 20, priceIsFrom: true,
     durationMinutes: 45,
     media: { src: '/images/servicios/solo-limpieza.webp', width: 1200, height: 1800, alt: 'Trabajo de limpieza y cutícula en pedicure' },
     intro:
@@ -552,7 +561,12 @@ export function servicePath(slug: string) {
 }
 
 export function formatPrice(price: number) {
-  return `Desde S/ ${price}`;
+  return `S/ ${price}`;
+}
+
+/** Etiqueta larga para selects y metadatos. */
+export function priceLabel(service: Pick<StudioService, 'priceFrom' | 'priceIsFrom'>) {
+  return `${service.priceIsFrom ? 'desde ' : ''}S/ ${service.priceFrom}`;
 }
 
 export function formatFlatPrice(price: number) {

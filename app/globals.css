@@ -1492,7 +1492,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   /* Tira horizontal: tres huecos verticales ocupan 340 px en vez de 600. */
   .videos-grid { display:flex; gap:12px; width:calc(100% + var(--page-gutter)); overflow-x:auto; padding-right:var(--page-gutter); scroll-snap-type:x proximity; scrollbar-width:none; }
   .videos-grid::-webkit-scrollbar { display:none; }
-  .video-tile { flex:0 0 58%; aspect-ratio:9/13; scroll-snap-align:start; }
+  .video-tile { flex:0 0 58%; aspect-ratio:9/11; scroll-snap-align:start; }
   .video-tile p { font-size:17px; }
   .video-tile-icon { width:46px; height:46px; font-size:15px; }
   .visit-card { padding:40px var(--page-gutter); }
@@ -1705,4 +1705,78 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 
 @media (prefers-reduced-motion:reduce) {
   .button-flow { animation:none; background-position:12% 50%; }
+}
+
+/* ============================================================
+   v8 — precio en promoción, botón vivo solo arriba y aire justo
+   ============================================================ */
+
+/* --- El degradado en movimiento es exclusivo del CTA de la cabecera ------ */
+.button-book, .visit .button-primary {
+  background-image:linear-gradient(180deg, #47664F 0%, var(--evergreen) 52%, #29402F 100%);
+  background-size:auto;
+  animation:none;
+}
+/* En móvil «Reservar» es texto: que el degradado lo pinte a él. */
+@media (max-width:760px) {
+  .nav-cta.button-flow {
+    background-image:linear-gradient(100deg,#344C3D 0%,#5E7A5E 26%,#C07278 50%,#96585F 74%,#344C3D 100%);
+    background-size:320% 100%;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    animation:brand-flow 9s linear infinite;
+  }
+  .nav-cta.button-flow::after { background:var(--brand-pink); }
+}
+
+/* --- Precio con tachado: se lee como promoción --------------------------- */
+.price-tag { gap:7px; padding:6px 13px; }
+.price-tag s { color:#9A6B6F; font-size:11.5px; font-weight:500; text-decoration-thickness:1.5px; }
+.price-tag b { font-size:16px; }
+.price-tag-sale { background:#F7DDE0; border-color:rgba(192,114,120,.6); }
+.price-tag-sale b { color:#8E4A52; }
+.price-row-meta .price-tag { align-self:flex-end; }
+.service-facts .price-tag { margin-top:4px; }
+.related-card .price-tag { margin-top:2px; }
+
+/* --- Reserva: el titular y la tarjeta sin hueco entre medias -------------- */
+/* La nota heredaba color peony sobre fondo peony y quedaba ilegible.
+   `.booking-heading > p:last-child` de la paleta antigua pesa (0,2,1): hay que igualarlo. */
+.booking-heading > p.booking-note { color:var(--evergreen); }
+.booking-heading { align-self:center; }
+.booking-note { margin:14px 0 0; }
+
+/* --- Formulario: campos más chicos y sin choques ------------------------- */
+.booking-fields { gap:12px 14px; }
+.booking-card .booking-form input,
+.booking-card .booking-form select { min-height:40px; padding:0 10px; font-size:13.5px; }
+.booking-card .booking-form label > span { font-size:8.5px; letter-spacing:.11em; }
+.booking-card { padding:clamp(22px,2.4vw,30px); }
+.button-book { min-height:48px; margin-top:16px; }
+
+/* --- Aire muerto entre secciones ----------------------------------------- */
+.videos, .edit { padding-top:clamp(38px,3.4vw,54px); }
+.videos .section-bar, .edit .section-bar { margin-bottom:20px; padding-bottom:14px; }
+.booking { padding-bottom:clamp(40px,4vw,64px); }
+
+/* --- Carrusel: el botón un poco más a la derecha -------------------------- */
+.hero-copy { gap:clamp(34px,5vw,72px); }
+
+@media (max-width:760px) {
+  .booking-note { font-size:13px; margin-top:12px; }
+  .booking-fields { gap:11px 12px; }
+  .booking-card { padding:20px 16px 22px; }
+  .booking-card .booking-form input,
+  .booking-card .booking-form select { min-height:44px; font-size:16px; padding:0 9px; }
+  .booking-card .booking-form label > span { font-size:8px; letter-spacing:.08em; }
+  .button-book { min-height:50px; margin-top:14px; }
+
+  .videos, .edit { padding-top:34px; }
+  .videos .section-bar, .edit .section-bar { margin-bottom:16px; padding-bottom:12px; }
+  .booking { padding-bottom:38px; }
+
+  .hero-copy { gap:22px; }
+  .price-tag { gap:5px; padding:5px 10px; }
+  .price-tag s { font-size:10px; }
+  .price-tag b { font-size:14px; }
 }

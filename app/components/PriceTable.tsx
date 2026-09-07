@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element -- ver PageHero. */
 import Link from 'next/link';
+import { PriceTag } from './PriceTag';
 import {
   categoryContent,
   formatDuration,
   formatFlatPrice,
-  formatPrice,
   removals,
   servicePath,
   servicesByCategory,
@@ -38,7 +38,7 @@ export function PriceTable({ category, index }: { category: ServiceCategory; ind
                   <span className="price-row-note">{service.note}</span>
                 </span>
                 <span className="price-row-meta">
-                  <b>{formatPrice(service.priceFrom)}</b>
+                  <PriceTag service={service} />
                   <small>{formatDuration(service.durationMinutes)}</small>
                 </span>
                 <span className="price-row-go" aria-hidden="true">↗</span>
