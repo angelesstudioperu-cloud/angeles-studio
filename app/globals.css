@@ -2342,7 +2342,8 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 }
 .video-frame p { margin:0; font:500 20px var(--font-display),serif; }
 .video-frame small { color:var(--sage); font-size:9px; letter-spacing:.18em; text-transform:uppercase; }
-.video-frame-tall { aspect-ratio:3/4; }
+/* Vertical grande, para el recorrido del salón. */
+.video-frame-portrait { aspect-ratio:9/16; }
 
 /* --- El studio: apertura con la experiencia ----------------------------- */
 .experience-intro {
@@ -2364,9 +2365,9 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 /* --- Recorrido: video a la izquierda, fotos en escalera a la derecha ----- */
 .tour { padding:var(--section-y) var(--edge); background:var(--mist); }
 .tour-title { margin:0 0 26px; font:500 clamp(30px,3.4vw,50px) var(--font-display),serif; letter-spacing:-.035em; }
-.tour { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:clamp(24px,3.4vw,56px); align-items:start; }
+.tour { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:clamp(24px,3.4vw,56px); align-items:start; }
 .tour-title { grid-column:1/-1; }
-.tour-video { aspect-ratio:4/3; align-self:center; }
+.tour-video { align-self:start; justify-self:start; width:100%; max-width:440px; }
 .tour-shots { display:grid; gap:clamp(12px,1.6vw,20px); }
 .tour-shot { margin:0; overflow:hidden; border:1px solid rgba(52,76,61,.16); box-shadow:var(--lift-1); }
 .tour-shot img { display:block; width:100%; aspect-ratio:1.45; object-fit:cover; }
@@ -2430,11 +2431,11 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .experience-lead { font-size:14px; line-height:1.75; }
   .experience-points { gap:8px; margin-top:18px; }
   .experience-points li { font-size:13px; }
-  .video-frame-tall { aspect-ratio:16/11; }
+
 
   .tour { grid-template-columns:minmax(0,1fr); gap:16px; }
   .tour-title { margin-bottom:16px; font-size:clamp(27px,7.6vw,34px); }
-  .tour-video { aspect-ratio:16/10; }
+  .tour-video { width:min(100%,300px); max-width:none; margin-inline:auto; }
   /* En móvil la escalera pasa a mosaico: dos arriba, una ancha abajo. */
   .tour-shots { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
   .tour-shot { width:auto!important; margin:0!important; }

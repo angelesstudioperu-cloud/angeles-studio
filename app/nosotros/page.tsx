@@ -45,7 +45,7 @@ export default function AboutPage() {
         </div>
 
         {/* Reemplazar por <video autoPlay muted loop playsInline> cuando llegue el material. */}
-        <div className="video-frame video-frame-tall" role="img" aria-label="Espacio reservado para el video del salón">
+        <div className="video-frame" role="img" aria-label="Espacio reservado para el video del salón">
           <span className="video-frame-icon" aria-hidden="true">▶</span>
           <p>Video del salón</p>
           <small>Próximamente</small>
@@ -55,7 +55,7 @@ export default function AboutPage() {
       <section className="tour" aria-labelledby="tour-title">
         <h2 id="tour-title" className="tour-title">Así se ve por dentro.</h2>
 
-        <div className="tour-video video-frame" role="img" aria-label="Espacio reservado para el recorrido en video">
+        <div className="tour-video video-frame video-frame-portrait" role="img" aria-label="Espacio reservado para el recorrido en video">
           <span className="video-frame-icon" aria-hidden="true">▶</span>
           <p>Recorrido del salón</p>
           <small>Próximamente</small>
