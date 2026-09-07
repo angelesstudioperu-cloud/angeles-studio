@@ -1393,7 +1393,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   margin-top:0;
   color:var(--brand-pink);
   letter-spacing:.06em;
-  transform:translate(7px,-2px);
+  transform:translate(10px,-2px);
 }
 .footer .brand-logo, .footer .brand-name, .footer .brand-sub { color:var(--brand-pink-soft); }
 
@@ -1461,7 +1461,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .brand-sub {
     margin-top:0;
     font-size:10.5px;
-    transform:translate(6px,-2px);
+    transform:translate(9px,-2px);
   }
 
   .site-nav {
@@ -1925,11 +1925,6 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
    v10 — portada a sangre en PC, reserva con cuerpo y pie compacto
    ============================================================ */
 
-/* --- CTA de la cabecera: las letras no tocan el borde ------------------- */
-.nav-cta {
-  flex:none; padding:0 34px 0 36px; letter-spacing:.12em;
-}
-
 /* Texto de acompañamiento: solo en PC, donde sobra ancho. */
 .section-lead { display:none; }
 
@@ -1937,6 +1932,15 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
    Escritorio
    ============================================================ */
 @media (min-width:761px) {
+  /* Mayor especificidad que `.site-nav a`: conserva aire real alrededor
+     del texto sin modificar la versión móvil de la navegación. */
+  .site-nav .nav-cta {
+    flex:none;
+    min-height:48px;
+    padding:0 38px;
+    letter-spacing:.12em;
+  }
+
   .section-lead {
     display:block; max-width:52ch; margin:12px 0 0;
     color:var(--evergreen); font-size:13.5px; line-height:1.75; opacity:.78;
