@@ -10,8 +10,8 @@ import { business, whatsappLink } from '../../content/business';
 import {
   categoryContent,
   formatDuration,
+  formatFlatPrice,
   getService,
-  priceLabel,
   relatedServices,
   removals,
   services,
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: 'Servicio no encontrado' };
   return {
     title: service.name,
-    description: `${service.note} ${priceLabel(service)} en ${business.name}, Los Olivos.`,
+    description: `${service.note} ${formatFlatPrice(service.priceFrom)} en ${business.name}, Los Olivos.`,
     alternates: { canonical: servicePath(service.slug) },
   };
 }
@@ -40,7 +40,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   const category = categoryContent[service.category];
   const related = relatedServices(service);
-  const bookMessage = `Hola, ${business.name}. Quisiera reservar «${service.name}» (${priceLabel(service)}).`;
+  const bookMessage = `Hola, ${business.name}. Quisiera reservar «${service.name}» (${formatFlatPrice(service.priceFrom)}).`;
 
   return (
     <main className="subpage subpage-servicio">
@@ -64,7 +64,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <dl className="service-facts">
             <div>
               <dt>Precio</dt>
-              <dd><PriceTag service={service} /></dd>
+              <dd><PriceTag service={service} showFrom={false} /></dd>
             </div>
             <div>
               <dt>Duración</dt>
@@ -190,7 +190,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <div>
                   <h3>{item.name}</h3>
                   <p>{item.note}</p>
-                  <PriceTag service={item} />
+                  <PriceTag service={item} showFrom={false} />
                 </div>
               </Link>
             ))}
@@ -204,7 +204,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h2>
             {service.name}
             <br />
-            <em>{priceLabel(service)}.</em>
+            <em>{formatFlatPrice(service.priceFrom)}.</em>
           </h2>
           <p>Escríbenos y coordinamos el día y la hora. Te confirmamos disponibilidad antes de que salgas de casa.</p>
         </div>

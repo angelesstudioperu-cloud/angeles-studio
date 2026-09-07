@@ -1461,7 +1461,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .brand-sub {
     margin-top:0;
     font-size:10.5px;
-    transform:translate(9px,-2px);
+    transform:translate(13px,-2px);
   }
 
   .site-nav {
@@ -2055,12 +2055,97 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 
 
 
-/* --- Móvil: foto arriba, texto debajo, ahora como hermanos ------------- */
+/* --- Móvil: el mismo lienzo editorial a sangre, adaptado al pulgar ------ */
 @media (max-width:760px) {
-  .hero-carousel { display:flex; flex-direction:column; gap:18px; }
-  /* Igual que en PC: sin `align-self:stretch` el marco colapsa a un sliver,
-     porque las fotos van en absoluto y el contenedor se queda sin contenido. */
-  .hero-carousel > .hero-photo { order:1; align-self:stretch; margin-top:18px; height:clamp(280px,40vh,340px); }
-  .hero-carousel > .hero-grid { order:2; display:block; }
-  .hero-carousel .hero-copy { display:flex; }
+  .hero { padding-inline:0; padding-bottom:0; }
+  .hero > .site-header { padding-inline:var(--edge); }
+
+  .hero-carousel {
+    position:relative;
+    display:grid;
+    grid-template-areas:'stack';
+    align-items:stretch;
+    min-height:clamp(500px,68svh,620px);
+    gap:0;
+    overflow:hidden;
+    isolation:isolate;
+  }
+
+  .hero-carousel > .hero-photo {
+    grid-area:stack;
+    align-self:stretch;
+    z-index:0;
+    position:relative;
+    width:auto;
+    height:auto;
+    min-height:0;
+    margin:0;
+    border:0;
+    border-radius:0;
+    outline:0;
+    box-shadow:none;
+    overflow:hidden;
+    animation:none;
+  }
+  .hero-carousel > .hero-photo > img {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:58% center;
+  }
+
+  /* El velo asciende desde el borde inferior: protege la lectura sin esconder
+     el trabajo de uñas, pestañas o pedicure en el centro de la fotografía. */
+  .hero-carousel::after {
+    content:'';
+    grid-area:stack;
+    z-index:1;
+    pointer-events:none;
+    background:linear-gradient(
+      180deg,
+      rgba(244,243,241,0) 0%,
+      rgba(244,243,241,.08) 34%,
+      rgba(244,243,241,.42) 56%,
+      rgba(244,243,241,.92) 76%,
+      var(--mist) 100%
+    );
+  }
+
+  .hero-carousel > .hero-grid {
+    grid-area:stack;
+    z-index:2;
+    align-self:end;
+    display:block;
+    min-height:0;
+    padding:72px var(--page-gutter) 28px;
+  }
+  .hero-carousel .hero-copy {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    justify-content:stretch;
+    align-items:start;
+    gap:16px;
+    width:100%;
+    max-width:none;
+  }
+  .hero-carousel .hero-copy-text { flex:none; }
+  .hero-carousel .eyebrow { color:var(--evergreen); font-size:9px; letter-spacing:.16em; }
+  .hero-carousel h1 {
+    max-width:12ch;
+    margin:8px 0 0;
+    color:var(--evergreen);
+    font-size:clamp(32px,9.4vw,42px);
+    line-height:.98;
+  }
+  .hero-carousel .hero-cta {
+    justify-self:start;
+    width:auto;
+    max-width:none;
+    min-width:144px;
+    min-height:48px;
+    margin:0;
+    padding:0 24px;
+    font-size:9.5px;
+    letter-spacing:.12em;
+  }
 }

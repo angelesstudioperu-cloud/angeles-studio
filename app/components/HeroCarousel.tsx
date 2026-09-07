@@ -97,8 +97,8 @@ export function HeroCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* La foto es hermana del texto: en PC se va al fondo a sangre y en móvil
-          queda arriba, dentro de su marco. */}
+      {/* La foto y el texto comparten el lienzo editorial a sangre; el CSS
+          adapta el encuadre y el velo de lectura a cada ancho. */}
       <div className="hero-visual hero-photo">
         {slides.map((slide, slideIndex) => (
           <img
