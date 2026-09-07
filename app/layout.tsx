@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   applicationName: business.name,
   robots: process.env.SITE_LAUNCH_READY === 'true' ? { index: true, follow: true } : { index: false, follow: false },
   icons: {
-    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
+    icon: [{ url: '/favicon.png', sizes: '64x64', type: 'image/png' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
   },
   manifest: '/site.webmanifest',
