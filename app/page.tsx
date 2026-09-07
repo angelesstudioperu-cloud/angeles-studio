@@ -47,7 +47,7 @@ export default function Home() {
 
       <section className="booking" id="reservar">
         <div className="booking-heading">
-          <h2>Hagamos espacio<br /><em>para ti.</em></h2>
+          <h2 className="booking-title">Hagamos espacio <em>para ti.</em></h2>
           <p className="booking-note">
             Separas tu cita con un adelanto de <strong>S/ {business.bookingDeposit}</strong>, que se
             descuenta del total del servicio.
@@ -108,15 +108,16 @@ export default function Home() {
         <div className="visit-card">
           <p className="eyebrow">Visítanos</p>
           <h2>Tu próxima pausa<br />empieza aquí.</h2>
-          <dl>
-            <div><dt>Dirección</dt><dd>{business.address.street} · {business.address.unit}</dd></div>
-            <div><dt>Horario</dt><dd>{business.hours.daysShort} · {business.hours.display}</dd></div>
-            <div><dt>WhatsApp</dt><dd>{business.whatsappDisplay}</dd></div>
-          </dl>
-          <div className="hero-actions">
-            <Link className="button button-primary button-flow" href="/reservar">Reservar cita</Link>
-            <Link className="text-link" href="/contacto">Cómo llegar <span aria-hidden="true">↗</span></Link>
-          </div>
+          <ul className="visit-facts">
+            <li><span>Dirección</span><b>{business.address.street} · {business.address.unit}</b></li>
+            <li><span>Horario</span><b>{business.hours.daysShort} · {business.hours.display}</b></li>
+            <li><span>WhatsApp</span><b>{business.whatsappDisplay}</b></li>
+          </ul>
+          <Link className="visit-cta" href="/contacto">
+            <span className="visit-cta-label">Cómo llegar</span>
+            <span className="visit-cta-sub">{business.address.district}, Lima</span>
+            <span className="visit-cta-go" aria-hidden="true">↗</span>
+          </Link>
         </div>
         <LocationMap />
       </section>

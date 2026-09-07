@@ -32,7 +32,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
       <PageHero
         breadcrumb="Reservar"
         eyebrow="Reserva"
-        title={<>Hagamos espacio<br /><em>para ti.</em></>}
+        title={<span className="booking-title">Hagamos espacio <em>para ti.</em></span>}
         intro="Atendemos con cita previa. Cuéntanos qué buscas y cuándo te queda cómodo, y coordinamos el resto por WhatsApp."
         image={{ src: '/images/servicio-pies.webp', alt: 'Pedicure spa en gel en proceso', width: 1400, height: 2100 }}
         caption={{ index: '02', text: <>Pedicure spa<br />desde S/ 40.</> }}
@@ -56,7 +56,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
       <section className="booking" id="formulario">
         <div className="booking-heading">
           <p className="eyebrow">Formulario</p>
-          <h2>Cuéntanos<br /><em>qué necesitas.</em></h2>
+          <h2 className="booking-title">Cuéntanos <em>qué necesitas.</em></h2>
           <p>
             El formulario arma el mensaje y lo abre en tu WhatsApp. Separas la cita con un adelanto de{' '}
             <strong>S/ {business.bookingDeposit}</strong>, que se descuenta del total.

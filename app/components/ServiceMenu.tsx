@@ -2,13 +2,14 @@
 
 /* eslint-disable @next/next/no-img-element -- el shim de next/image de Vinext duplica React en los builds de Workers; estos assets ya vienen dimensionados en WebP. */
 import Link from 'next/link';
-import { useState, type KeyboardEvent } from 'react';
+import { useState, type KeyboardEvent, type MouseEvent } from 'react';
 import { PriceTag } from './PriceTag';
+import { SELECT_SERVICE_EVENT } from './bookingBridge';
 import { categories, categoryContent, servicePath, servicesByCategory, type ServiceCategory } from '../content/services';
 
 /**
- * Carta única del salón: reemplaza a las dos secciones que antes repetían la
- * misma lista (una en texto y otra en el explorador). Aquí manda la foto.
+ * Carta única del salón. El nombre lleva a la ficha del servicio; el precio
+ * baja al formulario con ese servicio ya elegido.
  */
 export function ServiceMenu() {
   const [category, setCategory] = useState<ServiceCategory>('manos');
@@ -29,13 +30,19 @@ export function ServiceMenu() {
     document.getElementById(`carta-tab-${next}`)?.focus();
   }
 
+  /** Avisa al formulario y baja hasta él. Sin JS, el href lleva a /reservar. */
+  function pickService(event: MouseEvent, slug: string) {
+    const form = document.getElementById('reservar');
+    if (!form) return;
+    event.preventDefault();
+    window.dispatchEvent(new CustomEvent(SELECT_SERVICE_EVENT, { detail: { slug } }));
+    form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   return (
     <section className="menu" id="servicios" aria-labelledby="menu-title">
       <div className="section-bar">
-        <div>
-          <p className="eyebrow">Catálogo</p>
-          <h2 id="menu-title">Elige tu servicio.</h2>
-        </div>
+        <h2 id="menu-title">Catálogo</h2>
         <Link className="text-link" href="/servicios">
           Lista completa y retiros <span aria-hidden="true">↗</span>
         </Link>
@@ -61,21 +68,30 @@ export function ServiceMenu() {
 
       <div className="menu-grid" id={panelId} role="tabpanel" aria-labelledby={`carta-tab-${category}`} key={category}>
         {list.map((service) => (
-          <Link className="menu-card" href={servicePath(service.slug)} key={service.slug}>
-            <span className="menu-card-media">
-              <img
-                src={service.media.src}
-                alt={service.media.alt}
-                width={service.media.width}
-                height={service.media.height}
-                loading="lazy"
-              />
-            </span>
-            <span className="menu-card-body">
-              <strong>{service.shortName ?? service.name}</strong>
+          <article className="menu-card" key={service.slug}>
+            <Link className="menu-card-link" href={servicePath(service.slug)}>
+              <span className="menu-card-media">
+                <img
+                  src={service.media.src}
+                  alt={service.media.alt}
+                  width={service.media.width}
+                  height={service.media.height}
+                  loading="lazy"
+                />
+              </span>
+              <span className="menu-card-body">
+                <strong>{service.shortName ?? service.name}</strong>
+              </span>
+            </Link>
+            <a
+              className="menu-card-cta"
+              href={`/reservar?servicio=${service.slug}`}
+              onClick={(event) => pickService(event, service.slug)}
+              aria-label={`Reservar ${service.name}`}
+            >
               <PriceTag service={service} />
-            </span>
-          </Link>
+            </a>
+          </article>
         ))}
       </div>
     </section>

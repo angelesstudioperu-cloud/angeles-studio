@@ -24,9 +24,7 @@ export function LocationMap({ tone = 'light' }: { tone?: 'light' | 'peony' }) {
             <span key={line}>{line}</span>
           ))}
         </address>
-        <a className="button button-primary" href={business.mapsUrl} target="_blank" rel="noreferrer">
-          Cómo llegar
-        </a>
+
       </div>
     </div>
   );

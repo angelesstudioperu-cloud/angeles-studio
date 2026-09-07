@@ -1780,3 +1780,138 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .price-tag s { font-size:10px; }
   .price-tag b { font-size:14px; }
 }
+
+/* ============================================================
+   v9 — catálogo compacto, precio que reserva y formulario minimalista
+   ============================================================ */
+
+/* --- Carrusel: descripción y botón centrados en su fila ------------------ */
+.hero-copy { justify-content:center; }
+.hero-copy-text { flex:0 1 auto; }
+
+/* --- Catálogo: título solo, sin eyebrow que deje hueco ------------------- */
+.menu .section-bar { align-items:center; }
+.menu .section-bar h2 { margin:0; }
+
+/* Pestañas con el mismo relieve de los botones del carrusel. */
+.menu-tabs { gap:9px; }
+.menu-tabs button {
+  min-height:40px; padding:0 20px; border-radius:999px;
+  border:1px solid rgba(52,76,61,.22); background:transparent; color:var(--evergreen);
+  font-size:10px; font-weight:600; letter-spacing:.13em;
+  transition:transform .2s cubic-bezier(.2,.7,.2,1), box-shadow .2s ease, border-color .2s ease, color .2s ease;
+}
+.menu-tabs button:hover { transform:translateY(-2px); border-color:var(--mauve); }
+.menu-tabs button[aria-selected=true] {
+  border-color:#1D2E23; color:var(--mist);
+  background-image:linear-gradient(180deg,#47664F 0%,var(--evergreen) 52%,#29402F 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -2px 0 rgba(0,0,0,.28),
+    0 2px 3px rgba(20,40,28,.2),
+    0 10px 20px rgba(20,40,28,.22);
+}
+
+/* --- Tarjeta: nombre a la ficha, precio a la reserva --------------------- */
+.menu-card { position:relative; display:grid; }
+.menu-card-link { display:grid; }
+.menu-card-body { display:block; padding:14px 16px 52px; }
+.menu-card-body strong { font:500 clamp(17px,1.6vw,22px)/1.2 var(--font-display),serif; }
+.menu-card-cta {
+  position:absolute; left:16px; right:16px; bottom:14px;
+  display:flex; justify-content:flex-start;
+  transition:transform .2s ease;
+}
+.menu-card-cta .price-tag { transition:box-shadow .22s ease, transform .22s ease; }
+.menu-card-cta:hover .price-tag { transform:translateY(-2px); box-shadow:0 6px 16px rgba(192,114,120,.4); }
+.menu-card-cta:focus-visible { outline:none; }
+.menu-card-cta:focus-visible .price-tag { outline:2px solid var(--evergreen); outline-offset:3px; }
+
+/* --- Reserva: titular en una línea y sin aire sobrante ------------------- */
+.booking-title { margin:0; white-space:nowrap; font-size:clamp(30px,3.6vw,54px); }
+.booking { padding-top:clamp(40px,4vw,64px); }
+
+/* --- Formulario minimalista: solo una línea bajo cada campo -------------- */
+.booking-card { padding:clamp(24px,2.6vw,34px); }
+.booking-fields { gap:16px 20px; }
+.booking-card .booking-form label { gap:3px; }
+.booking-card .booking-form label > span {
+  color:#7E8C82; font-size:8px; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+}
+.booking-card .booking-form input,
+.booking-card .booking-form select {
+  min-height:34px; padding:0 2px; border:0; border-bottom:1px solid rgba(52,76,61,.28);
+  border-radius:0; background:transparent; color:var(--evergreen);
+  font:400 14px var(--font-sans),sans-serif;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.booking-card .booking-form input:focus,
+.booking-card .booking-form select:focus {
+  outline:none; border-bottom-color:var(--brand-pink); box-shadow:0 1px 0 0 var(--brand-pink);
+}
+.booking-card .booking-form input::placeholder { color:#AEB8B0; }
+.booking-card .booking-form select { appearance:none; padding-right:16px; background-image:none; }
+.booking-card .booking-form label:has(select)::after {
+  content:'⌄'; position:absolute; right:2px; bottom:8px; color:#7E8C82; font-size:13px; pointer-events:none;
+}
+.booking-card .booking-form label { position:relative; }
+.button-book { margin-top:22px; min-height:46px; font-size:10.5px; letter-spacing:.16em; }
+.booking-card .form-note { margin-top:12px; font-size:10.5px; }
+
+/* Destello al llegar desde un precio del catálogo. */
+.field-flash { display:block; min-height:12px; color:var(--brand-pink); font-size:9px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; }
+.field-wide.is-flash select { border-bottom-color:var(--brand-pink); }
+.field-wide.is-flash { animation:field-flash 2.2s ease both; border-radius:4px; }
+@keyframes field-flash {
+  0%, 70% { box-shadow:0 0 0 3px rgba(192,114,120,.28); background:rgba(192,114,120,.1); }
+  100% { box-shadow:0 0 0 0 rgba(192,114,120,0); background:transparent; }
+}
+
+/* --- Visítanos compacto -------------------------------------------------- */
+.visit-card h2 { margin:12px 0 22px; }
+.visit-facts { display:grid; gap:0; margin:0 0 24px; padding:0; list-style:none; border-top:1px solid var(--line); }
+.visit-facts li { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:11px 0; border-bottom:1px solid var(--line); }
+.visit-facts span { flex:none; color:var(--sage); font-size:9px; letter-spacing:.15em; text-transform:uppercase; }
+.visit-facts b { text-align:right; font:400 14px var(--font-sans),sans-serif; }
+
+/* Un solo «cómo llegar», con encuadre propio. */
+.visit-cta {
+  position:relative; display:grid; grid-template-columns:minmax(0,1fr) auto; align-items:center; gap:12px;
+  padding:20px 22px; border:1px solid var(--evergreen); border-radius:4px; background:var(--mist);
+  box-shadow:6px 6px 0 0 var(--peony);
+  transition:transform .24s cubic-bezier(.2,.7,.2,1), box-shadow .24s ease, background .24s ease;
+}
+.visit-cta:hover { transform:translate(3px,3px); box-shadow:2px 2px 0 0 var(--mauve); background:#fffdfb; }
+.visit-cta-label { grid-column:1; font:500 clamp(22px,2.2vw,30px)/1 var(--font-display),serif; }
+.visit-cta-sub { grid-column:1; grid-row:2; color:var(--sage); font-size:10px; letter-spacing:.14em; text-transform:uppercase; }
+.visit-cta-go { grid-column:2; grid-row:1/3; display:grid; place-items:center; width:42px; height:42px; border-radius:50%; border:1px solid var(--sage); color:var(--evergreen); font-size:16px; }
+
+/* --- Aire sobrante en el resto de bandas -------------------------------- */
+.social-proof { padding-block:clamp(40px,3.6vw,56px); }
+.videos { padding-top:clamp(34px,3vw,48px); }
+.location-map-card address { margin-bottom:0; }
+
+@media (max-width:760px) {
+  .hero-copy { justify-content:space-between; }
+  /* Cabe en una línea si baja la escala: es lo que pidió el salón. */
+  .booking-title { white-space:nowrap; font-size:clamp(19px,6.4vw,29px); }
+  .menu-tabs button { min-height:38px; padding:0 15px; font-size:9.5px; letter-spacing:.09em; }
+  .menu-card-body { padding:12px 13px 46px; }
+  .menu-card-body strong { font-size:16px; }
+  .menu-card-cta { left:13px; right:13px; bottom:11px; }
+
+  .booking-card { padding:22px 18px 24px; }
+  .booking-fields { gap:14px 16px; }
+  .booking-card .booking-form input,
+  .booking-card .booking-form select { min-height:36px; font-size:16px; }
+  .booking-card .booking-form label > span { font-size:7.5px; letter-spacing:.13em; }
+  .button-book { margin-top:18px; min-height:48px; }
+
+  .visit-card h2 { margin:10px 0 18px; }
+  .visit-facts { margin-bottom:20px; }
+  .visit-facts li { flex-direction:column; align-items:flex-start; gap:3px; padding:10px 0; }
+  .visit-facts b { text-align:left; font-size:13.5px; }
+  .visit-cta { padding:17px 18px; box-shadow:5px 5px 0 0 var(--peony); }
+  .visit-cta-go { width:38px; height:38px; }
+  .social-proof { padding-block:40px; }
+}

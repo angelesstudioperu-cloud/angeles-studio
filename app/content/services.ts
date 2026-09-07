@@ -25,10 +25,12 @@ export type StudioService = {
   note: string;
   priceFrom: number;
   /**
-   * Precio regular tachado que se muestra junto al vigente para leerlo como
-   * promoción. Solo debe llevarlo un servicio que efectivamente se haya
-   * cobrado a ese precio antes: en Perú, tachar un precio que nunca se aplicó
-   * es publicidad engañosa (INDECOPI).
+   * Precio de lista del servicio. `priceFrom` es el precio promocional vigente.
+   *
+   * Decisión del salón: subir la lista en los servicios más caros y correr una
+   * promoción real sobre ella. Para que el tachado sea válido ante INDECOPI, la
+   * lista debe estar efectivamente vigente y la promoción necesita fecha de
+   * inicio y fin definidas por el negocio.
    */
   priceRegular?: number;
   /** La lista original dice «desde» en manos y pies; en mirada los precios son cerrados. */

@@ -1,8 +1,16 @@
 'use client';
 
-import { useState, type FormEvent } from 'react';
+import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { SELECT_SERVICE_EVENT, type SelectServiceDetail } from './bookingBridge';
 import { business, whatsappUrl } from '../content/business';
-import { categoryContent, categories, priceLabel, servicesByCategory } from '../content/services';
+import { categoryContent, categories, getService, priceLabel, servicesByCategory } from '../content/services';
+
+const FLASH_MS = 2200;
+
+function optionValue(slug: string) {
+  const match = getService(slug);
+  return match ? `${match.name} (${priceLabel(match)})` : '';
+}
 
 /**
  * `preselect` es el slug que llega en /reservar?servicio=… desde las fichas de
@@ -10,14 +18,33 @@ import { categoryContent, categories, priceLabel, servicesByCategory } from '../
  * renderizado y no haya salto al hidratar.
  */
 export function BookingForm({ preselect }: { preselect?: string } = {}) {
-  const initial = preselect
-    ? categories
-        .flatMap((category) => servicesByCategory(category))
-        .find((item) => item.slug === preselect)
-    : undefined;
-
   const [status, setStatus] = useState<'idle' | 'opened' | 'blocked'>('idle');
-  const [service, setService] = useState(initial ? `${initial.name} (${priceLabel(initial)})` : '');
+  const [service, setService] = useState(preselect ? optionValue(preselect) : '');
+  const [flash, setFlash] = useState(false);
+
+  const runFlash = useCallback(() => {
+    setFlash(true);
+    const timer = window.setTimeout(() => setFlash(false), FLASH_MS);
+    return () => window.clearTimeout(timer);
+  }, []);
+
+  // El catálogo avisa qué servicio tocaron; el campo se llena y destella.
+  useEffect(() => {
+    let clear: (() => void) | undefined;
+    function onSelect(event: Event) {
+      const { slug } = (event as CustomEvent<SelectServiceDetail>).detail ?? {};
+      const value = slug ? optionValue(slug) : '';
+      if (!value) return;
+      setService(value);
+      clear?.();
+      clear = runFlash();
+    }
+    window.addEventListener(SELECT_SERVICE_EVENT, onSelect);
+    return () => {
+      window.removeEventListener(SELECT_SERVICE_EVENT, onSelect);
+      clear?.();
+    };
+  }, [runFlash]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,11 +75,11 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
     <form className="booking-form" onSubmit={handleSubmit}>
       <div className="booking-fields">
         <label>
-          <span>Tu nombre</span>
+          <span>Nombre</span>
           <input name="name" autoComplete="name" required placeholder="Cómo te llamamos" />
         </label>
         <label>
-          <span>Tu WhatsApp</span>
+          <span>WhatsApp</span>
           <input
             name="phone"
             type="tel"
@@ -65,8 +92,8 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
           />
         </label>
 
-        <label className="field-wide">
-          <span>Qué te quieres hacer</span>
+        <label className={`field-wide${flash ? ' is-flash' : ''}`}>
+          <span>Servicio</span>
           <select name="service" required value={service} onChange={(event) => setService(event.target.value)}>
             <option value="" disabled>
               Elige un servicio
@@ -82,6 +109,9 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
             ))}
             <option>No estoy segura — quiero asesoría</option>
           </select>
+          <span className="field-flash" role="status" aria-live="polite">
+            {flash ? 'Servicio seleccionado' : ''}
+          </span>
         </label>
 
         <label>
@@ -99,30 +129,30 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
         </label>
 
         <label>
-          <span>¿Primera visita?</span>
+          <span>Primera visita</span>
           <select name="firstVisit" defaultValue="">
             <option value="">Sin especificar</option>
-            <option>Sí, es mi primera vez</option>
+            <option>Sí</option>
             <option>No, ya soy clienta</option>
           </select>
         </label>
         <label>
-          <span>¿Retiro previo?</span>
+          <span>Retiro previo</span>
           <select name="removal" defaultValue="">
             <option value="">Sin especificar</option>
             <option>No</option>
-            <option>Sí, esmaltado en gel (S/ 10)</option>
-            <option>Sí, acrílicas o polygel (S/ 15)</option>
-            <option>Sí, rubber / builder / soft gel (S/ 20)</option>
+            <option>Esmaltado en gel (S/ 10)</option>
+            <option>Acrílicas o polygel (S/ 15)</option>
+            <option>Rubber / builder / soft gel (S/ 20)</option>
           </select>
         </label>
       </div>
 
-      <button className="button button-book button-flow" type="submit">
+      <button className="button button-book" type="submit">
         Enviar por WhatsApp <span aria-hidden="true">↗</span>
       </button>
       <p className="form-note">
-        La reserva se separa con un adelanto de S/ {business.bookingDeposit}, que se descuenta del total.
+        Adelanto de S/ {business.bookingDeposit} para separar, que se descuenta del total.
       </p>
 
       {status === 'opened' && (
