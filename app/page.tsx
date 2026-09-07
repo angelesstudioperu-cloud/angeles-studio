@@ -47,13 +47,11 @@ export default function Home() {
 
       <section className="booking" id="reservar">
         <div className="booking-heading">
-          <p className="eyebrow">Reserva en 1 minuto</p>
           <h2>Hagamos espacio<br /><em>para ti.</em></h2>
-          <ul className="booking-perks">
-            <li>Sin pagos por adelantado</li>
-            <li>Te confirmamos el mismo día</li>
-            <li>Lunes a sábado, 10 a.m. — 8:30 p.m.</li>
-          </ul>
+          <p className="booking-note">
+            Separas tu cita con un adelanto de <strong>S/ {business.bookingDeposit}</strong>, que se
+            descuenta del total del servicio.
+          </p>
         </div>
         <div className="booking-card">
           <BookingForm />
@@ -116,7 +114,7 @@ export default function Home() {
             <div><dt>WhatsApp</dt><dd>{business.whatsappDisplay}</dd></div>
           </dl>
           <div className="hero-actions">
-            <Link className="button button-primary" href="/reservar">Reservar cita</Link>
+            <Link className="button button-primary button-flow" href="/reservar">Reservar cita</Link>
             <Link className="text-link" href="/contacto">Cómo llegar <span aria-hidden="true">↗</span></Link>
           </div>
         </div>

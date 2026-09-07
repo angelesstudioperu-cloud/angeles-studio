@@ -46,7 +46,7 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
 
   return (
     <form className="booking-form" onSubmit={handleSubmit}>
-      <div className="booking-essentials">
+      <div className="booking-fields">
         <label>
           <span>Tu nombre</span>
           <input name="name" autoComplete="name" required placeholder="Cómo te llamamos" />
@@ -64,7 +64,8 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
             placeholder="999 999 999"
           />
         </label>
-        <label>
+
+        <label className="field-wide">
           <span>Qué te quieres hacer</span>
           <select name="service" required value={service} onChange={(event) => setService(event.target.value)}>
             <option value="" disabled>
@@ -82,57 +83,47 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
             <option>No estoy segura — quiero asesoría</option>
           </select>
         </label>
+
+        <label>
+          <span>Fecha</span>
+          <input name="date" type="date" />
+        </label>
+        <label>
+          <span>Horario</span>
+          <select name="time" defaultValue="">
+            <option value="">Cualquiera</option>
+            <option>Mañana</option>
+            <option>Tarde</option>
+            <option>Noche</option>
+          </select>
+        </label>
+
+        <label>
+          <span>¿Primera visita?</span>
+          <select name="firstVisit" defaultValue="">
+            <option value="">Sin especificar</option>
+            <option>Sí, es mi primera vez</option>
+            <option>No, ya soy clienta</option>
+          </select>
+        </label>
+        <label>
+          <span>¿Retiro previo?</span>
+          <select name="removal" defaultValue="">
+            <option value="">Sin especificar</option>
+            <option>No</option>
+            <option>Sí, esmaltado en gel (S/ 10)</option>
+            <option>Sí, acrílicas o polygel (S/ 15)</option>
+            <option>Sí, rubber / builder / soft gel (S/ 20)</option>
+          </select>
+        </label>
       </div>
 
-      <details className="booking-extras">
-        <summary>
-          <span>Agregar fecha y detalles</span>
-          <small>Opcional · lo podemos coordinar por WhatsApp</small>
-        </summary>
-        <div className="booking-extras-grid">
-          <label>
-            <span>Fecha preferida</span>
-            <input name="date" type="date" />
-          </label>
-          <label>
-            <span>Horario ideal</span>
-            <select name="time" defaultValue="">
-              <option value="">Cualquiera</option>
-              <option>Mañana</option>
-              <option>Tarde</option>
-              <option>Noche</option>
-            </select>
-          </label>
-          <label>
-            <span>¿Es tu primera visita?</span>
-            <select name="firstVisit" defaultValue="">
-              <option value="">Prefiero no decirlo</option>
-              <option>Sí, es mi primera vez</option>
-              <option>No, ya soy clienta</option>
-            </select>
-          </label>
-          <label>
-            <span>¿Necesitas retiro previo?</span>
-            <select name="removal" defaultValue="">
-              <option value="">No lo sé aún</option>
-              <option>No</option>
-              <option>Sí, esmaltado en gel (S/ 10)</option>
-              <option>Sí, acrílicas o polygel (S/ 15)</option>
-              <option>Sí, rubber / builder / soft gel (S/ 20)</option>
-            </select>
-          </label>
-        </div>
-      </details>
-
-      <label className="consent">
-        <input name="consent" type="checkbox" required />
-        <span>Acepto que {business.name} use estos datos solo para coordinar mi cita.</span>
-      </label>
-
-      <button className="button button-book" type="submit">
+      <button className="button button-book button-flow" type="submit">
         Enviar por WhatsApp <span aria-hidden="true">↗</span>
       </button>
-      <p className="form-note">Son 3 datos. Te respondemos para confirmar disponibilidad.</p>
+      <p className="form-note">
+        La reserva se separa con un adelanto de S/ {business.bookingDeposit}, que se descuenta del total.
+      </p>
 
       {status === 'opened' && (
         <p className="form-status" role="status">

@@ -30,7 +30,7 @@ export function SiteHeader({ current, tone = 'light' }: { current?: NavHref; ton
             {link.label}
           </Link>
         ))}
-        <Link className="nav-cta" href="/reservar" aria-current={current === '/reservar' ? 'page' : undefined}>
+        <Link className="nav-cta button-flow" href="/reservar" aria-current={current === '/reservar' ? 'page' : undefined}>
           Reservar
         </Link>
       </nav>

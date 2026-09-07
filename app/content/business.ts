@@ -42,6 +42,8 @@ export const business = {
     schemaDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   },
   bookingPolicy: 'Con cita previa',
+  /** Adelanto que se paga al reservar; se descuenta del total del servicio. */
+  bookingDeposit: 10,
 
   social: {
     instagram: { url: 'https://www.instagram.com/angelesstudio.pe/', handle: '@angelesstudio.pe' },

@@ -58,14 +58,9 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
           <p className="eyebrow">Formulario</p>
           <h2>Cuéntanos<br /><em>qué necesitas.</em></h2>
           <p>
-            Ningún dato se guarda en este sitio: el formulario solo arma el mensaje y lo abre en tu WhatsApp para
-            que lo envíes tú.
+            El formulario arma el mensaje y lo abre en tu WhatsApp. Separas la cita con un adelanto de{' '}
+            <strong>S/ {business.bookingDeposit}</strong>, que se descuenta del total.
           </p>
-          <ul className="booking-perks">
-            <li>Sin pagos por adelantado</li>
-            <li>Te confirmamos disponibilidad el mismo día</li>
-            <li>Lunes a sábado, de 10 a.m. a 8:30 p.m.</li>
-          </ul>
           <Link className="text-link" href="/servicios">Revisar precios antes <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="booking-card">

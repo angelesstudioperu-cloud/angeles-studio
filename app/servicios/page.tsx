@@ -17,7 +17,7 @@ export const metadata = {
 const notes = [
   ['Precios «desde»', 'Cubren el servicio estándar. El diseño, el largo, la pedrería o el tiempo técnico adicional pueden ajustarlo, y siempre te lo confirmamos antes de empezar.'],
   ['Retiros aparte', 'Si llegas con un trabajo anterior, el retiro se cobra por separado. Lo encuentras al final de esta página.'],
-  ['Con cita previa', `Reservamos por WhatsApp al ${business.whatsappDisplay} para darte el tiempo completo que tu servicio necesita.`],
+  ['Con cita previa', `Reservamos por WhatsApp al ${business.whatsappDisplay}. La cita se separa con un adelanto de S/ ${business.bookingDeposit}, que se descuenta del total.`],
 ];
 
 export default function ServicesPage() {

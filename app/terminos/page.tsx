@@ -34,8 +34,9 @@ export default function TermsPage() {
 
         <h2>Cambios y cancelaciones</h2>
         <p>
-          Las reprogramaciones deben solicitarse con anticipación por WhatsApp. Las condiciones de adelantos y
-          devoluciones se informan durante la confirmación de la cita.
+          Para separar una cita se abona un adelanto de S/ {business.bookingDeposit}, que se descuenta del total
+          del servicio. Las reprogramaciones deben solicitarse con anticipación por WhatsApp; las condiciones de
+          devolución del adelanto se informan al confirmar la cita.
         </p>
 
         <h2>Resultados y cuidados</h2>
