@@ -629,6 +629,19 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 .brand-logo-lg .brand-name { font-size:42px; }
 .brand-logo-lg .brand-sub { font-size:15px; margin-top:7px; }
 .brand:hover .brand-wings, .brand:focus-visible .brand-wings { transform:translateY(-2px) scale(1.04); }
+.brand.is-returning-home { pointer-events:none; }
+.brand.is-returning-home .brand-wings {
+  transform-origin:50% 92%;
+  animation:wings-return-home .5s cubic-bezier(.3,.72,.25,1) both;
+}
+@keyframes wings-return-home {
+  0% { transform:translateY(0) scaleX(1) scaleY(1); }
+  20% { transform:translateY(-1px) scaleX(.82) scaleY(1.06); }
+  42% { transform:translateY(-5px) scaleX(1.12) scaleY(.96); }
+  63% { transform:translateY(-3px) scaleX(.88) scaleY(1.04); }
+  82% { transform:translateY(-5px) scaleX(1.07) scaleY(.98); }
+  100% { transform:translateY(0) scaleX(1) scaleY(1); }
+}
 
 /* --- Cabecera y pie compartidos --------------------------------------- */
 .subpage > .site-header { padding-inline:var(--edge); background:var(--mist); }

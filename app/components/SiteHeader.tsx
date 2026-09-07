@@ -1,4 +1,5 @@
 import { NativeLink as Link } from './NativeLink';
+import { AnimatedHomeLink } from './AnimatedHomeLink';
 import { BrandLogo } from './BrandLogo';
 import { business } from '../content/business';
 
@@ -15,9 +16,9 @@ export type NavHref = (typeof navLinks)[number]['href'] | '/' | '/reservar';
 export function SiteHeader({ current, tone = 'light' }: { current?: NavHref; tone?: 'light' | 'dark' }) {
   return (
     <header className={`site-header site-header-${tone}`} role="banner">
-      <Link className="brand" href="/" aria-label={`${business.name}, inicio`}>
+      <AnimatedHomeLink ariaLabel={`${business.name}, inicio`}>
         <BrandLogo />
-      </Link>
+      </AnimatedHomeLink>
 
       <nav className="site-nav" aria-label="Navegación principal">
         {navLinks.map((link) => (
