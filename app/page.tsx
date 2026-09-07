@@ -10,7 +10,7 @@ import { SiteHeader } from './components/SiteHeader';
 import { SocialIcon } from './components/SocialIcon';
 import { VideoShowcase } from './components/VideoShowcase';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
-import { business } from './content/business';
+import { business, whatsappLink } from './content/business';
 import { gallery } from './content/gallery';
 
 const facts = [
@@ -52,8 +52,22 @@ export default function Home() {
             Separas tu cita con un adelanto de <strong>S/ {business.bookingDeposit}</strong>, que se
             descuenta del total del servicio.
           </p>
+          <dl className="booking-meta">
+            <div>
+              <dt>Atención</dt>
+              <dd>{business.hours.days}, {business.hours.display}</dd>
+            </div>
+            <div>
+              <dt>Respuesta</dt>
+              <dd>Te confirmamos disponibilidad el mismo día</dd>
+            </div>
+          </dl>
+          <a className="booking-direct" href={whatsappLink(`Hola, ${business.name}. Quisiera consultar por una cita.`)} target="_blank" rel="noreferrer">
+            ¿Prefieres escribirnos directo? {business.whatsappDisplay} <span aria-hidden="true">↗</span>
+          </a>
         </div>
         <div className="booking-card">
+          <p className="booking-card-title">Solicita tu cita</p>
           <BookingForm />
         </div>
       </section>
@@ -65,6 +79,10 @@ export default function Home() {
           <div>
             <p className="eyebrow">The Ángeles edit</p>
             <h2 id="edit-title">Diseños y resultados.</h2>
+            <p className="section-lead">
+              Formas, colores y acabados que trabajamos en cabina. Guarda el que te represente y muéstranoslo
+              el día de tu cita.
+            </p>
           </div>
           <Link className="text-link" href="/galeria">
             Ver la galería <span aria-hidden="true">↗</span>
@@ -83,6 +101,10 @@ export default function Home() {
         <div className="social-heading">
           <p className="eyebrow">Síguenos</p>
           <h2 id="social-title">Cada semana,<br />trabajos nuevos.</h2>
+          <p className="section-lead">
+            Publicamos diseños, procesos y la disponibilidad de la semana. Es la forma más rápida de ver
+            resultados reales antes de reservar.
+          </p>
         </div>
         <div className="social-grid">
           <a className="social-card" href={business.social.instagram.url} target="_blank" rel="noreferrer">

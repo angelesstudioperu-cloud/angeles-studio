@@ -17,6 +17,10 @@ export function VideoShowcase() {
         <div>
           <p className="eyebrow">En video</p>
           <h2 id="videos-title">Míranos trabajar.</h2>
+          <p className="section-lead">
+            Estamos grabando el proceso de cada servicio en cabina. Mientras tanto, los trabajos del día
+            salen en nuestro TikTok.
+          </p>
         </div>
         <a className="text-link" href={business.social.tiktok.url} target="_blank" rel="noreferrer">
           TikTok {business.social.tiktok.handle} <span aria-hidden="true">↗</span>

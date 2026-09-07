@@ -97,8 +97,26 @@ export function HeroCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
+      {/* La foto es hermana del texto: en PC se va al fondo a sangre y en móvil
+          queda arriba, dentro de su marco. */}
+      <div className="hero-visual hero-photo">
+        {slides.map((slide, slideIndex) => (
+          <img
+            key={slide.id}
+            className={slideIndex === index ? 'is-active' : undefined}
+            src={slide.image.src}
+            alt={slideIndex === index ? slide.image.alt : ''}
+            width={slide.image.width}
+            height={slide.image.height}
+            aria-hidden={slideIndex === index ? undefined : true}
+            draggable={false}
+            fetchPriority={slideIndex === 0 ? 'high' : 'low'}
+            loading={slideIndex === 0 ? 'eager' : 'lazy'}
+          />
+        ))}
+      </div>
+
       <div className="hero-grid">
-        {/* Texto a la izquierda y su botón a la derecha: el bloque ocupa todo el ancho. */}
         <div className="hero-copy" key={active.id}>
           <div className="hero-copy-text">
             <p className="eyebrow">{active.eyebrow}</p>
@@ -111,23 +129,6 @@ export function HeroCarousel() {
           <Link className="button button-primary hero-cta" href={active.cta.href}>
             {active.cta.label}
           </Link>
-        </div>
-
-        <div className="hero-visual hero-photo">
-          {slides.map((slide, slideIndex) => (
-            <img
-              key={slide.id}
-              className={slideIndex === index ? 'is-active' : undefined}
-              src={slide.image.src}
-              alt={slideIndex === index ? slide.image.alt : ''}
-              width={slide.image.width}
-              height={slide.image.height}
-              aria-hidden={slideIndex === index ? undefined : true}
-              draggable={false}
-              fetchPriority={slideIndex === 0 ? 'high' : 'low'}
-              loading={slideIndex === 0 ? 'eager' : 'lazy'}
-            />
-          ))}
         </div>
       </div>
 

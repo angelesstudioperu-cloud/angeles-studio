@@ -42,7 +42,12 @@ export function ServiceMenu() {
   return (
     <section className="menu" id="servicios" aria-labelledby="menu-title">
       <div className="section-bar">
-        <h2 id="menu-title">Catálogo</h2>
+        <div>
+          <h2 id="menu-title">Catálogo</h2>
+          <p className="section-lead">
+            Toca el nombre para ver en qué consiste cada servicio, o el precio para reservarlo al toque.
+          </p>
+        </div>
         <Link className="text-link" href="/servicios">
           Lista completa y retiros <span aria-hidden="true">↗</span>
         </Link>
@@ -89,7 +94,7 @@ export function ServiceMenu() {
               onClick={(event) => pickService(event, service.slug)}
               aria-label={`Reservar ${service.name}`}
             >
-              <PriceTag service={service} />
+              <PriceTag service={service} showFrom={false} />
             </a>
           </article>
         ))}
