@@ -5,7 +5,7 @@ import { PageHero } from '../components/PageHero';
 import { SiteFooter } from '../components/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader';
 import { WhatsAppFloat } from '../components/WhatsAppFloat';
-import { addressLines, business, emailUrl, whatsappLink } from '../content/business';
+import { business, emailUrl, whatsappLink } from '../content/business';
 
 export const metadata = {
   title: 'Contacto y ubicación',
@@ -68,8 +68,7 @@ export default function ContactPage() {
 
       <section className="contact-grid" id="canales">
         <div className="contact-card">
-          <p className="eyebrow">Dirección</p>
-          <address>{addressLines.map((line) => <span key={line}>{line}</span>)}</address>
+          <p className="eyebrow">El dato completo</p>
           <dl>
             <div><dt>Horario</dt><dd>{business.hours.display}</dd></div>
             <div><dt>Días</dt><dd>{business.hours.days}</dd></div>

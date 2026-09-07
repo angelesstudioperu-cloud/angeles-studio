@@ -6,7 +6,7 @@ import { BrandWings } from './BrandLogo';
 type PageHeroProps = {
   eyebrow: string;
   title: ReactNode;
-  intro: string;
+  intro?: string;
   image?: { src: string; alt: string; width: number; height: number };
   caption?: { index: string; text: ReactNode };
   actions?: ReactNode;
@@ -40,7 +40,7 @@ export function PageHero({
         </nav>
         <p className="eyebrow">{eyebrow}</p>
         <h1>{title}</h1>
-        <p className="page-hero-intro">{intro}</p>
+        {intro && <p className="page-hero-intro">{intro}</p>}
         {actions && <div className="hero-actions">{actions}</div>}
       </div>
 

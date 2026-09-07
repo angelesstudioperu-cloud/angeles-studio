@@ -11,7 +11,7 @@ import {
   type ServiceCategory,
 } from '../content/services';
 
-export function PriceTable({ category, index }: { category: ServiceCategory; index: number }) {
+export function PriceTable({ category }: { category: ServiceCategory }) {
   const content = categoryContent[category];
   const list = servicesByCategory(category);
 
@@ -19,9 +19,6 @@ export function PriceTable({ category, index }: { category: ServiceCategory; ind
     <article className="price-block" id={category}>
       <div className="price-block-media">
         <img src={content.image} alt={content.imageAlt} width={content.imageWidth} height={content.imageHeight} loading="lazy" />
-        <span className="price-block-index" aria-hidden="true">
-          {String(index).padStart(2, '0')}
-        </span>
       </div>
 
       <div className="price-block-body">

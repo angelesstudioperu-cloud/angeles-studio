@@ -2324,3 +2324,201 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .page-hero-location > .location-map,
   .page-hero-location > .location-map iframe { min-height:340px; }
 }
+
+/* ============================================================
+   v11 — El studio nuevo, galería ampliable y densidad móvil
+   ============================================================ */
+
+/* --- Hueco de video reutilizable ---------------------------------------- */
+.video-frame {
+  display:grid; place-items:center; align-content:center; gap:10px;
+  border:1.5px dashed var(--sage); border-radius:6px;
+  background:linear-gradient(150deg, rgba(242,209,212,.35), rgba(130,150,114,.12));
+  text-align:center; aspect-ratio:16/10;
+}
+.video-frame-icon {
+  display:grid; place-items:center; width:60px; height:60px; border-radius:50%;
+  background:var(--mist); border:1px solid var(--sage); color:var(--evergreen); font-size:18px;
+}
+.video-frame p { margin:0; font:500 20px var(--font-display),serif; }
+.video-frame small { color:var(--sage); font-size:9px; letter-spacing:.18em; text-transform:uppercase; }
+.video-frame-tall { aspect-ratio:3/4; }
+
+/* --- El studio: apertura con la experiencia ----------------------------- */
+.experience-intro {
+  display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  align-items:center; gap:clamp(28px,4vw,68px);
+  padding:clamp(30px,3.6vw,54px) var(--edge) var(--section-y);
+  background:radial-gradient(circle at 82% 12%,rgba(244,243,241,.9),transparent 32%),linear-gradient(118deg,var(--mist) 0 54%,var(--peony) 54% 100%);
+}
+.experience-intro h1 { margin:14px 0 20px; font:500 clamp(36px,4.8vw,74px)/.94 var(--font-display),serif; letter-spacing:-.04em; }
+.experience-intro h1 em { color:var(--mauve); font-style:normal; }
+.experience-lead { max-width:56ch; color:var(--evergreen); font-size:clamp(14px,1.05vw,16px); line-height:1.85; }
+.experience-points { display:grid; gap:10px; margin:24px 0 0; padding:0; list-style:none; }
+.experience-points li { position:relative; padding-left:24px; color:var(--evergreen); font-size:13.5px; line-height:1.7; }
+.experience-points li::before {
+  content:''; position:absolute; left:0; top:9px; width:9px; height:9px;
+  border-radius:50%; border:1.5px solid var(--mauve);
+}
+
+/* --- Recorrido: video a la izquierda, fotos en escalera a la derecha ----- */
+.tour { padding:var(--section-y) var(--edge); background:var(--mist); }
+.tour-title { margin:0 0 26px; font:500 clamp(30px,3.4vw,50px) var(--font-display),serif; letter-spacing:-.035em; }
+.tour { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr); gap:clamp(24px,3.4vw,56px); align-items:start; }
+.tour-title { grid-column:1/-1; }
+.tour-video { aspect-ratio:4/3; align-self:center; }
+.tour-shots { display:grid; gap:clamp(12px,1.6vw,20px); }
+.tour-shot { margin:0; overflow:hidden; border:1px solid rgba(52,76,61,.16); box-shadow:var(--lift-1); }
+.tour-shot img { display:block; width:100%; aspect-ratio:1.45; object-fit:cover; }
+/* Escalonado: bajan y se desplazan, no quedan en columna recta. */
+.tour-shot-1 { width:78%; margin-left:0; }
+.tour-shot-2 { width:78%; margin-left:auto; margin-right:0; }
+.tour-shot-3 { width:78%; margin-left:11%; }
+
+/* --- El studio: equipo -------------------------------------------------- */
+.subpage-nosotros .team { background:var(--peony); }
+
+/* --- Galería ampliable --------------------------------------------------- */
+.gallery-item { position:relative; padding:0; border:1px solid rgba(52,76,61,.14); background:var(--peony); cursor:zoom-in; }
+.gallery-item-tag {
+  position:absolute; left:10px; bottom:10px; padding:6px 11px;
+  background:rgba(244,243,241,.93); border:1px solid rgba(52,76,61,.18);
+  color:var(--evergreen); font-size:9px; letter-spacing:.14em; text-transform:uppercase;
+  backdrop-filter:blur(8px);
+}
+.gallery-after { display:flex; justify-content:center; padding:26px var(--edge) var(--section-y); background:var(--mist); }
+.gallery-after .button { min-width:min(320px,100%); justify-content:center; }
+
+.lightbox {
+  position:fixed; inset:0; z-index:60; display:grid; place-items:center;
+  padding:clamp(16px,4vw,48px); background:rgba(20,32,25,.88); backdrop-filter:blur(6px);
+  animation:answer-in .2s ease both;
+}
+.lightbox figure { margin:0; max-width:min(94vw,900px); max-height:86vh; display:grid; gap:12px; }
+.lightbox img { max-width:100%; max-height:76vh; width:auto; height:auto; object-fit:contain; border-radius:4px; }
+.lightbox figcaption { color:var(--mist); font:500 17px var(--font-display),serif; text-align:center; }
+.lightbox figcaption span { display:block; margin-bottom:4px; color:var(--peony); font:600 9px var(--font-sans),sans-serif; letter-spacing:.18em; text-transform:uppercase; }
+.lightbox-close {
+  position:absolute; top:clamp(12px,3vw,26px); right:clamp(12px,3vw,26px);
+  width:46px; height:46px; border-radius:50%; border:1px solid rgba(242,209,212,.5);
+  background:rgba(244,243,241,.12); color:var(--mist); font-size:16px; cursor:pointer;
+}
+.lightbox-close:hover { background:rgba(244,243,241,.24); }
+
+/* --- Reserva: el formulario primero ------------------------------------- */
+.booking-first { grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); align-items:start; }
+.booking-first .booking-card { order:1; }
+.booking-first .booking-heading { order:2; align-self:start; }
+.booking-flow { display:grid; gap:14px; margin:26px 0 0; padding:0; list-style:none; counter-reset:paso; }
+.booking-flow li { display:grid; grid-template-columns:34px minmax(0,1fr); gap:4px 12px; align-items:baseline; }
+.booking-flow span { grid-row:1/3; color:var(--mauve); font:italic 17px var(--font-display),serif; }
+.booking-flow b { font:500 17px var(--font-display),serif; }
+.booking-flow small { color:var(--evergreen); font-size:12.5px; line-height:1.6; opacity:.82; }
+.booking-links { display:flex; flex-wrap:wrap; gap:10px 24px; margin-top:24px; }
+
+/* --- Lista de precios sin numeración ------------------------------------ */
+.price-block-body .eyebrow { margin-top:0; }
+.price-block-body h2 { margin-top:6px; }
+
+/* ============================================================
+   Móvil: aprovechar el ancho en vez de apilar todo
+   ============================================================ */
+@media (max-width:760px) {
+  /* El studio */
+  .experience-intro { grid-template-columns:minmax(0,1fr); gap:22px; padding-bottom:44px; }
+  .experience-intro h1 { font-size:clamp(30px,8.4vw,40px); margin:10px 0 14px; }
+  .experience-lead { font-size:14px; line-height:1.75; }
+  .experience-points { gap:8px; margin-top:18px; }
+  .experience-points li { font-size:13px; }
+  .video-frame-tall { aspect-ratio:16/11; }
+
+  .tour { grid-template-columns:minmax(0,1fr); gap:16px; }
+  .tour-title { margin-bottom:16px; font-size:clamp(27px,7.6vw,34px); }
+  .tour-video { aspect-ratio:16/10; }
+  /* En móvil la escalera pasa a mosaico: dos arriba, una ancha abajo. */
+  .tour-shots { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+  .tour-shot { width:auto!important; margin:0!important; }
+  .tour-shot img { aspect-ratio:1; }
+  .tour-shot-3 { grid-column:1/-1; }
+  .tour-shot-3 img { aspect-ratio:2; }
+
+  /* Servicios: la ficha usa el ancho, no apila foto sobre texto */
+  .price-block { grid-template-columns:minmax(0,1fr); gap:14px; }
+  .price-block-media img { aspect-ratio:2.1; border-width:6px; }
+  .price-block-body .eyebrow { margin-bottom:2px; }
+  .price-block-body h2 { margin:4px 0 10px; font-size:clamp(24px,7vw,32px); }
+  .price-block-intro { margin-bottom:16px; font-size:13px; line-height:1.7; }
+  .price-sheet { gap:34px; }
+  .removals { gap:18px; }
+  .removal-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+  .removal-grid li:last-child { grid-column:1/-1; }
+  .removal-grid li { grid-template-columns:minmax(0,1fr); padding:14px 15px; gap:5px; }
+  .removal-grid strong { font-size:27px; }
+  .removal-grid span { font-size:10px; }
+  .removal-grid span small { font-size:9px; }
+  .notes-band article { padding:22px var(--page-gutter); }
+
+  /* Galería: dos por fila y sin scroll infinito */
+  .gallery-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding-bottom:0; }
+  .gallery-grid > * { margin-top:0!important; }
+  .gallery-item { aspect-ratio:.86; }
+  .gallery-item-tag { left:7px; bottom:7px; padding:4px 8px; font-size:8px; }
+  .gallery-after { padding:20px var(--page-gutter) 40px; }
+  .gallery-disclaimer { padding-top:14px; font-size:10.5px; }
+
+  /* Ubicación: los canales en dos columnas */
+  .contact-grid { gap:22px; }
+  .contact-card { padding:24px 20px; }
+  .contact-card address { margin:14px 0 18px; font-size:17px; }
+  .contact-card dl { margin-bottom:20px; }
+  .contact-card dl div { padding:11px 0; }
+  .contact-channels h2 { margin:10px 0 16px; font-size:clamp(27px,7.6vw,34px); }
+  .contact-channels ul { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; }
+  .contact-channels li:last-child { grid-column:1/-1; }
+  .contact-channels a { padding:15px 34px 16px 15px; }
+  .contact-channels strong { margin:5px 0 4px; font-size:16px; }
+  .contact-channels p { font-size:10.5px; line-height:1.45; }
+  .contact-channels .social-go { right:12px; top:14px; }
+  .contact-note { margin-top:14px; font-size:10.5px; }
+
+  /* Reserva: formulario arriba y pasos en dos columnas */
+  .booking-first { grid-template-columns:minmax(0,1fr); gap:26px; }
+  .booking-first .booking-heading { align-self:auto; }
+  .booking-flow { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 12px; margin-top:20px; }
+  .booking-flow li { grid-template-columns:minmax(0,1fr); gap:3px; }
+  .booking-flow span { grid-row:auto; font-size:15px; }
+  .booking-flow b { font-size:15px; }
+  .booking-flow small { font-size:11.5px; line-height:1.5; }
+  .booking-flow li:last-child { grid-column:1/-1; }
+  .booking-links { gap:8px 18px; margin-top:18px; }
+}
+
+@media (max-width:359px) {
+  .contact-channels ul, .removal-grid { grid-template-columns:minmax(0,1fr); }
+  .contact-channels li:last-child, .removal-grid li:last-child { grid-column:auto; }
+}
+
+/* ============================================================
+   v12 — tarjetas de categoría sin numeración ni hueco arriba
+   ============================================================ */
+
+/* Al quitar el número, `grid-template-rows:auto 1fr auto` dejaba una fila
+   vacía arriba: el contenido se ancla abajo y la tarjeta se compacta. */
+.services-anchor-nav a {
+  min-height:126px;
+  display:flex; flex-direction:column; justify-content:flex-end; gap:5px;
+  padding:20px 22px;
+}
+.services-anchor-nav strong { align-self:auto; }
+.services-anchor-nav { padding-block:clamp(18px,2.4vw,30px) clamp(28px,3.4vw,46px); }
+
+@media (max-width:760px) {
+  .services-anchor-nav a { min-height:104px; padding:16px 16px 15px; }
+  .services-anchor-nav strong { font-size:clamp(20px,6vw,26px); }
+  .service-anchor-go { right:14px; top:14px; width:28px; height:28px; }
+
+  /* El hero de servicios ocupaba tres líneas y media pantalla. */
+  .subpage-servicios .page-hero { padding-bottom:30px; }
+  .subpage-servicios .page-hero h1 { font-size:clamp(30px,8.4vw,38px); margin:8px 0 12px; }
+  .subpage-servicios .page-hero-intro { font-size:13px; line-height:1.65; }
+}

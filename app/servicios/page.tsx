@@ -31,28 +31,20 @@ export default function ServicesPage() {
         className="page-hero-wide"
         showEmblem={false}
         breadcrumb="Servicios"
-        eyebrow="Lista de precios"
-        title={<>Todo lo que hacemos, <em>con su precio.</em></>}
+        eyebrow="Descubre todo"
+        title={<>Lo que tenemos <em>para ti.</em></>}
         intro="Manos, pies y mirada. Sin letra chica: acá está la carta completa tal como la trabajamos en el salón."
-        actions={
-          <>
-            <Link className="button button-primary" href="/reservar">Reservar cita</Link>
-            <a className="text-link" href="#retiros">Ver retiros <span aria-hidden="true">↗</span></a>
-          </>
-        }
       />
 
       <nav className="anchor-nav services-anchor-nav" aria-label="Categorías de servicio">
-        {categories.map((category, index) => (
+        {categories.map((category) => (
           <a key={category} href={`#${category}`}>
-            <span className="service-anchor-index">{String(index + 1).padStart(2, '0')}</span>
             <strong>{categoryContent[category].label}</strong>
             <small>{servicesByCategory(category).length} servicios</small>
             <span className="service-anchor-go" aria-hidden="true">↘</span>
           </a>
         ))}
         <a href="#retiros">
-          <span className="service-anchor-index">04</span>
           <strong>Retiros</strong>
           <small>{removals.length} opciones</small>
           <span className="service-anchor-go" aria-hidden="true">↘</span>
@@ -60,8 +52,8 @@ export default function ServicesPage() {
       </nav>
 
       <section className="price-sheet" id="lista">
-        {categories.map((category, index) => (
-          <PriceTable key={category} category={category} index={index + 1} />
+        {categories.map((category) => (
+          <PriceTable key={category} category={category} />
         ))}
       </section>
 

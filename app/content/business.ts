@@ -42,6 +42,8 @@ export const business = {
     schemaDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
   },
   bookingPolicy: 'Con cita previa',
+  /** Confirmado por el salón. */
+  yearsOfExperience: 3,
   /** Adelanto que se paga al reservar; se descuenta del total del servicio. */
   bookingDeposit: 10,
 

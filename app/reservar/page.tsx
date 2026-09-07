@@ -1,7 +1,6 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { BookingForm } from '../components/BookingForm';
 import { MotionEffects } from '../components/MotionEffects';
-import { PageHero } from '../components/PageHero';
 import { SiteFooter } from '../components/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader';
 import { WhatsAppFloat } from '../components/WhatsAppFloat';
@@ -29,42 +28,38 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
       <a className="skip-link" href="#formulario">Saltar al formulario</a>
       <SiteHeader current="/reservar" />
 
-      <PageHero
-        breadcrumb="Reservar"
-        eyebrow="Reserva"
-        title={<span className="booking-title">Hagamos espacio <em>para ti.</em></span>}
-        intro="Atendemos con cita previa. Cuéntanos qué buscas y cuándo te queda cómodo, y coordinamos el resto por WhatsApp."
-        image={{ src: '/images/servicio-pies.webp', alt: 'Pedicure spa en gel en proceso', width: 1400, height: 2100 }}
-        caption={{ index: '02', text: <>Pedicure spa<br />S/ 40.</> }}
-        actions={
-          <a className="text-link" href={whatsappLink(`Hola, ${business.name}. Quisiera reservar una cita.`)} target="_blank" rel="noreferrer">
-            Prefiero escribir directo <span aria-hidden="true">↗</span>
-          </a>
-        }
-      />
+      {/* El formulario abre la página: es a lo que viene quien entra aquí. */}
+      <section className="booking booking-first" id="formulario">
+        <div className="booking-card">
+          <p className="booking-card-title">Solicita tu cita</p>
+          <BookingForm preselect={preselect} />
+        </div>
 
-      <section className="booking-steps" aria-label="Cómo funciona la reserva">
-        {steps.map(([number, title, copy]) => (
-          <article key={number}>
-            <span aria-hidden="true">{number}</span>
-            <h3>{title}</h3>
-            <p>{copy}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="booking" id="formulario">
         <div className="booking-heading">
-          <p className="eyebrow">Formulario</p>
-          <h2 className="booking-title">Cuéntanos <em>qué necesitas.</em></h2>
-          <p>
+          <h2 className="booking-title">Hagamos espacio <em>para ti.</em></h2>
+          <p className="booking-note">
             El formulario arma el mensaje y lo abre en tu WhatsApp. Separas la cita con un adelanto de{' '}
             <strong>S/ {business.bookingDeposit}</strong>, que se descuenta del total.
           </p>
-          <Link className="text-link" href="/servicios">Revisar precios antes <span aria-hidden="true">↗</span></Link>
-        </div>
-        <div className="booking-card">
-          <BookingForm preselect={preselect} />
+
+          <ol className="booking-flow">
+            {steps.map(([number, title, copy]) => (
+              <li key={number}>
+                <span aria-hidden="true">{number}</span>
+                <b>{title}</b>
+                <small>{copy}</small>
+              </li>
+            ))}
+          </ol>
+
+          <div className="booking-links">
+            <a className="text-link" href={whatsappLink(`Hola, ${business.name}. Quisiera reservar una cita.`)} target="_blank" rel="noreferrer">
+              Prefiero escribir directo <span aria-hidden="true">↗</span>
+            </a>
+            <Link className="text-link" href="/servicios">
+              Revisar precios <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
         </div>
       </section>
 
