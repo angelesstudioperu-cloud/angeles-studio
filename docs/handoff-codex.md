@@ -33,8 +33,8 @@ Detalles que conviene que conozcas antes de tocar nada:
   (`v3` … `v9`). Hay reglas muertas de la paleta antigua (`.consent`, `.booking-perks`,
   `.finder`, `.looks-image`) que no borré porque comparten líneas con selectores vivos.
   Si lo limpias, hazlo con el sitio corriendo delante.
-- **Precios.** `priceFrom` es el precio promocional vigente y `priceRegular` el de lista.
-  El tachado solo aparece si `priceRegular > priceFrom`.
+- **Precios.** `priceFrom` es el precio de la lista oficial y `priceIsFrom` decide si se
+  antepone «desde». No hay precios tachados; ver 2.1.
 
 ---
 
