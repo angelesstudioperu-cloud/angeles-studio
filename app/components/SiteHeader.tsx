@@ -2,15 +2,15 @@ import Link from 'next/link';
 import { BrandLogo } from './BrandLogo';
 import { business } from '../content/business';
 
+/** `compact` marca los cuatro enlaces que sobreviven en móvil. */
 export const navLinks = [
-  { href: '/', label: 'Inicio' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/galeria', label: 'Galería' },
-  { href: '/nosotros', label: 'El studio' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/servicios', label: 'Servicios', compact: true },
+  { href: '/galeria', label: 'Galería', compact: true },
+  { href: '/nosotros', label: 'El studio', compact: false },
+  { href: '/contacto', label: 'Ubicación', compact: true },
 ] as const;
 
-export type NavHref = (typeof navLinks)[number]['href'] | '/reservar';
+export type NavHref = (typeof navLinks)[number]['href'] | '/' | '/reservar';
 
 export function SiteHeader({ current, tone = 'light' }: { current?: NavHref; tone?: 'light' | 'dark' }) {
   return (
@@ -19,29 +19,21 @@ export function SiteHeader({ current, tone = 'light' }: { current?: NavHref; ton
         <BrandLogo />
       </Link>
 
-      <nav className="desktop-nav" aria-label="Navegación principal">
+      <nav className="site-nav" aria-label="Navegación principal">
         {navLinks.map((link) => (
-          <Link key={link.href} href={link.href} aria-current={current === link.href ? 'page' : undefined}>
+          <Link
+            key={link.href}
+            className={link.compact ? undefined : 'nav-wide-only'}
+            href={link.href}
+            aria-current={current === link.href ? 'page' : undefined}
+          >
             {link.label}
           </Link>
         ))}
+        <Link className="nav-cta" href="/reservar" aria-current={current === '/reservar' ? 'page' : undefined}>
+          Reservar
+        </Link>
       </nav>
-
-      <Link className="header-cta" href="/reservar" aria-current={current === '/reservar' ? 'page' : undefined}>
-        Reservar cita
-      </Link>
-
-      <details className="mobile-menu">
-        <summary aria-label="Abrir navegación">Menú</summary>
-        <nav aria-label="Navegación móvil">
-          {navLinks.map((link) => (
-            <Link key={link.href} href={link.href} aria-current={current === link.href ? 'page' : undefined}>
-              {link.label}
-            </Link>
-          ))}
-          <Link href="/reservar">Reservar</Link>
-        </nav>
-      </details>
     </header>
   );
 }

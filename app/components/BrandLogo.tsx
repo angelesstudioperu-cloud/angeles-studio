@@ -14,8 +14,8 @@ export function BrandWings({ className }: { className?: string }) {
       className={`brand-wings ${className ?? ''}`}
       src="/brand/angeles-wings.png"
       alt=""
-      width={1098}
-      height={780}
+      width={760}
+      height={540}
       unoptimized
       aria-hidden="true"
       draggable={false}

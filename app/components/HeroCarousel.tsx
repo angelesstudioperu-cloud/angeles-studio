@@ -130,10 +130,6 @@ export function HeroCarousel() {
         </div>
       </div>
 
-      {/* Línea de avance: marca el ritmo sin revelar cuántos slides hay. */}
-      <div className="hero-progress" aria-hidden="true">
-        <span key={index} className={paused ? 'is-paused' : undefined} />
-      </div>
     </div>
   );
 }

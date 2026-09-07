@@ -1370,3 +1370,137 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 @media (prefers-reduced-motion:reduce) {
   .hero-progress span, .menu-grid { animation:none!important; }
 }
+
+/* ============================================================
+   v5 — cabecera, color de marca y aprovechamiento del espacio
+   ============================================================ */
+
+:root {
+  /* Rosa muestreado del PNG oficial del logo. */
+  --brand-pink: #C07278;
+  --brand-pink-soft: #E7B4B8;
+}
+
+/* El círculo verde chocaba con la cabecera en móvil. */
+.hero::before { content:none; }
+.hero-progress { display:none; }
+
+/* --- Lettering del mismo rosa que el ala ------------------------------- */
+.brand-logo { color:var(--brand-pink); }
+.brand-lettering { justify-items:end; }
+.brand-name { color:var(--brand-pink); }
+.brand-sub { margin-top:2px; color:var(--brand-pink); letter-spacing:.06em; }
+.footer .brand-logo, .footer .brand-name, .footer .brand-sub { color:var(--brand-pink-soft); }
+
+/* --- Cabecera: marca + una sola navegación ----------------------------- */
+.site-header { height:auto; grid-template-columns:auto 1fr; gap:20px; padding-block:18px; }
+.site-nav { display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:clamp(16px,2.4vw,34px); }
+.site-nav a { position:relative; padding:10px 0; font-size:11px; letter-spacing:.13em; text-transform:uppercase; }
+.site-nav a::after { content:''; position:absolute; inset:auto 0 2px; height:1px; background:var(--brand-pink); transform:scaleX(0); transition:transform .25s; }
+.site-nav a:hover::after, .site-nav a:focus-visible::after { transform:scaleX(1); }
+.site-nav a[aria-current=page] { color:var(--brand-pink); }
+.site-nav a[aria-current=page]::after { transform:scaleX(1); }
+
+.nav-cta {
+  display:inline-flex; align-items:center; min-height:44px; margin-left:6px; padding:0 24px;
+  border:1px solid var(--evergreen); border-radius:999px;
+  background:var(--evergreen); color:var(--mist); font-weight:600;
+  box-shadow:var(--lift-1); transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+}
+.nav-cta::after { content:none; }
+.nav-cta:hover { transform:translateY(-2px); background:var(--evergreen-soft); box-shadow:var(--lift-2); color:var(--mist); }
+.nav-cta[aria-current=page] { background:var(--brand-pink); border-color:var(--brand-pink); color:var(--mist); }
+
+/* --- Botón principal: más presencia -------------------------------------- */
+.button-primary {
+  min-height:56px; padding:0 34px; border-radius:999px;
+  border:1px solid var(--evergreen); background:var(--evergreen); color:var(--mist);
+  font-size:11px; letter-spacing:.16em;
+  box-shadow:0 2px 4px rgba(20,40,28,.14), 0 14px 30px rgba(20,40,28,.2);
+  transition:transform .24s cubic-bezier(.2,.7,.2,1), box-shadow .24s ease, background .24s ease;
+}
+.button-primary:hover {
+  transform:translateY(-3px); background:var(--evergreen-soft); color:var(--mist);
+  box-shadow:0 3px 6px rgba(20,40,28,.16), 0 22px 44px rgba(20,40,28,.28);
+}
+.button-primary:active { transform:translateY(-1px); }
+.button-book { border-radius:999px; }
+
+/* --- Escritorio: menos aire muerto en la portada -------------------------- */
+@media (min-width:761px) {
+  .hero { min-height:0; padding-bottom:clamp(40px,4vw,64px); }
+  .hero-carousel .hero-grid { min-height:0; align-items:center; padding-block:clamp(24px,3vw,48px); }
+  .hero-carousel .hero-copy { padding:0; }
+  .hero-carousel .hero-visual, .hero-carousel .hero-photo { height:clamp(400px,52vh,560px); }
+  .hero-carousel .hero-actions { margin-top:clamp(22px,2.4vw,34px); }
+  .booking { align-items:stretch; }
+  .booking-heading { align-self:center; }
+}
+
+/* ============================================================
+   Móvil: marca centrada, navegación de cuatro y cero aire muerto
+   ============================================================ */
+@media (max-width:760px) {
+  /* `.subpage > .site-header` fijaba 72 px y la cabecera de dos filas no cabía:
+     la ruta de navegación se montaba encima del menú. */
+  .site-header, .subpage > .site-header {
+    grid-template-columns:minmax(0,1fr); justify-items:center; gap:14px;
+    height:auto; padding-block:16px 12px; text-align:center;
+  }
+  .brand { justify-self:center; }
+  .brand-logo { gap:10px; }
+  .brand-logo .brand-wings { width:44px; height:31px; }
+  .brand-name { font-size:26px; }
+  /* «Nails Salon» arranca bajo la g y pegado a la palabra. */
+  .brand-sub { margin-top:1px; font-size:10.5px; }
+
+  .site-nav {
+    width:100%; flex-wrap:nowrap; justify-content:space-between; gap:4px;
+    padding-top:10px; border-top:1px solid var(--line);
+  }
+  .site-nav a { flex:1 1 0; padding:9px 2px; text-align:center; font-size:9.5px; letter-spacing:.07em; }
+  .site-nav a::after { inset:auto 18% 0; }
+  .nav-wide-only { display:none; }
+  .nav-cta {
+    flex:1 1 0; justify-content:center; min-height:38px; margin-left:0; padding:0 8px;
+    border-radius:999px; font-size:9.5px; letter-spacing:.07em; box-shadow:none;
+  }
+
+  /* Portada: la foto no se pega a la cabecera y el bloque de texto se compacta. */
+  .hero { padding-bottom:26px; }
+  .hero-carousel .hero-grid { gap:18px; }
+  .hero-carousel .hero-visual { order:1; margin-top:18px; height:clamp(280px,40vh,340px); }
+  .hero-carousel .hero-copy { order:2; padding:0; }
+  .hero-carousel .eyebrow { font-size:9.5px; letter-spacing:.16em; }
+  .hero-carousel h1 { margin:8px 0 16px; font-size:clamp(31px,8.6vw,40px); line-height:1.02; }
+  .hero-carousel .hero-actions { margin-top:0; }
+  .hero-carousel .hero-actions .button { width:100%; min-height:52px; font-size:10.5px; letter-spacing:.14em; }
+  .hero-photo { border-width:7px; }
+
+  /* Densidad general: secciones más juntas, sin quedar apretadas. */
+  :root { --section-y:52px; }
+  .facts article { padding:15px 16px; }
+  .facts strong { font-size:15px; }
+  .menu-head, .videos-head, .edit-head { margin-bottom:16px; }
+  .menu-head h2, .videos-head h2, .edit-head h2 { font-size:clamp(29px,8.2vw,37px); }
+  .menu-tabs { margin-bottom:16px; }
+  .menu-tabs button { min-height:44px; }
+  .booking-heading h2, .social-proof h2, .visit h2 { font-size:clamp(29px,8.2vw,37px); }
+  .booking-heading h2 { margin:10px 0 14px; }
+  .social-heading h2 { margin:10px 0 0; }
+  /* Tira horizontal: tres huecos verticales ocupan 340 px en vez de 600. */
+  .videos-grid { display:flex; gap:12px; width:calc(100% + var(--page-gutter)); overflow-x:auto; padding-right:var(--page-gutter); scroll-snap-type:x proximity; scrollbar-width:none; }
+  .videos-grid::-webkit-scrollbar { display:none; }
+  .video-tile { flex:0 0 58%; aspect-ratio:9/13; scroll-snap-align:start; }
+  .video-tile p { font-size:17px; }
+  .video-tile-icon { width:46px; height:46px; font-size:15px; }
+  .visit-card { padding:40px var(--page-gutter); }
+  .visit-card h2 { margin:12px 0 20px; }
+  .footer { padding-top:46px; }
+}
+
+@media (max-width:359px) {
+  .site-nav a, .nav-cta { font-size:8.5px; letter-spacing:.04em; }
+  .brand-name { font-size:23px; }
+  .brand-logo .brand-wings { width:38px; height:27px; }
+}
