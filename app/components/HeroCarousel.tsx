@@ -17,7 +17,7 @@ const slides: Slide[] = [
     id: 'detalles',
     eyebrow: 'Los Olivos, Lima',
     title: ['Pequeños detalles.', 'Gran presencia.'],
-    cta: { label: 'Reservar mi cita', href: '/reservar' },
+    cta: { label: 'Reservar', href: '/reservar' },
     image: { src: '/images/angeles-nails-hero.webp', width: 1536, height: 1024, alt: 'Manicure en proceso en Ángeles Nails Salon' },
   },
   {
@@ -31,7 +31,7 @@ const slides: Slide[] = [
     id: 'mirada',
     eyebrow: 'Mirada · desde S/ 15',
     title: ['Una mirada abierta,', 'sin exagerar.'],
-    cta: { label: 'Ver mirada y cejas', href: '/servicios#mirada' },
+    cta: { label: 'Ver mirada', href: '/servicios#mirada' },
     image: { src: '/images/servicio-mirada.webp', width: 1400, height: 934, alt: 'Especialista trabajando el lifting de pestañas de una clienta' },
   },
   {
@@ -98,18 +98,19 @@ export function HeroCarousel() {
       onMouseLeave={() => setPaused(false)}
     >
       <div className="hero-grid">
+        {/* Texto a la izquierda y su botón a la derecha: el bloque ocupa todo el ancho. */}
         <div className="hero-copy" key={active.id}>
-          <p className="eyebrow">{active.eyebrow}</p>
-          <h1>
-            {active.title[0]}
-            <br />
-            <em>{active.title[1]}</em>
-          </h1>
-          <div className="hero-actions">
-            <Link className="button button-primary" href={active.cta.href}>
-              {active.cta.label}
-            </Link>
+          <div className="hero-copy-text">
+            <p className="eyebrow">{active.eyebrow}</p>
+            <h1>
+              {active.title[0]}
+              <br />
+              <em>{active.title[1]}</em>
+            </h1>
           </div>
+          <Link className="button button-primary hero-cta" href={active.cta.href}>
+            {active.cta.label}
+          </Link>
         </div>
 
         <div className="hero-visual hero-photo">

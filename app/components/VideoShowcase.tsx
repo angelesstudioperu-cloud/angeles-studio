@@ -13,9 +13,11 @@ const tiles = [
 export function VideoShowcase() {
   return (
     <section className="videos" aria-labelledby="videos-title">
-      <div className="videos-head">
-        <p className="eyebrow">En video</p>
-        <h2 id="videos-title">Míranos trabajar.</h2>
+      <div className="section-bar">
+        <div>
+          <p className="eyebrow">En video</p>
+          <h2 id="videos-title">Míranos trabajar.</h2>
+        </div>
         <a className="text-link" href={business.social.tiktok.url} target="_blank" rel="noreferrer">
           TikTok {business.social.tiktok.handle} <span aria-hidden="true">↗</span>
         </a>

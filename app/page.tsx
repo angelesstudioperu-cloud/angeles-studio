@@ -7,6 +7,7 @@ import { MotionEffects } from './components/MotionEffects';
 import { ServiceMenu } from './components/ServiceMenu';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
+import { SocialIcon } from './components/SocialIcon';
 import { VideoShowcase } from './components/VideoShowcase';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
 import { business } from './content/business';
@@ -62,9 +63,11 @@ export default function Home() {
       <VideoShowcase />
 
       <section className="edit" aria-labelledby="edit-title">
-        <div className="edit-head">
-          <p className="eyebrow">The Ángeles edit</p>
-          <h2 id="edit-title">Diseños y resultados.</h2>
+        <div className="section-bar">
+          <div>
+            <p className="eyebrow">The Ángeles edit</p>
+            <h2 id="edit-title">Diseños y resultados.</h2>
+          </div>
           <Link className="text-link" href="/galeria">
             Ver la galería <span aria-hidden="true">↗</span>
           </Link>
@@ -85,13 +88,19 @@ export default function Home() {
         </div>
         <div className="social-grid">
           <a className="social-card" href={business.social.instagram.url} target="_blank" rel="noreferrer">
-            <span className="social-label">Instagram</span>
-            <strong>{business.social.instagram.handle}</strong>
+            <SocialIcon network="instagram" className="social-mark" />
+            <span className="social-text">
+              <span className="social-label">Instagram</span>
+              <strong>{business.social.instagram.handle}</strong>
+            </span>
             <span className="social-go" aria-hidden="true">↗</span>
           </a>
           <a className="social-card" href={business.social.tiktok.url} target="_blank" rel="noreferrer">
-            <span className="social-label">TikTok</span>
-            <strong>{business.social.tiktok.handle}</strong>
+            <SocialIcon network="tiktok" className="social-mark" />
+            <span className="social-text">
+              <span className="social-label">TikTok</span>
+              <strong>{business.social.tiktok.handle}</strong>
+            </span>
             <span className="social-go" aria-hidden="true">↗</span>
           </a>
         </div>

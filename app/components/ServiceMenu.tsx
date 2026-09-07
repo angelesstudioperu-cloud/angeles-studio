@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element -- el shim de next/image de Vinext duplica React en los builds de Workers; estos assets ya vienen dimensionados en WebP. */
 import Link from 'next/link';
 import { useState, type KeyboardEvent } from 'react';
-import { categories, categoryContent, formatPrice, servicePath, servicesByCategory, type ServiceCategory } from '../content/services';
+import { categories, categoryContent, servicePath, servicesByCategory, type ServiceCategory } from '../content/services';
 
 /**
  * Carta única del salón: reemplaza a las dos secciones que antes repetían la
@@ -30,9 +30,11 @@ export function ServiceMenu() {
 
   return (
     <section className="menu" id="servicios" aria-labelledby="menu-title">
-      <div className="menu-head">
-        <p className="eyebrow">Nuestra carta</p>
-        <h2 id="menu-title">Elige tu servicio.</h2>
+      <div className="section-bar">
+        <div>
+          <p className="eyebrow">Nuestra carta</p>
+          <h2 id="menu-title">Elige tu servicio.</h2>
+        </div>
         <Link className="text-link" href="/servicios">
           Lista completa y retiros <span aria-hidden="true">↗</span>
         </Link>
@@ -70,7 +72,10 @@ export function ServiceMenu() {
             </span>
             <span className="menu-card-body">
               <strong>{service.shortName ?? service.name}</strong>
-              <span className="menu-card-price">{formatPrice(service.priceFrom)}</span>
+              <span className="price-tag">
+                <small>desde</small>
+                <b>S/ {service.priceFrom}</b>
+              </span>
             </span>
           </Link>
         ))}
