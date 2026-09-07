@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NativeLink as Link } from './NativeLink';
 import { BrandLogo } from './BrandLogo';
 import { addressLines, business, emailUrl, hoursLine, whatsappUrl } from '../content/business';
 

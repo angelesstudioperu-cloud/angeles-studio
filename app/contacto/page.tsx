@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NativeLink as Link } from '../components/NativeLink';
 import { LocationMap } from '../components/LocationMap';
 import { MotionEffects } from '../components/MotionEffects';
 import { PageHero } from '../components/PageHero';

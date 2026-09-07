@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NativeLink as Link } from '../components/NativeLink';
 import { business, emailUrl, whatsappUrl } from '../content/business';
 
 export const metadata = { title: 'Política de privacidad' };

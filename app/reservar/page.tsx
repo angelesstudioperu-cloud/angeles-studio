@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { NativeLink as Link } from '../components/NativeLink';
 import { BookingForm } from '../components/BookingForm';
 import { MotionEffects } from '../components/MotionEffects';
 import { PageHero } from '../components/PageHero';

@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- el shim de next/image de Vinext duplica React en los builds de Workers; estos assets ya vienen dimensionados en WebP. */
-import Link from 'next/link';
+import { NativeLink as Link } from '../components/NativeLink';
 import { MotionEffects } from '../components/MotionEffects';
 import { PageHero } from '../components/PageHero';
 import { SiteFooter } from '../components/SiteFooter';

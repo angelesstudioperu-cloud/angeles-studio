@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element -- ver PageHero. */
-import Link from 'next/link';
+import { NativeLink as Link } from './NativeLink';
 import { PriceTag } from './PriceTag';
 import {
   categoryContent,
