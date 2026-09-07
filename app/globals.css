@@ -1393,7 +1393,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   margin-top:0;
   color:var(--brand-pink);
   letter-spacing:.06em;
-  transform:translate(4px,-2px);
+  transform:translate(7px,-2px);
 }
 .footer .brand-logo, .footer .brand-name, .footer .brand-sub { color:var(--brand-pink-soft); }
 
@@ -1461,7 +1461,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .brand-sub {
     margin-top:0;
     font-size:10.5px;
-    transform:translate(3px,-2px);
+    transform:translate(6px,-2px);
   }
 
   .site-nav {
