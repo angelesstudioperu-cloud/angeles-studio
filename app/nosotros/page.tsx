@@ -14,9 +14,9 @@ export const metadata = {
 
 /** Fotos del salón para la escalera de la derecha. Se reemplazan por las propias. */
 const shots = [
-  { src: '/images/servicios/cabina.webp', width: 1200, height: 800, alt: 'Cabina de atención del salón' },
-  { src: '/images/studio-atencion.webp', width: 1400, height: 933, alt: 'Especialista atendiendo a una clienta' },
-  { src: '/images/servicios/herramientas.webp', width: 1200, height: 1800, alt: 'Herramientas ordenadas y esterilizadas' },
+  { src: '/images/servicios/cabina.webp', width: 1200, height: 800, alt: 'Cabina de atención del salón', caption: 'La cabina' },
+  { src: '/images/studio-atencion.webp', width: 1400, height: 933, alt: 'Especialista atendiendo a una clienta', caption: 'Atención sin apuro' },
+  { src: '/images/servicios/herramientas.webp', width: 1200, height: 1800, alt: 'Herramientas ordenadas y esterilizadas', caption: 'Todo esterilizado' },
 ];
 
 export default function AboutPage() {
@@ -53,7 +53,14 @@ export default function AboutPage() {
       </section>
 
       <section className="tour" aria-labelledby="tour-title">
-        <h2 id="tour-title" className="tour-title">Así se ve por dentro.</h2>
+        <div className="tour-head">
+          <p className="eyebrow">El espacio</p>
+          <h2 id="tour-title" className="tour-title">Así se ve por dentro.</h2>
+          <p className="tour-lead">
+            Un salón chico, ordenado y sin música a todo volumen. Atendemos con cita previa
+            justamente para que nunca haya dos clientas esperando su turno de pie.
+          </p>
+        </div>
 
         <div className="tour-video video-frame video-frame-portrait" role="img" aria-label="Espacio reservado para el recorrido en video">
           <span className="video-frame-icon" aria-hidden="true">▶</span>
@@ -65,9 +72,16 @@ export default function AboutPage() {
           {shots.map((shot, index) => (
             <figure key={shot.src} className={`tour-shot tour-shot-${index + 1}`}>
               <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
+              <figcaption>{shot.caption}</figcaption>
             </figure>
           ))}
         </div>
+
+        <a className="tour-address" href="/contacto">
+          <span className="tour-address-label">Estamos en</span>
+          <b>{business.address.street} · {business.address.unit}</b>
+          <span className="tour-address-go">Cómo llegar <span aria-hidden="true">↗</span></span>
+        </a>
       </section>
 
       <section className="team" id="equipo" aria-labelledby="team-title">
