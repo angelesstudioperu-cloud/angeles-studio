@@ -28,20 +28,23 @@ function toClockLabel(total: number) {
   return `${clock} ${suffix}`;
 }
 
+/** Duración por defecto mientras no hay servicio elegido. */
+const DEFAULT_DURATION = 60;
+
 /**
- * Una hora en punto desde que abre el salón hasta una hora antes del cierre,
- * más ese último tramo exacto cuando no cae en punto.
+ * Una hora en punto desde que abre el salón hasta la última a la que el
+ * servicio todavía termina antes del cierre, más ese último tramo exacto
+ * cuando no cae en punto.
  */
-function buildSlots() {
+function buildSlots(durationMinutes: number) {
   const open = toMinutes(business.hours.opens);
-  const last = toMinutes(business.hours.closes) - 60;
+  const last = toMinutes(business.hours.closes) - Math.max(durationMinutes, DEFAULT_DURATION);
   const slots: number[] = [];
+  if (last < open) return [toClockLabel(open)];
   for (let minute = open; minute <= last; minute += 60) slots.push(minute);
   if (slots[slots.length - 1] !== last) slots.push(last);
   return slots.map(toClockLabel);
 }
-
-const SLOTS = buildSlots();
 
 function startOfToday() {
   const now = new Date();
@@ -57,11 +60,22 @@ function mondayIndex(date: Date) {
  * Calendario siempre abierto y lista de horas con su propio desplazamiento.
  * Ambos paneles comparten fila de rejilla, así que miden exactamente lo mismo.
  */
-export function BookingSchedule() {
+export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = false }: {
+  /** Duración del servicio elegido: recorta las últimas horas del día. */
+  durationMinutes?: number;
+  /** El formulario avisa cuando se intentó enviar sin fecha ni hora. */
+  invalid?: boolean;
+} = {}) {
   const today = useMemo(() => startOfToday(), []);
   const [view, setView] = useState(() => ({ year: today.getFullYear(), month: today.getMonth() }));
   const [day, setDay] = useState<Date | null>(null);
   const [time, setTime] = useState('');
+
+  const slots = useMemo(() => buildSlots(durationMinutes), [durationMinutes]);
+
+  // Si el servicio nuevo termina más tarde, la hora elegida puede dejar de
+  // caber: se deriva en vez de guardarse para no arrastrar un valor inválido.
+  const activeTime = slots.includes(time) ? time : '';
 
   const monthOffset = (view.year - today.getFullYear()) * 12 + (view.month - today.getMonth());
 
@@ -86,7 +100,7 @@ export function BookingSchedule() {
     : '';
 
   return (
-    <div className="schedule field-wide">
+    <div className={`schedule field-wide${invalid ? ' is-invalid' : ''}`}>
       <div className="schedule-panel schedule-calendar">
         <div className="schedule-head">
           <span className="schedule-label">Fecha</span>
@@ -145,17 +159,17 @@ export function BookingSchedule() {
         <div className="schedule-times-inner">
           <div className="schedule-head">
             <span className="schedule-label">Hora</span>
-            <small>Cada hora</small>
+            <small>{slots.length} horarios</small>
           </div>
           <div className="schedule-times-scroll">
             <div className="schedule-times-list" role="group" aria-label="Elige la hora de tu cita">
-              {SLOTS.map((slot) => (
+              {slots.map((slot) => (
                 <button
                   key={slot}
                   type="button"
-                  className={`schedule-slot${time === slot ? ' is-picked' : ''}`}
-                  aria-pressed={time === slot}
-                  onClick={() => setTime(time === slot ? '' : slot)}
+                  className={`schedule-slot${activeTime === slot ? ' is-picked' : ''}`}
+                  aria-pressed={activeTime === slot}
+                  onClick={() => setTime(activeTime === slot ? '' : slot)}
                 >
                   {slot}
                 </button>
@@ -166,7 +180,7 @@ export function BookingSchedule() {
       </div>
 
       <input type="hidden" name="date" value={dateValue} />
-      <input type="hidden" name="time" value={time} />
+      <input type="hidden" name="time" value={activeTime} />
     </div>
   );
 }

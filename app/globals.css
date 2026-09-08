@@ -2787,3 +2787,32 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .price-grid { grid-template-columns:minmax(0,1fr); }
   .price-card-media img { aspect-ratio:1.5; }
 }
+
+/* ============================================================
+   v14 — agenda obligatoria y galería navegable
+   ============================================================ */
+
+/* --- Fecha y hora son parte de la solicitud ----------------------------- */
+.schedule.is-invalid .schedule-panel { border-color:var(--brand-pink); box-shadow:0 0 0 2px rgba(192,114,120,.22); }
+.form-status.is-error { color:var(--brand-pink); font-weight:600; }
+.booking .form-status.is-error { color:var(--peony); }
+
+/* --- Galería ampliada: se pasa con el dedo y, con puntero, con flechas --- */
+.lightbox { grid-template-columns:auto minmax(0,1fr) auto; align-items:center; }
+.lightbox figure { grid-column:2; touch-action:pan-y; }
+.lightbox figcaption b { display:block; margin-top:6px; color:var(--peony); font:600 9px var(--font-sans),sans-serif; letter-spacing:.18em; }
+.lightbox-step {
+  display:none; width:52px; height:52px; padding:0;
+  border:1px solid rgba(242,209,212,.45); border-radius:50%;
+  background:rgba(244,243,241,.12); color:var(--mist);
+  font-size:22px; line-height:1; cursor:pointer;
+  transition:background .22s ease, border-color .22s ease, transform .22s ease;
+}
+.lightbox-step:hover { background:rgba(244,243,241,.26); border-color:var(--peony); }
+.lightbox-prev { grid-column:1; justify-self:start; }
+.lightbox-prev:hover { transform:translateX(-3px); }
+.lightbox-next { grid-column:3; justify-self:end; }
+.lightbox-next:hover { transform:translateX(3px); }
+@media (hover:hover) and (pointer:fine) {
+  .lightbox-step { display:grid; place-items:center; }
+}
