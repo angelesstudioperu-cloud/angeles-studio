@@ -30,13 +30,16 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
 
       {/* El formulario abre la página: es a lo que viene quien entra aquí. */}
       <section className="booking booking-first" id="formulario">
+        {/* El titular vive fuera del bloque de texto: en móvil encabeza la
+            pantalla y el resto del acompañamiento queda debajo del formulario. */}
+        <h2 className="booking-title">Hagamos espacio <em>para ti</em></h2>
+
         <div className="booking-card">
           <p className="booking-card-title">Solicita tu cita</p>
           <BookingForm preselect={preselect} />
         </div>
 
         <div className="booking-heading">
-          <h2 className="booking-title">Hagamos espacio <em>para ti</em></h2>
           <p className="booking-note">
             El formulario arma el mensaje y lo abre en tu WhatsApp. Separas la cita con un adelanto de{' '}
             <strong>S/ {business.bookingDeposit}</strong>, que se descuenta del total.

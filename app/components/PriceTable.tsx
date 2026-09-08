@@ -11,42 +11,52 @@ import {
   type ServiceCategory,
 } from '../content/services';
 
+/**
+ * Misma lectura que la carta de la portada —foto y precio— pero con la banda
+ * de color de cada categoría, que es lo que distingue a esta página.
+ */
 export function PriceTable({ category }: { category: ServiceCategory }) {
   const content = categoryContent[category];
   const list = servicesByCategory(category);
 
   return (
-    <article className="price-block" id={category}>
-      <div className="price-block-media">
-        <img src={content.image} alt={content.imageAlt} width={content.imageWidth} height={content.imageHeight} loading="lazy" />
-      </div>
-
-      <div className="price-block-body">
-        <p className="eyebrow">{content.label}</p>
-        <h2>{content.title}</h2>
+    <article className={`price-block price-block-${category}`} id={category}>
+      <header className="price-block-head">
+        <div className="price-block-title">
+          <p className="eyebrow">{content.label}</p>
+          <h2>{content.title}</h2>
+        </div>
         <p className="price-block-intro">{content.intro}</p>
+      </header>
 
-        <ul className="price-list">
-          {list.map((service) => (
-            <li key={service.slug}>
-              <Link className="price-row" href={servicePath(service.slug)}>
-                <span className="price-row-main">
-                  <strong>{service.name}</strong>
-                  <span className="price-row-note">{service.note}</span>
-                </span>
-                <span className="price-row-meta">
-                  <PriceTag service={service} />
-                  <small>{formatDuration(service.durationMinutes)}</small>
-                </span>
-                <span className="price-row-go" aria-hidden="true">↗</span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-
-        <Link className="text-link" href="/reservar">
-          Reservar {content.label.toLowerCase()} <span aria-hidden="true">↗</span>
-        </Link>
+      <div className="price-grid">
+        {list.map((service) => (
+          <article className="price-card" key={service.slug}>
+            <Link className="price-card-link" href={servicePath(service.slug)}>
+              <span className="price-card-media">
+                <img
+                  src={service.media.src}
+                  alt={service.media.alt}
+                  width={service.media.width}
+                  height={service.media.height}
+                  loading="lazy"
+                />
+              </span>
+              <span className="price-card-body">
+                <strong>{service.name}</strong>
+                <small>{service.note}</small>
+                <em>{formatDuration(service.durationMinutes)}</em>
+              </span>
+            </Link>
+            <a
+              className="price-card-cta"
+              href={`/reservar?servicio=${service.slug}`}
+              aria-label={`Reservar ${service.name}`}
+            >
+              <PriceTag service={service} />
+            </a>
+          </article>
+        ))}
       </div>
     </article>
   );

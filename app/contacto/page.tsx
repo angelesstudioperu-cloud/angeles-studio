@@ -1,11 +1,12 @@
 import { NativeLink as Link } from '../components/NativeLink';
+import { BrandLogo } from '../components/BrandLogo';
 import { LocationMap } from '../components/LocationMap';
 import { MotionEffects } from '../components/MotionEffects';
 import { PageHero } from '../components/PageHero';
 import { SiteFooter } from '../components/SiteFooter';
 import { SiteHeader } from '../components/SiteHeader';
 import { WhatsAppFloat } from '../components/WhatsAppFloat';
-import { business, emailUrl, whatsappLink } from '../content/business';
+import { business, whatsappLink } from '../content/business';
 
 export const metadata = {
   title: 'Contacto y ubicación',
@@ -13,38 +14,12 @@ export const metadata = {
     'Ángeles Nails Salon está en Los Olivos, Lima. Escríbenos por WhatsApp al +51 947 117 905 o por Instagram para coordinar tu cita.',
 };
 
-const channels = [
-  {
-    label: 'WhatsApp',
-    value: business.whatsappDisplay,
-    detail: 'El canal más rápido para reservar y consultar disponibilidad.',
-    href: whatsappLink(`Hola, ${business.name}. Quisiera consultar por una cita.`),
-  },
-  {
-    label: 'Instagram',
-    value: business.social.instagram.handle,
-    detail: 'Diseños, procesos y novedades del salón.',
-    href: business.social.instagram.url,
-  },
-  {
-    label: 'TikTok',
-    value: business.social.tiktok.handle,
-    detail: 'Videos de trabajos en cabina.',
-    href: business.social.tiktok.url,
-  },
-  {
-    label: 'Correo',
-    value: business.email,
-    detail: 'Para consultas más largas o coordinaciones formales.',
-    href: emailUrl,
-  },
-];
 
 export default function ContactPage() {
   return (
     <main className="subpage subpage-contacto">
       <MotionEffects />
-      <a className="skip-link" href="#canales">Saltar a los canales de contacto</a>
+      <a className="skip-link" href="#datos">Saltar a los datos del salón</a>
       <SiteHeader current="/contacto" />
 
       <PageHero
@@ -66,7 +41,7 @@ export default function ContactPage() {
         }
       />
 
-      <section className="contact-grid" id="canales">
+      <section className="contact-grid" id="datos">
         <div className="contact-card">
           <p className="eyebrow">El dato completo</p>
           <dl>
@@ -83,23 +58,19 @@ export default function ContactPage() {
           <p className="contact-note">
             El enlace abre la ubicación registrada del salón en Google Maps, con la vista de calle de la puerta.
           </p>
+          {/* Cierra la tarjeta en escritorio, donde quedaba un bloque vacío bajo el botón. */}
+          <BrandLogo size="lg" className="contact-card-logo" />
         </div>
 
-        <div className="contact-channels">
-          <p className="eyebrow">Canales</p>
-          <h2>Escríbenos por donde te quede cómodo</h2>
-          <ul>
-            {channels.map((channel) => (
-              <li key={channel.label}>
-                <a href={channel.href} target="_blank" rel="noreferrer">
-                  <span className="channel-label">{channel.label}</span>
-                  <strong>{channel.value}</strong>
-                  <p>{channel.detail}</p>
-                  <span className="social-go" aria-hidden="true">↗</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+        {/* Reemplazar por <video controls playsInline> cuando llegue el recorrido grabado. */}
+        <div className="contact-video">
+          <p className="eyebrow">En video</p>
+          <h2>Cómo llegar<br />hasta la puerta</h2>
+          <div className="video-frame video-frame-portrait" role="img" aria-label="Espacio reservado para el video de cómo llegar al salón">
+            <span className="video-frame-icon" aria-hidden="true">▶</span>
+            <p>Cómo llegar al salón</p>
+            <small>Próximamente</small>
+          </div>
         </div>
       </section>
 

@@ -559,7 +559,7 @@ export function formatPrice(price: number) {
 
 /** Etiqueta larga para selects y metadatos. */
 export function priceLabel(service: Pick<StudioService, 'priceFrom' | 'priceIsFrom'>) {
-  return `S/ ${service.priceFrom}`;
+  return service.priceIsFrom ? `desde S/ ${service.priceFrom}` : `S/ ${service.priceFrom}`;
 }
 
 export function formatFlatPrice(price: number) {

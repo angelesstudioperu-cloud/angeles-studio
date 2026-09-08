@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
+import { BookingSchedule } from './BookingSchedule';
 import { SELECT_SERVICE_EVENT, type SelectServiceDetail } from './bookingBridge';
 import { business, whatsappUrl } from '../content/business';
 import { categoryContent, categories, getService, priceLabel, servicesByCategory } from '../content/services';
@@ -58,11 +59,9 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
       `Hola, ${business.name}. Quisiera solicitar una cita.`,
       `Nombre: ${form.get('name')}`,
       `Servicio: ${form.get('service')}`,
-      `Teléfono: ${form.get('phone')}`,
-      optional('Fecha preferida', 'date'),
-      optional('Horario', 'time'),
-      optional('Primera visita', 'firstVisit'),
       optional('Retiro previo', 'removal'),
+      optional('Fecha preferida', 'date'),
+      optional('Hora preferida', 'time'),
     ]
       .filter(Boolean)
       .join('\n');
@@ -79,17 +78,14 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
           <input name="name" autoComplete="name" required placeholder="Cómo te llamamos" />
         </label>
         <label>
-          <span>WhatsApp</span>
-          <input
-            name="phone"
-            type="tel"
-            inputMode="tel"
-            autoComplete="tel"
-            required
-            pattern="(?:\+?51\s?)?9\d{8}"
-            title="Ingresa un celular peruano de 9 dígitos"
-            placeholder="999 999 999"
-          />
+          <span>Retiro previo</span>
+          <select name="removal" defaultValue="">
+            <option value="">Sin especificar</option>
+            <option>No</option>
+            <option>Esmaltado en gel (S/ 10)</option>
+            <option>Acrílicas o polygel (S/ 15)</option>
+            <option>Rubber / builder / soft gel (S/ 20)</option>
+          </select>
         </label>
 
         <label className={`field-wide${flash ? ' is-flash' : ''}`}>
@@ -114,38 +110,7 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
           </span>
         </label>
 
-        <label>
-          <span>Fecha</span>
-          <input name="date" type="date" />
-        </label>
-        <label>
-          <span>Horario</span>
-          <select name="time" defaultValue="">
-            <option value="">Cualquiera</option>
-            <option>Mañana</option>
-            <option>Tarde</option>
-            <option>Noche</option>
-          </select>
-        </label>
-
-        <label>
-          <span>Primera visita</span>
-          <select name="firstVisit" defaultValue="">
-            <option value="">Sin especificar</option>
-            <option>Sí</option>
-            <option>No, ya soy clienta</option>
-          </select>
-        </label>
-        <label>
-          <span>Retiro previo</span>
-          <select name="removal" defaultValue="">
-            <option value="">Sin especificar</option>
-            <option>No</option>
-            <option>Esmaltado en gel (S/ 10)</option>
-            <option>Acrílicas o polygel (S/ 15)</option>
-            <option>Rubber / builder / soft gel (S/ 20)</option>
-          </select>
-        </label>
+        <BookingSchedule />
       </div>
 
       <button className="button button-book" type="submit">

@@ -13,11 +13,19 @@ import { WhatsAppFloat } from './components/WhatsAppFloat';
 import { business, whatsappLink } from './content/business';
 import { gallery } from './content/gallery';
 
+/**
+ * En escritorio caben los cuatro datos; en móvil solo quedan los dos que se
+ * consultan de verdad antes de escribir (cuándo abrimos y dónde estamos).
+ */
 const facts = [
-  { value: 'S/ 30', label: 'Esmaltado en gel' },
+  {
+    value: 'Servicios desde S/ 30',
+    label: 'Esmaltado en gel · Pedicure spa · Mirada desde S/ 15',
+    desktopOnly: true,
+  },
   { value: business.hours.daysShort, label: business.hours.display },
   { value: business.address.district, label: `${business.address.street} · ${business.address.unit}` },
-  { value: 'Cita previa', label: 'Reserva por WhatsApp' },
+  { value: 'Cita previa', label: 'Reserva por WhatsApp', desktopOnly: true },
 ];
 
 const galleryPreview = gallery.slice(0, 6);
@@ -36,7 +44,7 @@ export default function Home() {
       {/* Los cuatro datos que una clienta busca antes de escribir. */}
       <section className="facts" aria-label="Datos del salón">
         {facts.map((fact) => (
-          <article key={fact.label}>
+          <article key={fact.label} className={fact.desktopOnly ? 'fact-desktop' : undefined}>
             <strong>{fact.value}</strong>
             <span>{fact.label}</span>
           </article>

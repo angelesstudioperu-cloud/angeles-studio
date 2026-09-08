@@ -56,6 +56,30 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="team" id="equipo" aria-labelledby="team-title">
+        <div className="team-heading">
+          <p className="eyebrow">Quién te atiende</p>
+          <h2 id="team-title">Experiencia<br />a tu cuidado</h2>
+          <p>
+            Kiara y Liliana. Trabajamos con cita previa justamente para que ninguna de las dos tenga que apurar
+            un servicio.
+          </p>
+        </div>
+        <div className="team-grid">
+          {team.map((member, index) => (
+            <article className={`team-card team-card-${index + 1}`} key={member.id}>
+              <div className="team-portrait">
+                <img src={member.photo.src} alt={member.photo.alt} width={member.photo.width} height={member.photo.height} loading="lazy" />
+                <span aria-hidden="true">{member.initials}</span>
+              </div>
+              <h3>{member.name}</h3>
+              <p className="team-role">{member.role}</p>
+              <p className="team-bio">{member.bio}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
       <section className="tour" aria-labelledby="tour-title">
         <div className="tour-head">
           <p className="eyebrow">El espacio</p>
@@ -88,30 +112,6 @@ export default function AboutPage() {
               <img src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} loading="lazy" />
               <figcaption>{shot.caption}</figcaption>
             </figure>
-          ))}
-        </div>
-      </section>
-
-      <section className="team" id="equipo" aria-labelledby="team-title">
-        <div className="team-heading">
-          <p className="eyebrow">Quién te atiende</p>
-          <h2 id="team-title">Experiencia<br />a tu cuidado</h2>
-          <p>
-            Kiara y Liliana. Trabajamos con cita previa justamente para que ninguna de las dos tenga que apurar
-            un servicio.
-          </p>
-        </div>
-        <div className="team-grid">
-          {team.map((member, index) => (
-            <article className={`team-card team-card-${index + 1}`} key={member.id}>
-              <div className="team-portrait">
-                <img src={member.photo.src} alt={member.photo.alt} width={member.photo.width} height={member.photo.height} loading="lazy" />
-                <span aria-hidden="true">{member.initials}</span>
-              </div>
-              <h3>{member.name}</h3>
-              <p className="team-role">{member.role}</p>
-              <p className="team-bio">{member.bio}</p>
-            </article>
           ))}
         </div>
       </section>

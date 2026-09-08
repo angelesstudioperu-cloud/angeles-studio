@@ -2542,3 +2542,248 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .subpage-servicios .page-hero h1 { font-size:clamp(30px,8.4vw,38px); margin:8px 0 12px; }
   .subpage-servicios .page-hero-intro { font-size:13px; line-height:1.65; }
 }
+
+/* ============================================================
+   v13 — precios «desde», agenda abierta, catálogo con foto y
+   cabeceras sin aire de sobra
+   ============================================================ */
+
+/* --- Franja de datos: en móvil solo horario y dirección ------------------ */
+@media (max-width:760px) {
+  /* `.facts article` pesa más que una sola clase: hay que igualarlo. */
+  .facts article.fact-desktop { display:none; }
+}
+.facts strong { line-height:1.2; }
+.facts span { line-height:1.5; }
+
+/* --- Agenda: calendario abierto y horas con su propia barra -------------- */
+.schedule {
+  display:grid; grid-template-columns:minmax(0,1.32fr) minmax(0,.68fr);
+  gap:12px; align-items:stretch; margin-top:6px;
+}
+.schedule-panel {
+  border:1px solid rgba(52,76,61,.16); border-radius:8px;
+  background:linear-gradient(170deg,rgba(244,243,241,.9),rgba(242,209,212,.16));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6);
+}
+.schedule-calendar { display:grid; align-content:start; gap:8px; padding:12px 12px 10px; }
+.schedule-head { display:flex; align-items:center; justify-content:space-between; gap:8px; min-height:24px; }
+.schedule-label { color:#7E8C82; font-size:8px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; }
+.schedule-head small { color:#7E8C82; font-size:8px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; }
+.schedule-nav { display:flex; align-items:center; gap:4px; }
+.schedule-nav strong {
+  min-width:10ch; text-align:center; color:var(--evergreen);
+  font:500 13px var(--font-display),serif; text-transform:capitalize;
+}
+.schedule-nav button {
+  width:24px; height:24px; display:grid; place-items:center; padding:0;
+  border:1px solid rgba(52,76,61,.22); border-radius:50%;
+  background:transparent; color:var(--evergreen); font-size:15px; line-height:1; cursor:pointer;
+  transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.schedule-nav button:hover:not(:disabled) { border-color:var(--brand-pink); color:var(--brand-pink); background:rgba(242,209,212,.4); }
+.schedule-nav button:disabled { opacity:.28; cursor:default; }
+
+.schedule-weekdays, .schedule-days { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:2px; }
+.schedule-weekdays span { text-align:center; color:#9AA79D; font-size:8px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; }
+.schedule-day {
+  aspect-ratio:1; display:grid; place-items:center; padding:0;
+  border:0; border-radius:5px; background:transparent; color:var(--evergreen);
+  font:400 12px var(--font-sans),sans-serif; cursor:pointer;
+  transition:background .18s ease, color .18s ease;
+}
+.schedule-day:hover:not(:disabled):not(.is-blank) { background:var(--peony); }
+.schedule-day:disabled { color:#C6CEC8; cursor:default; }
+.schedule-day.is-blank { pointer-events:none; }
+.schedule-day.is-picked {
+  background:var(--evergreen); color:var(--mist); font-weight:600;
+  box-shadow:0 2px 6px rgba(20,40,28,.28);
+}
+.schedule-foot { margin:2px 0 0; color:#9AA79D; font-size:8.5px; letter-spacing:.05em; }
+
+.schedule-times { position:relative; min-height:200px; }
+.schedule-times-inner {
+  position:absolute; inset:0; display:grid; grid-template-rows:auto minmax(0,1fr);
+  gap:8px; padding:12px 8px 12px 12px;
+}
+.schedule-times-scroll {
+  min-height:0; overflow-y:auto; padding-right:6px;
+  scrollbar-width:thin; scrollbar-color:var(--mauve) rgba(52,76,61,.1);
+  overscroll-behavior:contain;
+}
+.schedule-times-scroll::-webkit-scrollbar { width:5px; }
+.schedule-times-scroll::-webkit-scrollbar-track { background:rgba(52,76,61,.09); border-radius:999px; }
+.schedule-times-scroll::-webkit-scrollbar-thumb { background:var(--mauve); border-radius:999px; }
+.schedule-times-scroll::-webkit-scrollbar-thumb:hover { background:var(--brand-pink); }
+.schedule-times-list { display:grid; gap:5px; }
+.schedule-slot {
+  min-height:32px; padding:0 8px; white-space:nowrap;
+  border:1px solid rgba(52,76,61,.18); border-radius:999px;
+  background:rgba(244,243,241,.7); color:var(--evergreen);
+  font:400 12px var(--font-sans),sans-serif; cursor:pointer;
+  transition:border-color .2s ease, background .2s ease, color .2s ease;
+}
+.schedule-slot:hover { border-color:var(--brand-pink); background:var(--peony); }
+.schedule-slot.is-picked { background:var(--evergreen); border-color:var(--evergreen); color:var(--mist); font-weight:600; }
+.schedule :focus-visible { outline:2px solid var(--brand-pink); outline-offset:2px; }
+
+/* --- Cabeceras de subpágina: pequeñas, arriba y con carácter ------------- */
+.page-hero-wide {
+  padding-block:clamp(16px,1.8vw,26px) clamp(20px,2.2vw,32px);
+  border-bottom:1px solid rgba(52,76,61,.16);
+}
+.page-hero-wide .page-hero-copy { justify-items:start; text-align:left; }
+.page-hero-wide .breadcrumb { margin-bottom:2px; }
+.page-hero-wide h1 {
+  max-width:none; margin:2px 0 0;
+  font-size:clamp(30px,3.4vw,50px); line-height:.98;
+}
+.page-hero-wide .eyebrow { margin:0; }
+.page-hero-wide .page-hero-intro { max-width:70ch; margin:10px 0 0; font-size:13px; line-height:1.65; }
+
+/* La galería arranca con las fotos, no con medio scroll de fondo vacío. */
+.subpage-galeria .gallery-grid { padding-top:clamp(18px,2vw,30px); }
+
+/* --- Catálogo completo: foto y precio, con la banda de la categoría ------ */
+.price-sheet { gap:clamp(34px,4vw,58px); padding-top:clamp(30px,3.4vw,48px); }
+.price-block, .price-block:nth-child(even) { display:block; grid-template-columns:none; }
+.price-block-head {
+  display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  align-items:end; gap:clamp(16px,2.4vw,40px);
+  padding:clamp(20px,2.4vw,30px) clamp(20px,2.6vw,34px);
+  border:1px solid rgba(52,76,61,.18); border-bottom:0; border-radius:6px 6px 0 0;
+  box-shadow:var(--lift-1);
+}
+.price-block-manos .price-block-head { background:var(--peony); }
+.price-block-pies .price-block-head { background:var(--evergreen); color:var(--mist); }
+.price-block-mirada .price-block-head { background:#e3e8df; }
+.price-block-pies .price-block-head .eyebrow,
+.price-block-pies .price-block-head .price-block-intro { color:var(--peony); }
+.price-block-head h2 { margin:6px 0 0; font:500 clamp(27px,3vw,44px)/.98 var(--font-display),serif; letter-spacing:-.035em; }
+.price-block-head .price-block-intro { max-width:60ch; margin:0; color:var(--evergreen); font-size:13px; line-height:1.7; opacity:.9; }
+.price-grid {
+  display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px;
+  padding:14px; border:1px solid rgba(52,76,61,.18); border-top:0; border-radius:0 0 6px 6px;
+  background:rgba(244,243,241,.72);
+}
+.price-card {
+  position:relative; display:grid; overflow:hidden;
+  background:var(--mist); border:1px solid rgba(52,76,61,.14); border-radius:4px;
+  box-shadow:var(--lift-1);
+  transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease, border-color .3s ease;
+}
+.price-card-link { display:grid; align-content:start; }
+.price-card-media { display:block; overflow:hidden; background:var(--peony); }
+.price-card-media img { display:block; width:100%; aspect-ratio:1.24; object-fit:cover; transition:transform .6s cubic-bezier(.2,.7,.2,1); }
+.price-card-body { display:grid; gap:5px; padding:13px 15px 54px; }
+.price-card-body strong { font:500 clamp(16px,1.4vw,20px)/1.2 var(--font-display),serif; }
+.price-card-body small { color:var(--evergreen); font-size:11px; line-height:1.55; opacity:.78; }
+.price-card-body em { color:var(--sage); font:600 8.5px var(--font-sans),sans-serif; font-style:normal; letter-spacing:.14em; text-transform:uppercase; }
+.price-card-cta { position:absolute; left:15px; right:15px; bottom:13px; display:flex; }
+.price-card-cta .price-tag { transition:transform .22s ease, box-shadow .22s ease; }
+.price-card-cta:hover .price-tag { transform:translateY(-2px); box-shadow:0 6px 16px rgba(192,114,120,.4); }
+.price-card-cta:focus-visible { outline:none; }
+.price-card-cta:focus-visible .price-tag { outline:2px solid var(--evergreen); outline-offset:3px; }
+@media (hover:hover) {
+  .price-card:hover { transform:translateY(-5px); border-color:var(--mauve); box-shadow:var(--lift-3); }
+  .price-card:hover .price-card-media img { transform:scale(1.05); }
+}
+
+/* --- El studio: el equipo sube y el recorrido baja ----------------------- */
+/* Los fondos se quedan donde estaban: sage arriba, peony abajo. */
+.subpage-nosotros .team { background:var(--sage); color:var(--mist); }
+.subpage-nosotros .team .eyebrow { color:var(--peony); }
+.subpage-nosotros .team-heading > p:last-child { color:var(--mist); opacity:.88; }
+.subpage-nosotros .team-card h3 { color:var(--mist); }
+.subpage-nosotros .team-card p { color:var(--peony); }
+.subpage-nosotros .team-portrait { border-color:var(--mist); outline-color:rgba(244,243,241,.55); }
+
+.tour { background:var(--peony); color:var(--evergreen); }
+.tour .eyebrow { color:var(--sage); }
+.tour-lead { color:var(--evergreen); opacity:.85; }
+.tour .video-frame { border-color:var(--mauve); background:linear-gradient(160deg,rgba(244,243,241,.9),rgba(130,150,114,.14)); color:var(--evergreen); }
+.tour .video-frame-icon { background:var(--mist); border-color:var(--sage); color:var(--evergreen); }
+.tour .video-frame small { color:var(--sage); }
+.tour-shot { border-color:rgba(52,76,61,.18); }
+.tour-shot figcaption { color:var(--evergreen); opacity:.8; }
+/* El marco del video venía pensado para el fondo oscuro anterior. */
+.tour-title { color:var(--evergreen); }
+.tour-video p { color:var(--evergreen); }
+.tour-video small { color:var(--sage); opacity:1; }
+.tour-video .video-frame-icon { background:var(--mist); border-color:var(--sage); color:var(--evergreen); }
+
+/* --- Contacto: el recorrido en video ocupa la columna derecha ------------ */
+.contact-video { display:grid; align-content:start; gap:4px; }
+.contact-video h2 { margin:10px 0 20px; font:500 clamp(30px,3.2vw,46px)/.98 var(--font-display),serif; letter-spacing:-.03em; }
+.contact-video .video-frame { aspect-ratio:9/16; width:min(100%,340px); margin-inline:auto; }
+/* La tarjeta ya no se estira hasta el alto del video: termina en el logo. */
+.contact-grid { align-items:start; }
+.contact-card-logo {
+  display:flex; justify-content:center;
+  margin:clamp(30px,3.4vw,52px) 0 4px; opacity:.9;
+}
+
+/* --- Reserva: el titular encabeza la pantalla en móvil ------------------- */
+.booking-first {
+  grid-template-areas:'card title' 'card body';
+  grid-template-rows:auto 1fr;
+  align-items:start;
+}
+.booking-first > .booking-title { grid-area:title; align-self:end; }
+.booking-first .booking-card { grid-area:card; }
+.booking-first .booking-heading { grid-area:body; }
+.booking-first .booking-heading .booking-note { margin-top:16px; }
+
+/* ============================================================
+   Móvil: la agenda y el catálogo completo caben sin apretarse
+   ============================================================ */
+@media (max-width:760px) {
+  .contact-card-logo { display:none; }
+  .contact-video h2 { margin:8px 0 14px; font-size:clamp(26px,7.4vw,34px); }
+  .contact-video .video-frame { width:min(100%,260px); }
+
+  .booking-first { grid-template-areas:'title' 'card' 'body'; grid-template-rows:auto auto auto; }
+  .booking-first > .booking-title { margin-bottom:2px; white-space:normal; }
+
+  .schedule { grid-template-columns:minmax(0,1.28fr) minmax(0,.72fr); gap:8px; }
+  .schedule-calendar { padding:10px 6px 8px; gap:6px; }
+  /* La celda deja de ser cuadrada: gana alto de toque sin robar ancho. */
+  .schedule-day { aspect-ratio:auto; min-height:31px; }
+  .schedule-nav strong { min-width:auto; font-size:12px; }
+  .schedule-nav button { width:22px; height:22px; font-size:13px; }
+  .schedule-day { font-size:11.5px; border-radius:4px; }
+  .schedule-times-inner { padding:10px 6px 10px 8px; }
+  .schedule-times-scroll { padding-right:5px; }
+  .schedule-slot { min-height:30px; padding:0 4px; font-size:11px; }
+  .schedule-head small { font-size:7.5px; letter-spacing:.1em; }
+  /* La tarjeta cede sus márgenes para que la agenda respire. */
+  .booking-card { padding:20px 16px 22px; }
+
+  .subpage-galeria .gallery-grid { padding-top:16px; }
+  .page-hero-wide { padding-block:12px 18px; }
+  .page-hero-wide h1 { font-size:clamp(27px,7.4vw,34px); }
+  .page-hero-wide .page-hero-intro { margin-top:8px; font-size:12.5px; }
+
+  .price-sheet { gap:26px; padding-top:22px; }
+  .price-block-head { grid-template-columns:minmax(0,1fr); gap:10px; padding:18px 16px; }
+  .price-block-head h2 { font-size:clamp(24px,6.6vw,32px); }
+  .price-block-head .price-block-intro { font-size:12.5px; line-height:1.6; }
+  .price-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px; padding:9px; }
+  .price-card-media img { aspect-ratio:1.06; }
+  .price-card-body { padding:11px 12px 46px; gap:4px; }
+  .price-card-body strong { font-size:15.5px; }
+  .price-card-body small { display:none; }
+  .price-card-cta { left:12px; right:12px; bottom:11px; }
+}
+
+@media (max-width:400px) {
+  .schedule { gap:6px; }
+  .schedule-day { font-size:11px; }
+  .schedule-slot { font-size:10.5px; padding:0 3px; letter-spacing:-.01em; }
+}
+
+/* Igual que la carta de la portada: solo en pantallas muy angostas baja a una. */
+@media (max-width:359px) {
+  .price-grid { grid-template-columns:minmax(0,1fr); }
+  .price-card-media img { aspect-ratio:1.5; }
+}
