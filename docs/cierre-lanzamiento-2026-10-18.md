@@ -14,9 +14,10 @@ pendientes históricos de `handoff-codex.md`. No contiene credenciales.
   HTML pública. Prueba en directo: «La URL está disponible para Google» y la
   página se puede indexar. La solicitud manual de indexación devolvió «Cuota
   superada»; no se reintentará el mismo día ni se declara indexación completada.
-  `sitemap.xml` se envió, pero la tabla mostró «No se ha podido obtener» en la
-  primera consulta. El endpoint público sí respondió HTTP 200 y XML con 23 URLs.
-  Queda pendiente comprobar su procesamiento, sin confundir envío con aceptación.
+  Tras el aviso inicial «No se ha podido obtener», el detalle de `sitemap.xml`
+  confirmó «El sitemap se ha procesado correctamente», con última lectura del
+  18/10/26, 23 páginas descubiertas y cero vídeos. Esto verifica procesamiento,
+  no indexación de las 23 páginas.
 - Google Business: se guardó el pin que el usuario había ajustado, sin desplazarlo.
   Dirección mostrada en el editor: `2W99+CXP Los Olivos`, segunda línea
   `Calle Los Olivos, primer piso`. Google confirmó revisión pendiente; no se
@@ -48,6 +49,7 @@ pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 Evidencia: [logo público](evidence/web-lettering-rosa-final-2026-10-18.png),
 [pie de página](evidence/web-footer-rosa-final-2026-10-18.png),
 [propiedad verificada](evidence/search-console-verificado-2026-10-18.png),
+[sitemap procesado](evidence/search-console-sitemap-procesado-2026-10-18.png),
 [cuota de indexación](evidence/search-console-cuota-indexacion-2026-10-18.png),
 [pin del usuario enviado](evidence/google-pin-usuario-enviado-2026-10-18.png) y
 [dominio en carrito](evidence/dominio-angelesstudio-pe-carrito-2026-10-18.png),
