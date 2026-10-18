@@ -3,6 +3,26 @@
 Fecha de revisión: 18 de octubre de 2026. Este es el informe vigente; sustituye los
 pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 
+## Comprobación operativa de la publicación
+
+- Se añadió `npm run qa:public`, comprobación de solo lectura ejecutada contra
+  la web publicada. Las 23 páginas del sitemap respondieron HTTP 200, con título,
+  descripción, H1, canonical correcto y sin noindex. Se verificaron robots,
+  sitemap, CSP sin unsafe-eval, protección de frames, nosniff y HSTS.
+- La página pendiente del Libro de Reclamaciones respondió correctamente, sin
+  formulario, con aviso de no habilitación y noindex. La comprobación asume ese
+  estado pendiente; deberá adaptarse cuando se habilite formalmente el libro.
+- Al conectar el dominio se puede repetir con `npm run qa:public -- https://DOMINIO`.
+  No prueba indexación efectiva, cumplimiento legal, accesibilidad completa ni
+  rendimiento de usuarios reales. No se creó un monitor ni una automatización.
+- `npm run lint` y `git diff --check` correctos. No fue necesario desplegar:
+  este cambio solo añade una herramienta de verificación, sin modificar la web.
+- Auditoría npm actual: cero avisos en dependencias clasificadas de producción;
+  12 en desarrollo (8 altos, 4 moderados). Las sugerencias automáticas incluyen
+  retrocesos mayores de vinext, eslint-config-next y drizzle-kit. No se ejecutó
+  `audit fix --force`, no se actualizaron dependencias ni se declara ausencia
+  total de vulnerabilidades en el artefacto desplegado.
+
 ## Cierre más reciente: proveedor confirmado y mapa oficial publicado
 
 Este apartado prevalece sobre los estados históricos siguientes.
