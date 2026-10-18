@@ -28,6 +28,9 @@ export function SiteFooter() {
 
       <div>
         <h3>Conecta</h3>
+        <a href={business.social.facebook.url} target="_blank" rel="noreferrer">
+          Facebook · {business.social.facebook.handle} ↗
+        </a>
         <a href={business.social.instagram.url} target="_blank" rel="noreferrer">
           Instagram {business.social.instagram.handle} ↗
         </a>

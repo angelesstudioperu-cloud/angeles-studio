@@ -29,7 +29,7 @@ export function BrandLogo({ variant = 'full', size = 'md', className = '' }: Bra
       <BrandWings />
       {variant === 'full' && (
         <span className="brand-lettering">
-          <span className="brand-name">Angeles</span>
+          <span className="brand-name">ANGELES STUDIO</span>
           <span className="brand-sub">Nails Salon</span>
         </span>
       )}

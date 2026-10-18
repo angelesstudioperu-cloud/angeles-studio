@@ -9,9 +9,10 @@ import { business } from '../content/business';
 import { categories, categoryContent, removals, servicesByCategory } from '../content/services';
 
 export const metadata = {
+  alternates: { canonical: '/servicios' },
   title: 'Servicios y precios',
   description:
-    'Lista de precios de Ángeles Nails Salon: esmaltado en gel S/ 30, uñas acrílicas y polygel S/ 50, pedicure spa S/ 40, lifting de pestañas S/ 35 y diseño de cejas S/ 15.',
+    'Servicios y precios de Angeles Studio en Los Olivos: esmaltado en gel desde S/ 30, uñas acrílicas y polygel desde S/ 50, pedicure spa desde S/ 40 y lifting de pestañas S/ 35.',
 };
 
 const notes = [

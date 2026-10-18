@@ -2813,6 +2813,54 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
 .lightbox-prev:hover { transform:translateX(-3px); }
 .lightbox-next { grid-column:3; justify-self:end; }
 .lightbox-next:hover { transform:translateX(3px); }
+/* Identidad aprobada: Angeles Studio / Nails Salon, sin alterar el resto de la paleta. */
+.brand-logo .brand-lettering { justify-items:center; gap:6px; }
+.site-header .brand-logo,.site-header .brand-name,.site-header .brand-sub { color:var(--brand-pink); }
+.booking-title { font-family:var(--font-display),Georgia,serif; font-weight:400; }
+@media (min-width:761px) {
+  .site-nav .nav-cta[aria-current=page] { color:#fff; background:var(--evergreen); }
+}
+.brand-logo .brand-name { font:400 clamp(20px,1.8vw,24px)/1 var(--font-display),Georgia,serif; letter-spacing:-.025em; white-space:nowrap; }
+.brand-logo .brand-sub { display:flex; align-items:center; gap:12px; width:100%; font:400 10px/1.1 var(--font-sans),sans-serif; letter-spacing:.18em; white-space:nowrap; }
+.brand-logo .brand-sub::before,.brand-logo .brand-sub::after { content:''; flex:1; height:1px; background:currentColor; opacity:.8; }
+.brand-logo-lg .brand-name { font-size:clamp(24px,2.4vw,32px); }
+.brand-logo-lg .brand-sub { font-size:11px; }
+.brand-logo-sm .brand-name { font-size:20px; }
+.brand-logo-sm .brand-sub { font-size:9px; }
+.experience-intro.experience-intro-no-media { grid-template-columns:minmax(0,1fr); }
+.experience-intro-no-media .experience-lead { max-width:76ch; }
+.contact-grid.contact-grid-no-video { grid-template-columns:minmax(0,1fr); }
+.contact-grid-no-video .contact-card { width:100%; }
+.team-portrait.team-portrait-initials { aspect-ratio:1.5; min-height:170px; place-items:center; background:var(--peony); border-radius:24px; }
+.team-portrait.team-portrait-initials span { transform:none; color:var(--evergreen); font-size:clamp(64px,9vw,110px); }
+.hero-controls { position:absolute; z-index:4; bottom:24px; right:var(--page-gutter); display:flex; align-items:center; gap:10px; padding:4px 8px; background:var(--mist); color:var(--evergreen); border-radius:30px; font-size:10px; }
+.hero-controls button { min-width:44px; min-height:44px; border:0; background:transparent; color:inherit; cursor:pointer; }
+.hero-controls button:focus-visible { outline:2px solid var(--evergreen); border-radius:20px; }
+.hero-media-note { position:absolute; z-index:3; bottom:9px; left:var(--page-gutter); padding:4px 7px; border-radius:4px; background:rgba(20,40,28,.86); font-size:10px; color:#fff; }
+.schedule-panel,.schedule-times-inner,.schedule-head { min-width:0; }
+.schedule-preference-note { grid-column:1/-1; margin:6px 0 0; color:var(--evergreen); font-size:12px; line-height:1.6; }
+.booking .form-status.is-error { color:#8e303a; }
+.map-consent { min-height:360px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; padding:36px 24px 160px; text-align:center; background:var(--peony); color:var(--evergreen); }
+.map-consent p { margin:0; font:500 32px var(--font-display),serif; }
+.map-consent small { max-width:42ch; line-height:1.7; }
+.map-consent a { text-decoration:underline; }
+@media (max-width:760px) {
+  .site-header .brand-logo .brand-name { font-size:20px; }
+  .site-header .brand-logo .brand-sub { font-size:9px; gap:8px; }
+  .hero-controls { bottom:24px; gap:3px; right:20px; }
+  .hero-media-note { left:20px; }
+  .schedule { grid-template-columns:minmax(0,1fr); }
+  .schedule-calendar { padding:14px; }
+  .schedule-head { flex-wrap:wrap; }
+  .schedule-nav button { width:36px; height:36px; }
+  .schedule-nav strong { font-size:16px; }
+  .schedule-day { min-height:36px; font-size:13px; }
+  .schedule-times { min-height:0; }
+  .schedule-times-inner { position:static; padding:14px; }
+  .schedule-times-scroll { max-height:188px; }
+  .schedule-times-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .schedule-slot { min-height:40px; font-size:12px; }
+}
 @media (hover:hover) and (pointer:fine) {
   .lightbox-step { display:grid; place-items:center; }
 }

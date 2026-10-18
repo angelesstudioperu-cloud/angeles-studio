@@ -1,7 +1,11 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business, emailUrl, whatsappUrl } from '../content/business';
 
-export const metadata = { title: 'Libro de reclamaciones' };
+export const metadata = {
+  title: 'Libro de reclamaciones',
+  alternates: { canonical: '/libro-de-reclamaciones' },
+  robots: { index: false, follow: true },
+};
 
 export default function ComplaintsPage() {
   return (
@@ -11,17 +15,17 @@ export default function ComplaintsPage() {
         <p className="eyebrow">Atención al cliente</p>
         <h1>Libro de reclamaciones</h1>
         <p>
-          Este espacio está reservado para el Libro de Reclamaciones virtual de {business.name}, conforme al
-          Código de Protección y Defensa del Consumidor del Perú.
+          Este espacio está reservado para el Libro de Reclamaciones virtual de {business.name}.
+          El formulario todavía no está habilitado.
         </p>
 
         <div className="legal-placeholder">
-          <strong>Formulario pendiente de constitución formal</strong>
+          <strong>Pendiente de datos y habilitación</strong>
           <p>
-            El salón todavía no cuenta con razón social ni RUC, y sin esos datos no podemos publicar un libro de
-            reclamaciones virtual válido. Mientras tanto, puedes hacernos llegar cualquier reclamo por WhatsApp al{' '}
+            Estamos pendientes de confirmar la identidad legal del proveedor y el procedimiento de atención.
+            Mientras tanto, puedes comunicarte por WhatsApp al{' '}
             <a href={whatsappUrl} target="_blank" rel="noreferrer">{business.whatsappDisplay}</a> o al correo{' '}
-            <a href={emailUrl}>{business.email}</a>, y lo registramos en el libro físico del local.
+            <a href={emailUrl}>{business.email}</a>. Estos canales de contacto no sustituyen el Libro de Reclamaciones.
           </p>
         </div>
 

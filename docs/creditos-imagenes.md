@@ -1,8 +1,14 @@
 # Créditos de imágenes
 
-Mientras Ángeles Nails Salon envía su propio material, la web usa fotografías de
+Mientras Angeles Studio envía su propio material, la web usa fotografías de
 **Pexels** bajo la [licencia Pexels](https://www.pexels.com/license/): uso comercial
 permitido, sin necesidad de atribución. Se dejan registradas igualmente por trazabilidad.
+
+Licencia consultada nuevamente el 18 de octubre de 2026 en el sitio oficial. Las fotos
+son referenciales: no se presentan como resultados, instalaciones ni integrantes del
+salón, ni se incorporan al logo. No reutilizarlas como testimonio o recomendación de
+las personas fotografiadas. Los videos pendientes y las supuestas fotos del local se
+ocultaron; no son necesarios para publicar el catálogo.
 
 Todas fueron reconvertidas a WebP y reducidas antes de entrar al repositorio
 (ninguna supera los 90 KB).

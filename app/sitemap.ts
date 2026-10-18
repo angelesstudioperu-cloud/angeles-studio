@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { services, servicePath } from './content/services';
+import { absoluteUrl } from './content/site';
 
 const routes = [
   { path: '', priority: 1, changeFrequency: 'weekly' as const },
@@ -11,14 +12,12 @@ const routes = [
   { path: '/reservar', priority: 0.9, changeFrequency: 'monthly' as const },
   { path: '/privacidad', priority: 0.2, changeFrequency: 'yearly' as const },
   { path: '/terminos', priority: 0.2, changeFrequency: 'yearly' as const },
-  { path: '/libro-de-reclamaciones', priority: 0.2, changeFrequency: 'yearly' as const },
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const origin = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
-  const lastModified = new Date('2026-09-05');
+  const lastModified = new Date('2026-10-18');
   return routes.map(({ path, priority, changeFrequency }) => ({
-    url: `${origin}${path}`,
+    url: absoluteUrl(path),
     lastModified,
     changeFrequency,
     priority,

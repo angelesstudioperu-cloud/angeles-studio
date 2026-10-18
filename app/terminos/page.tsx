@@ -1,7 +1,7 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business } from '../content/business';
 
-export const metadata = { title: 'Términos del servicio' };
+export const metadata = { title: 'Términos del servicio', alternates: { canonical: '/terminos' } };
 
 export default function TermsPage() {
   return (
@@ -41,7 +41,7 @@ export default function TermsPage() {
 
         <h2>Resultados y cuidados</h2>
         <p>
-          Los resultados dependen del diagnóstico, historial y condición de cada persona. Seguir las
+          Los resultados dependen del servicio elegido y de la condición de las uñas, piel y pestañas. Seguir las
           recomendaciones posteriores es parte esencial del mantenimiento. No realizamos servicios sobre piel,
           ojos o uñas con irritación, infección o lesión visible.
         </p>

@@ -8,7 +8,6 @@ import { ServiceMenu } from './components/ServiceMenu';
 import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 import { SocialIcon } from './components/SocialIcon';
-import { VideoShowcase } from './components/VideoShowcase';
 import { WhatsAppFloat } from './components/WhatsAppFloat';
 import { business, whatsappLink } from './content/business';
 import { gallery } from './content/gallery';
@@ -17,10 +16,12 @@ import { gallery } from './content/gallery';
  * En escritorio caben los cuatro datos; en móvil solo quedan los dos que se
  * consultan de verdad antes de escribir (cuándo abrimos y dónde estamos).
  */
+export const metadata = { alternates: { canonical: '/' } };
+
 const facts = [
   {
-    value: 'Servicios desde S/ 30',
-    label: 'Esmaltado en gel · Pedicure spa · Mirada desde S/ 15',
+    value: 'Manos desde S/ 30',
+    label: 'Esmaltado en gel desde S/ 30 · Pedicure spa desde S/ 40',
     desktopOnly: true,
   },
   { value: business.hours.daysShort, label: business.hours.display },
@@ -67,7 +68,7 @@ export default function Home() {
             </div>
             <div>
               <dt>Respuesta</dt>
-              <dd>Te confirmamos disponibilidad el mismo día</dd>
+              <dd>Te confirmamos la disponibilidad por WhatsApp</dd>
             </div>
           </dl>
           <a className="booking-direct" href={whatsappLink(`Hola, ${business.name}. Quisiera consultar por una cita.`)} target="_blank" rel="noreferrer">
@@ -80,16 +81,13 @@ export default function Home() {
         </div>
       </section>
 
-      <VideoShowcase />
-
       <section className="edit" aria-labelledby="edit-title">
         <div className="section-bar">
           <div>
-            <p className="eyebrow">The Ángeles edit</p>
-            <h2 id="edit-title">Diseños y resultados</h2>
+            <p className="eyebrow">Angeles Studio</p>
+            <h2 id="edit-title">Inspiración para tus uñas</h2>
             <p className="section-lead">
-              Formas, colores y acabados que trabajamos en cabina. Guarda el que te represente y muéstranoslo
-              el día de tu cita.
+              Ideas de formas, colores y acabados para inspirar tu próxima cita. Las imágenes son referenciales.
             </p>
           </div>
           <Link className="text-link" href="/galeria">
@@ -108,10 +106,9 @@ export default function Home() {
       <section className="social-proof" aria-labelledby="social-title">
         <div className="social-heading">
           <p className="eyebrow">Síguenos</p>
-          <h2 id="social-title">Cada semana,<br />trabajos nuevos</h2>
+          <h2 id="social-title">Encuentra tu<br />próxima inspiración</h2>
           <p className="section-lead">
-            Publicamos diseños, procesos y la disponibilidad de la semana. Es la forma más rápida de ver
-            resultados reales antes de reservar.
+            Síguenos en redes para conocer más sobre Angeles Studio y nuestros servicios.
           </p>
         </div>
         <div className="social-grid">

@@ -9,6 +9,7 @@ const production = JSON.parse(await readFile(productionPath, 'utf8'));
 const generated = JSON.parse(await readFile(generatedPath, 'utf8'));
 
 generated.name = production.name;
+generated.account_id = production.account_id;
 generated.topLevelName = production.name;
 generated.compatibility_date = production.compatibility_date;
 generated.compatibility_flags = production.compatibility_flags;

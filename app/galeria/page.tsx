@@ -8,9 +8,10 @@ import { WhatsAppFloat } from '../components/WhatsAppFloat';
 import { business } from '../content/business';
 
 export const metadata = {
+  alternates: { canonical: '/galeria' },
   title: 'Galería',
   description:
-    'Diseños de uñas, pedicure spa, lifting de pestañas y cejas trabajados en Ángeles Nails Salon, Los Olivos.',
+    'Imágenes referenciales de inspiración para uñas, pedicure spa, lifting de pestañas y cejas en Angeles Studio, Los Olivos.',
 };
 
 export default function GalleryPage() {
@@ -24,7 +25,7 @@ export default function GalleryPage() {
         className="page-hero-wide"
         showEmblem={false}
         breadcrumb="Galería"
-        eyebrow="The Ángeles edit"
+        eyebrow="Angeles Studio"
         title={<>Detalles que <em>hablan por ti</em></>}
       />
 
@@ -37,8 +38,7 @@ export default function GalleryPage() {
       </div>
 
       <p className="gallery-disclaimer">
-        Imágenes de referencia con licencia libre mientras publicamos nuestro propio material. Los trabajos reales
-        del salón se publican a diario en {business.social.instagram.handle}.
+        Estas imágenes son referenciales y sirven de inspiración; no corresponden a resultados del salón. Consulta nuestras redes para ver el contenido disponible.
       </p>
 
       <section className="cta-band">

@@ -11,6 +11,8 @@ const SWIPE_THRESHOLD = 45;
 export function GalleryGrid() {
   const [open, setOpen] = useState<number | null>(null);
   const touchX = useRef<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
+  const isOpen = open !== null;
 
   const close = useCallback(() => setOpen(null), []);
   const go = useCallback((step: number) => {
@@ -18,11 +20,27 @@ export function GalleryGrid() {
   }, []);
 
   useEffect(() => {
-    if (open === null) return;
+    if (!isOpen) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    dialogRef.current?.querySelector<HTMLButtonElement>('button')?.focus();
     function onKey(event: KeyboardEvent) {
       if (event.key === 'Escape') close();
       if (event.key === 'ArrowRight') go(1);
       if (event.key === 'ArrowLeft') go(-1);
+      if (event.key === 'Tab') {
+        const buttons = Array.from(dialogRef.current?.querySelectorAll<HTMLButtonElement>('button') ?? [])
+          .filter((button) => button.getClientRects().length > 0);
+        if (!buttons?.length) return;
+        const first = buttons[0];
+        const last = buttons[buttons.length - 1];
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault();
+          last.focus();
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault();
+          first.focus();
+        }
+      }
     }
     document.addEventListener('keydown', onKey);
     const previous = document.body.style.overflow;
@@ -30,15 +48,16 @@ export function GalleryGrid() {
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = previous;
+      previousFocus?.focus();
     };
-  }, [open, close, go]);
+  }, [isOpen, close, go]);
 
   const active = open === null ? null : gallery[open];
   const position = open === null ? 0 : open + 1;
 
   return (
     <>
-      <section className="gallery-grid" id="galeria" aria-label="Galería de trabajos">
+      <section className="gallery-grid" id="galeria" aria-label="Galería de inspiración">
         {gallery.map((item, index) => (
           <button
             type="button"
@@ -54,7 +73,7 @@ export function GalleryGrid() {
       </section>
 
       {active && (
-        <div className="lightbox" role="dialog" aria-modal="true" aria-label={active.caption} onClick={close}>
+        <div ref={dialogRef} className="lightbox" role="dialog" aria-modal="true" aria-label={active.caption} onClick={close}>
           <button type="button" className="lightbox-close" onClick={close} aria-label="Cerrar">
             ✕
           </button>

@@ -7,10 +7,10 @@
  * Lo que sigue marcado como `pending` continúa sin confirmar.
  */
 export const business = {
-  name: 'Ángeles Nails Salon',
-  shortName: 'Ángeles',
-  legalName: null, // pending: el negocio aún no cuenta con razón social ni RUC
-  taxId: null,
+  name: 'Angeles Studio',
+  shortName: 'Angeles',
+  legalName: null, // pending: identidad del proveedor no documentada
+  taxId: null, // El negocio confirmó que aún no tiene RUC; no publicar uno ficticio.
   tagline: 'A mal tiempo, uñas lindas.',
   description:
     'Especialistas en uñas, pedicure spa y diseño de mirada en Los Olivos, Lima.',
@@ -19,17 +19,22 @@ export const business = {
   whatsappDisplay: '+51 947 117 905',
   email: 'angelesstudioperu@gmail.com',
 
+  // Ubicación y primer piso confirmados por el negocio el 18/10/2026.
+  // La numeración de Street View no confirma el número de puerta: no reutilizar 66/64/63.
   address: {
-    street: 'Calle Los Olivos 66',
-    unit: 'Tienda 64',
+    street: 'Calle Los Olivos',
+    unit: 'Primer piso',
     area: 'Urb. Rosario del Norte',
     district: 'Los Olivos',
     city: 'Lima',
     postalCode: '15304',
     country: 'PE',
   },
-  geo: { lat: -11.981465, lng: -77.0800296 },
-  mapsUrl: 'https://maps.app.goo.gl/EY7G6DYuxjgJGGQj6',
+  // Punto inferior señalado por el negocio en el mapa el 18/10/2026.
+  geo: { lat: -11.981506, lng: -77.079941 },
+  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-11.981506%2C-77.079941',
+  streetViewUrl: 'https://maps.app.goo.gl/hgXztzrzmQxh5mCS6',
+  locationReference: 'Primer piso, local con letrero rosado Angeles Studio.',
 
   hours: {
     opens: '10:00',
@@ -48,6 +53,7 @@ export const business = {
   bookingDeposit: 10,
 
   social: {
+    facebook: { url: 'https://www.facebook.com/profile.php?id=61550200861127', handle: 'Angeles Studio Nails' },
     instagram: { url: 'https://www.instagram.com/angelesstudio.pe/', handle: '@angelesstudio.pe' },
     tiktok: { url: 'https://www.tiktok.com/@angelesnails.studio', handle: '@angelesnails.studio' },
   },

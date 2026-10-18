@@ -24,7 +24,8 @@ function serviceFromOption(value: string) {
  * renderizado y no haya salto al hidratar.
  */
 export function BookingForm({ preselect }: { preselect?: string } = {}) {
-  const [status, setStatus] = useState<'idle' | 'opened' | 'blocked' | 'missing'>('idle');
+  const [status, setStatus] = useState<'idle' | 'prepared' | 'missing'>('idle');
+  const [draftUrl, setDraftUrl] = useState('');
   const [service, setService] = useState(preselect ? optionValue(preselect) : '');
   const [flash, setFlash] = useState(false);
   const [invalid, setInvalid] = useState(false);
@@ -64,8 +65,7 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
       return value ? `${label}: ${value}` : null;
     };
 
-    // Fecha y hora son parte de la solicitud: sin ellas no hay nada que confirmar.
-    if (!form.get('date') || !form.get('time')) {
+    if (!form.get('date')) {
       setInvalid(true);
       setStatus('missing');
       document.querySelector('.schedule')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -79,13 +79,19 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
       `Servicio: ${form.get('service')}`,
       optional('Retiro previo', 'removal'),
       optional('Fecha preferida', 'date'),
-      optional('Hora preferida', 'time'),
+      `Hora preferida: ${form.get('time') || 'Sin especificar'}`,
     ]
       .filter(Boolean)
       .join('\n');
 
-    const openedWindow = window.open(`${whatsappUrl}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
-    setStatus(openedWindow ? 'opened' : 'blocked');
+    const url = `${whatsappUrl}?text=${encodeURIComponent(message)}`;
+    setDraftUrl(url);
+    setStatus('prepared');
+    try {
+      window.open(url, '_blank', 'noopener,noreferrer');
+    } catch {
+      // El enlace manual conserva el mismo borrador si el navegador no abre una ventana.
+    }
   }
 
   return (
@@ -128,7 +134,7 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
           </span>
         </label>
 
-        <BookingSchedule durationMinutes={duration} invalid={invalid} />
+        <BookingSchedule key={service || 'default'} durationMinutes={duration} invalid={invalid} />
       </div>
 
       <button className="button button-book" type="submit">
@@ -137,24 +143,20 @@ export function BookingForm({ preselect }: { preselect?: string } = {}) {
       <p className="form-note">
         Adelanto de S/ {business.bookingDeposit} para separar, que se descuenta del total.
       </p>
+      <p className="form-note">
+        Este formulario envía una solicitud, no confirma la cita ni la disponibilidad. Consulta nuestra{' '}
+        <a href="/privacidad">política de privacidad</a>.
+      </p>
 
       {status === 'missing' && (
         <p className="form-status is-error" role="alert">
-          Elige el día y la hora que te acomoden para poder enviar la solicitud.
+          Elige el día que prefieras para enviar la solicitud. La hora es opcional.
         </p>
       )}
-      {status === 'opened' && (
+      {status === 'prepared' && (
         <p className="form-status" role="status">
-          Abrimos WhatsApp con tu solicitud lista para enviar.
-        </p>
-      )}
-      {status === 'blocked' && (
-        <p className="form-status" role="alert">
-          Tu navegador bloqueó la ventana.{' '}
-          <a href={whatsappUrl} target="_blank" rel="noreferrer">
-            Abrir WhatsApp en {business.whatsappDisplay}
-          </a>
-          .
+          Tu solicitud está lista, pero la cita aún no está confirmada. Si WhatsApp no se abrió,{' '}
+          <a href={draftUrl} target="_blank" rel="noopener noreferrer">abre el mismo borrador manualmente</a>.
         </p>
       )}
     </form>

@@ -7,6 +7,7 @@ import { PriceTag } from '../../components/PriceTag';
 import { SiteHeader } from '../../components/SiteHeader';
 import { WhatsAppFloat } from '../../components/WhatsAppFloat';
 import { business, whatsappLink } from '../../content/business';
+import { absoluteUrl } from '../../content/site';
 import {
   categoryContent,
   formatDuration,
@@ -28,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   if (!service) return { title: 'Servicio no encontrado' };
   return {
     title: service.name,
-    description: `${service.note} ${formatFlatPrice(service.priceFrom)} en ${business.name}, Los Olivos.`,
+    description: `${service.note} ${service.priceIsFrom ? 'Desde ' : ''}${formatFlatPrice(service.priceFrom)} en ${business.name}, Los Olivos.`,
     alternates: { canonical: servicePath(service.slug) },
   };
 }
@@ -40,10 +41,24 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
 
   const category = categoryContent[service.category];
   const related = relatedServices(service);
-  const bookMessage = `Hola, ${business.name}. Quisiera reservar «${service.name}» (${formatFlatPrice(service.priceFrom)}).`;
+  const bookMessage = `Hola, ${business.name}. Quisiera consultar disponibilidad para «${service.name}» (${service.priceIsFrom ? 'desde ' : ''}${formatFlatPrice(service.priceFrom)}).`;
 
   return (
     <main className="subpage subpage-servicio">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          { '@type': 'Service', '@id': absoluteUrl(`${servicePath(service.slug)}#servicio`),
+            name: service.name, description: service.note, serviceType: category.label,
+            provider: { '@id': absoluteUrl('/#salon') }, areaServed: 'Los Olivos, Lima, Perú',
+            url: absoluteUrl(servicePath(service.slug)) },
+          { '@type': 'BreadcrumbList', itemListElement: [
+            { '@type': 'ListItem', position: 1, name: 'Inicio', item: absoluteUrl('/') },
+            { '@type': 'ListItem', position: 2, name: 'Servicios', item: absoluteUrl('/servicios') },
+            { '@type': 'ListItem', position: 3, name: service.name, item: absoluteUrl(servicePath(service.slug)) },
+          ] },
+        ],
+      }).replace(/</g, '\\u003c') }} />
       <MotionEffects />
       <a className="skip-link" href="#detalle">Saltar al detalle del servicio</a>
       <SiteHeader current="/servicios" />
@@ -75,6 +90,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
               <dd>{business.bookingPolicy}</dd>
             </div>
           </dl>
+          <p className="service-faq-note">Fotografía referencial de inspiración; no corresponde a un resultado del salón.</p>
 
           <div className="hero-actions">
             <Link className="button button-primary" href={`/reservar?servicio=${service.slug}`}>
@@ -127,26 +143,6 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
             ))}
           </ul>
         </article>
-      </section>
-
-      <section className="service-video" aria-labelledby="video-title">
-        <div className="service-video-copy">
-          <p className="eyebrow">En video</p>
-          <h2 id="video-title">Míralo en cabina</h2>
-          <p>
-            Estamos grabando el proceso de cada servicio. Mientras tanto puedes ver trabajos reales en{' '}
-            <a href={business.social.tiktok.url} target="_blank" rel="noreferrer">
-              TikTok {business.social.tiktok.handle}
-            </a>
-            .
-          </p>
-        </div>
-        {/* Reemplazar por <video src="..." controls poster="..."> cuando el salón entregue el material. */}
-        <div className="video-slot" role="img" aria-label={`Espacio reservado para el video de ${service.name}`}>
-          <span className="video-slot-icon" aria-hidden="true">▶</span>
-          <p>Video de {service.name.toLowerCase()}</p>
-          <small>Próximamente</small>
-        </div>
       </section>
 
       <section className="service-faq" aria-labelledby="service-faq-title">
@@ -204,9 +200,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <h2>
             {service.name}
             <br />
-            <em>{formatFlatPrice(service.priceFrom)}.</em>
+            <em>{service.priceIsFrom ? 'Desde ' : ''}{formatFlatPrice(service.priceFrom)}.</em>
           </h2>
-          <p>Escríbenos y coordinamos el día y la hora. Te confirmamos disponibilidad antes de que salgas de casa.</p>
+          <p>Escríbenos para consultar la disponibilidad y coordinar el día y la hora.</p>
         </div>
         <div className="cta-actions">
           <Link className="button button-light" href={`/reservar?servicio=${service.slug}`}>

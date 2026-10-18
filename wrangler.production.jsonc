@@ -17,7 +17,7 @@
   ],
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "https://angeles-studio.angelesstudioperu.workers.dev",
-    "SITE_LAUNCH_READY": "false"
+    "SITE_LAUNCH_READY": "true"
   },
   "observability": {
     "enabled": true

@@ -9,9 +9,10 @@ import { WhatsAppFloat } from '../components/WhatsAppFloat';
 import { business, whatsappLink } from '../content/business';
 
 export const metadata = {
+  alternates: { canonical: '/contacto' },
   title: 'Contacto y ubicación',
   description:
-    'Ángeles Nails Salon está en Los Olivos, Lima. Escríbenos por WhatsApp al +51 947 117 905 o por Instagram para coordinar tu cita.',
+    'Angeles Studio está en Los Olivos, Lima. Escríbenos por WhatsApp al +51 947 117 905 o por Instagram para coordinar tu cita.',
 };
 
 
@@ -41,7 +42,7 @@ export default function ContactPage() {
         }
       />
 
-      <section className="contact-grid" id="datos">
+      <section className="contact-grid contact-grid-no-video" id="datos">
         <div className="contact-card">
           <p className="eyebrow">El dato completo</p>
           <dl>
@@ -49,36 +50,26 @@ export default function ContactPage() {
             <div><dt>Días</dt><dd>{business.hours.days}</dd></div>
             <div><dt>Atención</dt><dd>{business.bookingPolicy}</dd></div>
             <div><dt>Distrito</dt><dd>{business.address.district}</dd></div>
-            <div><dt>Tienda</dt><dd>{business.address.unit}</dd></div>
-            <div><dt>Referencia</dt><dd>{business.address.area}</dd></div>
+            <div><dt>Piso</dt><dd>{business.address.unit}</dd></div>
+            <div><dt>Referencia</dt><dd>{business.locationReference}</dd></div>
           </dl>
           <a className="button button-primary" href={business.mapsUrl} target="_blank" rel="noreferrer">
-            Ver ubicación exacta
+            Ver ubicación del local
           </a>
           <p className="contact-note">
-            El enlace abre la ubicación registrada del salón en Google Maps, con la vista de calle de la puerta.
+            El enlace señala el edificio en Google Maps. Busca el letrero rosado Angeles Studio en el primer piso; si necesitas ayuda para llegar, escríbenos por WhatsApp.
           </p>
           {/* Cierra la tarjeta en escritorio, donde quedaba un bloque vacío bajo el botón. */}
           <BrandLogo size="lg" className="contact-card-logo" />
         </div>
 
-        {/* Reemplazar por <video controls playsInline> cuando llegue el recorrido grabado. */}
-        <div className="contact-video">
-          <p className="eyebrow">En video</p>
-          <h2>Cómo llegar<br />hasta la puerta</h2>
-          <div className="video-frame video-frame-portrait" role="img" aria-label="Espacio reservado para el video de cómo llegar al salón">
-            <span className="video-frame-icon" aria-hidden="true">▶</span>
-            <p>Cómo llegar al salón</p>
-            <small>Próximamente</small>
-          </div>
-        </div>
       </section>
 
       <section className="cta-band">
         <div>
           <p className="eyebrow">Reserva</p>
-          <h2>¿Prefieres dejarnos<br />tus datos?</h2>
-          <p>Completa el formulario y te escribimos por WhatsApp para confirmar disponibilidad.</p>
+          <h2>Prepara tu solicitud<br />de cita</h2>
+          <p>Elige el servicio y tu fecha preferida. El formulario prepara un mensaje para que lo envíes por WhatsApp y coordinemos la disponibilidad.</p>
         </div>
         <div className="cta-actions">
           <Link className="button button-light" href="/reservar">Ir al formulario</Link>

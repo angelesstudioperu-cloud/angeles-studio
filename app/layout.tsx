@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Jost, Montserrat } from 'next/font/google';
 import { business } from './content/business';
+import { absoluteUrl, siteLaunchReady, siteOrigin } from './content/site';
 import './globals.css';
 
 const display = Cormorant_Garamond({
@@ -14,14 +15,14 @@ const sans = Montserrat({ variable: '--font-sans', subsets: ['latin'], weight: [
 const brand = Jost({ variable: '--font-brand', subsets: ['latin'], weight: ['300', '400'] });
 
 const title = `${business.name} | Uñas, pedicure y diseño de mirada en Los Olivos`;
-const description = `${business.description} Esmaltado en gel S/ 30, pedicure spa S/ 40 y lifting de pestañas S/ 35.`;
+const description = `${business.description} Esmaltado en gel desde S/ 30, pedicure spa desde S/ 40 y lifting de pestañas S/ 35.`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'),
+  metadataBase: new URL(siteOrigin),
   title: { default: title, template: `%s | ${business.name}` },
   description,
   applicationName: business.name,
-  robots: process.env.SITE_LAUNCH_READY === 'true' ? { index: true, follow: true } : { index: false, follow: false },
+  robots: siteLaunchReady ? { index: true, follow: true } : { index: false, follow: false },
   icons: {
     icon: [{ url: '/favicon.png', sizes: '64x64', type: 'image/png' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180' }],
@@ -33,9 +34,9 @@ export const metadata: Metadata = {
     description,
     type: 'website',
     locale: 'es_PE',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: `${business.name} — uñas, pedicure y mirada` }],
+    images: [{ url: '/brand/angeles-social-card.png', width: 1200, height: 630, alt: `${business.name} — uñas, pedicure y mirada` }],
   },
-  twitter: { card: 'summary_large_image', title, description, images: ['/og.png'] },
+  twitter: { card: 'summary_large_image', title, description, images: ['/brand/angeles-social-card.png'] },
 };
 
 export const viewport: Viewport = {
@@ -48,12 +49,14 @@ export const viewport: Viewport = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BeautySalon',
+  '@id': absoluteUrl('/#salon'),
   name: business.name,
   description: business.description,
-  image: '/og.png',
+  image: absoluteUrl('/brand/angeles-social-card.png'),
+  logo: absoluteUrl('/brand/angeles-lockup.svg'),
   telephone: `+${business.whatsappDigits}`,
   email: business.email,
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000',
+  url: absoluteUrl(),
   address: {
     '@type': 'PostalAddress',
     streetAddress: `${business.address.street}, ${business.address.unit}, ${business.address.area}`,
@@ -72,17 +75,17 @@ const structuredData = {
       closes: business.hours.closes,
     },
   ],
-  sameAs: [business.social.instagram.url, business.social.tiktok.url],
-  priceRange: 'S/ 10 — S/ 60',
-  areaServed: 'Lima, Perú',
+  sameAs: Object.values(business.social).map((profile) => profile.url),
+  priceRange: 'Desde S/ 10',
+  areaServed: 'Los Olivos, Lima, Perú',
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="es-PE">
       <head>
-        <link rel="preload" as="image" href="/images/angeles-nails-hero.webp" type="image/webp" />
-        <script type="application/ld+json" suppressHydrationWarning dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+        <link rel="preload" as="image" href="/images/servicio-manos.webp" type="image/webp" />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
       </head>
       <body className={`${display.variable} ${sans.variable} ${brand.variable}`}>{children}</body>
     </html>

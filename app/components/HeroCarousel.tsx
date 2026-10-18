@@ -18,25 +18,25 @@ const slides: Slide[] = [
     eyebrow: 'Los Olivos, Lima',
     title: ['Pequeños detalles', 'Gran presencia'],
     cta: { label: 'Reservar', href: '/reservar' },
-    image: { src: '/images/angeles-nails-hero.webp', width: 1536, height: 1024, alt: 'Manicure en proceso en Ángeles Nails Salon' },
+    image: { src: '/images/servicio-manos.webp', width: 1400, height: 937, alt: 'Imagen referencial: manicure nude con nail art delicado' },
   },
   {
     id: 'manos',
-    eyebrow: 'Manos · S/ 30',
-    title: ['Esmaltado en gel', 'que dura semanas'],
+    eyebrow: 'Manos · desde S/ 30',
+    title: ['Esmaltado en gel', 'a tu estilo'],
     cta: { label: 'Ver uñas', href: '/servicios#manos' },
     image: { src: '/images/servicio-manos.webp', width: 1400, height: 937, alt: 'Manicure nude con nail art delicado' },
   },
   {
     id: 'mirada',
-    eyebrow: 'Mirada · S/ 15',
+    eyebrow: 'Mirada y cejas · desde S/ 10',
     title: ['Una mirada abierta,', 'sin exagerar'],
     cta: { label: 'Ver mirada', href: '/servicios#mirada' },
     image: { src: '/images/servicio-mirada.webp', width: 1400, height: 934, alt: 'Especialista trabajando el lifting de pestañas de una clienta' },
   },
   {
     id: 'pies',
-    eyebrow: 'Pies · S/ 20',
+    eyebrow: 'Pedicure spa en gel · desde S/ 40',
     title: ['Pedicure spa', 'con calma'],
     cta: { label: 'Ver pies', href: '/servicios#pies' },
     image: { src: '/images/studio-atencion.webp', width: 1400, height: 933, alt: 'Especialista realizando un pedicure spa a una clienta' },
@@ -49,16 +49,17 @@ const SWIPE_THRESHOLD = 45;
 export function HeroCarousel() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [manualPause, setManualPause] = useState(false);
   const dragStart = useRef<number | null>(null);
 
   const go = useCallback((next: number) => setIndex((next + slides.length) % slides.length), []);
 
   useEffect(() => {
-    if (paused) return;
+    if (paused || manualPause) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const timer = window.setTimeout(() => go(index + 1), INTERVAL);
     return () => window.clearTimeout(timer);
-  }, [index, paused, go]);
+  }, [index, paused, manualPause, go]);
 
   // Se cambia de slide arrastrando: sin flechas ni puntos que delaten cuántas hay.
   function handlePointerDown(event: React.PointerEvent) {
@@ -131,7 +132,15 @@ export function HeroCarousel() {
           </Link>
         </div>
       </div>
-
+      <div className="hero-controls" onPointerDown={(event) => event.stopPropagation()} onPointerUp={(event) => event.stopPropagation()}>
+        <button type="button" aria-label="Servicio destacado anterior" onClick={() => go(index - 1)}>←</button>
+        <button type="button" onClick={() => setManualPause((value) => !value)} aria-pressed={manualPause}>
+          {manualPause ? 'Reanudar' : 'Pausar'}
+        </button>
+        <span aria-hidden="true">{index + 1} / {slides.length}</span>
+        <button type="button" aria-label="Servicio destacado siguiente" onClick={() => go(index + 1)}>→</button>
+      </div>
+      <span className="hero-media-note">Imagen referencial de inspiracion</span>
     </div>
   );
 }

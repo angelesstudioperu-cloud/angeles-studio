@@ -55,7 +55,7 @@ export const categoryContent: Record<
     intro:
       'Esmaltado en gel y sistemas de extensión: preparación cuidadosa, estructura ligera y un acabado que aguanta el día a día.',
     image: '/images/servicio-manos.webp',
-    imageAlt: 'Manicure nude con nail art delicado terminado en Ángeles Nails Salon',
+    imageAlt: 'Imagen referencial: manicure nude con nail art delicado',
     imageWidth: 1400,
     imageHeight: 937,
   },

@@ -1,55 +1,36 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useSyncExternalStore } from 'react';
 import { business } from '../content/business';
+import { buildBookingSlots, dateKey, formatPreferredDate, getLimaDateParts, getLimaMinutes, type DateParts } from '../lib/booking-time';
 
 const MONTHS = [
   'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
   'julio', 'agosto', 'setiembre', 'octubre', 'noviembre', 'diciembre',
 ];
 const WEEKDAYS = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá', 'Do'];
-const DAY_NAMES = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
 
 /** Cuántos meses hacia adelante se puede navegar. */
 const MONTHS_AHEAD = 3;
+type ClockSnapshot = { today: DateParts; minutes: number };
+let clockSnapshot: ClockSnapshot | null = null;
 
-function toMinutes(hhmm: string) {
-  const [hours, minutes] = hhmm.split(':').map(Number);
-  return hours * 60 + minutes;
+function getClockSnapshot() {
+  const today = getLimaDateParts();
+  const minutes = getLimaMinutes();
+  if (!clockSnapshot || dateKey(clockSnapshot.today) !== dateKey(today) || clockSnapshot.minutes !== minutes) {
+    clockSnapshot = { today, minutes };
+  }
+  return clockSnapshot;
 }
 
-/** 13:00 → «1 p.m.»; las horas en punto se leen sin los dos ceros. */
-function toClockLabel(total: number) {
-  const hours = Math.floor(total / 60);
-  const minutes = total % 60;
-  const suffix = hours >= 12 ? 'p.m.' : 'a.m.';
-  const twelve = hours % 12 === 0 ? 12 : hours % 12;
-  const clock = minutes === 0 ? `${twelve}` : `${twelve}:${String(minutes).padStart(2, '0')}`;
-  return `${clock} ${suffix}`;
+function subscribeToClock(onChange: () => void) {
+  const timer = window.setInterval(onChange, 30_000);
+  return () => window.clearInterval(timer);
 }
 
 /** Duración por defecto mientras no hay servicio elegido. */
 const DEFAULT_DURATION = 60;
-
-/**
- * Una hora en punto desde que abre el salón hasta la última a la que el
- * servicio todavía termina antes del cierre, más ese último tramo exacto
- * cuando no cae en punto.
- */
-function buildSlots(durationMinutes: number) {
-  const open = toMinutes(business.hours.opens);
-  const last = toMinutes(business.hours.closes) - Math.max(durationMinutes, DEFAULT_DURATION);
-  const slots: number[] = [];
-  if (last < open) return [toClockLabel(open)];
-  for (let minute = open; minute <= last; minute += 60) slots.push(minute);
-  if (slots[slots.length - 1] !== last) slots.push(last);
-  return slots.map(toClockLabel);
-}
-
-function startOfToday() {
-  const now = new Date();
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
-}
 
 /** Lunes primero: el domingo (0) pasa al final de la semana. */
 function mondayIndex(date: Date) {
@@ -57,7 +38,7 @@ function mondayIndex(date: Date) {
 }
 
 /**
- * Calendario siempre abierto y lista de horas con su propio desplazamiento.
+ * Calendario para elegir preferencias de fecha y hora, sin consultar disponibilidad.
  * Ambos paneles comparten fila de rejilla, así que miden exactamente lo mismo.
  */
 export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = false }: {
@@ -66,55 +47,66 @@ export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = 
   /** El formulario avisa cuando se intentó enviar sin fecha ni hora. */
   invalid?: boolean;
 } = {}) {
-  const today = useMemo(() => startOfToday(), []);
-  const [view, setView] = useState(() => ({ year: today.getFullYear(), month: today.getMonth() }));
-  const [day, setDay] = useState<Date | null>(null);
+  const clock = useSyncExternalStore(subscribeToClock, getClockSnapshot, () => null);
+  const today = clock?.today ?? null;
+  const [viewOverride, setViewOverride] = useState<{ year: number; month: number } | null>(null);
+  const view = useMemo(
+    () => viewOverride ?? (today ? { year: today.year, month: today.month - 1 } : null),
+    [viewOverride, today],
+  );
+  const [day, setDay] = useState<DateParts | null>(null);
   const [time, setTime] = useState('');
 
-  const slots = useMemo(() => buildSlots(durationMinutes), [durationMinutes]);
+  const slots = useMemo(() => buildBookingSlots(business.hours.opens, business.hours.closes, durationMinutes), [durationMinutes]);
 
-  // Si el servicio nuevo termina más tarde, la hora elegida puede dejar de
-  // caber: se deriva en vez de guardarse para no arrastrar un valor inválido.
-  const activeTime = slots.includes(time) ? time : '';
+  const monthOffset = view && today ? (view.year - today.year) * 12 + (view.month - (today.month - 1)) : 0;
 
-  const monthOffset = (view.year - today.getFullYear()) * 12 + (view.month - today.getMonth());
+  const availableSlots = slots.filter((slot) => {
+    if (!day || !today || dateKey(day) !== dateKey(today)) return true;
+    const [timeText, suffix] = slot.split(' ');
+    const [hoursText, minuteText = '0'] = timeText.split(':');
+    let hours = Number(hoursText) % 12;
+    if (suffix === 'p.m.') hours += 12;
+    return hours * 60 + Number(minuteText) > (clock?.minutes ?? 0);
+  });
+
+  // Recalcular la selección al cambiar fecha, hora actual o duración.
+  const activeTime = availableSlots.includes(time) ? time : '';
 
   const cells = useMemo(() => {
+    if (!view) return [];
     const first = new Date(view.year, view.month, 1);
     const daysInMonth = new Date(view.year, view.month + 1, 0).getDate();
     const blanks = mondayIndex(first);
-    const list: (Date | null)[] = Array.from({ length: blanks }, () => null);
-    for (let number = 1; number <= daysInMonth; number += 1) list.push(new Date(view.year, view.month, number));
+    const list: (DateParts | null)[] = Array.from({ length: blanks }, () => null);
+    for (let number = 1; number <= daysInMonth; number += 1) list.push({ year: view.year, month: view.month + 1, day: number });
     return list;
   }, [view]);
 
   function shiftMonth(step: number) {
-    setView((current) => {
-      const next = new Date(current.year, current.month + step, 1);
-      return { year: next.getFullYear(), month: next.getMonth() };
-    });
+    if (!view) return;
+    const next = new Date(view.year, view.month + step, 1);
+    setViewOverride({ year: next.getFullYear(), month: next.getMonth() });
   }
 
-  const dateValue = day
-    ? `${DAY_NAMES[day.getDay()]} ${day.getDate()} de ${MONTHS[day.getMonth()]}`
-    : '';
+  const dateValue = day && today && dateKey(day) >= dateKey(today) ? formatPreferredDate(day) : '';
 
   return (
     <div className={`schedule field-wide${invalid ? ' is-invalid' : ''}`}>
       <div className="schedule-panel schedule-calendar">
         <div className="schedule-head">
-          <span className="schedule-label">Fecha</span>
+          <span className="schedule-label">Día preferido</span>
           <div className="schedule-nav">
-            <button type="button" onClick={() => shiftMonth(-1)} disabled={monthOffset <= 0} aria-label="Mes anterior">
+            <button type="button" onClick={() => shiftMonth(-1)} disabled={!view || monthOffset <= 0} aria-label="Mes anterior">
               ‹
             </button>
             <strong aria-live="polite">
-              {MONTHS[view.month]} {view.year}
+              {view ? `${MONTHS[view.month]} ${view.year}` : 'Cargando fechas…'}
             </strong>
             <button
               type="button"
               onClick={() => shiftMonth(1)}
-              disabled={monthOffset >= MONTHS_AHEAD}
+              disabled={!view || monthOffset >= MONTHS_AHEAD}
               aria-label="Mes siguiente"
             >
               ›
@@ -131,20 +123,21 @@ export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = 
         <div className="schedule-days" role="group" aria-label="Elige el día de tu cita">
           {cells.map((cell, index) => {
             if (!cell) return <span key={`blank-${index}`} className="schedule-day is-blank" />;
-            const closed = cell.getDay() === 0;
-            const past = cell.getTime() < today.getTime();
-            const picked = day?.getTime() === cell.getTime();
+            const date = new Date(cell.year, cell.month - 1, cell.day);
+            const closed = date.getDay() === 0;
+            const past = !today || dateKey(cell) < dateKey(today);
+            const picked = day !== null && dateKey(day) === dateKey(cell);
             return (
               <button
-                key={cell.toISOString()}
+                key={dateKey(cell)}
                 type="button"
                 className={`schedule-day${picked ? ' is-picked' : ''}`}
                 disabled={closed || past}
                 aria-pressed={picked}
-                aria-label={`${DAY_NAMES[cell.getDay()]} ${cell.getDate()} de ${MONTHS[cell.getMonth()]}`}
-                onClick={() => setDay(cell)}
+                aria-label={formatPreferredDate(cell)}
+                onClick={() => { setDay(cell); setTime(''); }}
               >
-                {cell.getDate()}
+                {cell.day}
               </button>
             );
           })}
@@ -158,12 +151,12 @@ export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = 
       <div className="schedule-panel schedule-times">
         <div className="schedule-times-inner">
           <div className="schedule-head">
-            <span className="schedule-label">Hora</span>
-            <small>{slots.length} horarios</small>
+            <span className="schedule-label">Hora preferida</span>
+            <small>{availableSlots.length} preferencias</small>
           </div>
           <div className="schedule-times-scroll">
             <div className="schedule-times-list" role="group" aria-label="Elige la hora de tu cita">
-              {slots.map((slot) => (
+              {availableSlots.map((slot) => (
                 <button
                   key={slot}
                   type="button"
@@ -176,8 +169,14 @@ export function BookingSchedule({ durationMinutes = DEFAULT_DURATION, invalid = 
               ))}
             </div>
           </div>
+          {day && today && dateKey(day) === dateKey(today) && availableSlots.length === 0 && slots.length > 0 && (
+            <p className="schedule-preference-note">No quedan horas futuras para hoy. Elige otro día o consulta por WhatsApp.</p>
+          )}
         </div>
       </div>
+
+      <p className="schedule-preference-note">Estas son preferencias; la disponibilidad se confirma al coordinar la cita.</p>
+      {slots.length === 0 && <p className="schedule-preference-note">Este servicio supera el horario de atención. Consulta por WhatsApp.</p>}
 
       <input type="hidden" name="date" value={dateValue} />
       <input type="hidden" name="time" value={activeTime} />

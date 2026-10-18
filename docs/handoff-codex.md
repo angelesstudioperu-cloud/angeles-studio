@@ -1,4 +1,10 @@
-# Handoff para Codex — Ángeles Nails Salon
+# Handoff para Codex — Angeles Studio
+
+> Documento histórico. El estado vigente, las comprobaciones y los pendientes están
+> en [cierre de lanzamiento del 18 de octubre de 2026](cierre-lanzamiento-2026-10-18.md).
+> No ejecutar las acciones pendientes de este documento sin revisar ese informe;
+> por ejemplo, los espacios de video ya se ocultaron y no se necesita quitar ninguna
+> integración ni cambiar credenciales para terminar el trabajo actual.
 
 Última actualización: commit `da0157b`, versión desplegada `783e28a0`.
 `npm run qa` (lint + typecheck + build) pasa limpio. Rama `main`, remoto `github`.

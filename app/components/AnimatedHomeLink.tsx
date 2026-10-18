@@ -27,6 +27,8 @@ export function AnimatedHomeLink({ ariaLabel, children }: AnimatedHomeLinkProps)
     if (isFlying) return;
 
     setIsFlying(true);
+    // Navegación nativa intencional: evita el router cliente de Next en el runtime Vinext.
+    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
     navigationTimer.current = window.setTimeout(() => window.location.assign('/'), FLIGHT_TIME);
   }
 

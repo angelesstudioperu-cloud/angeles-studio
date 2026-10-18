@@ -1,7 +1,7 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business, emailUrl, whatsappUrl } from '../content/business';
 
-export const metadata = { title: 'Política de privacidad' };
+export const metadata = { title: 'Política de privacidad', alternates: { canonical: '/privacidad' } };
 
 export default function PrivacyPage() {
   return (
@@ -31,6 +31,12 @@ export default function PrivacyPage() {
           confirma cuando {business.name} te lo comunica expresamente.
         </p>
 
+        <h2>Servicios externos</h2>
+        <p>
+          El mapa de Google se carga solo si lo solicitas. Al cargarlo o abrir enlaces externos, esos
+          proveedores pueden recibir datos técnicos como tu dirección IP y aplicar sus propias políticas.
+          Esta web no incorpora píxeles publicitarios ni herramientas de analítica de terceros.
+        </p>
         <h2>Con quién se comparten</h2>
         <p>No vendemos información personal ni la usamos para publicidad de terceros.</p>
 

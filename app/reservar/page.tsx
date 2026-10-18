@@ -7,9 +7,10 @@ import { WhatsAppFloat } from '../components/WhatsAppFloat';
 import { business, whatsappLink } from '../content/business';
 
 export const metadata = {
+  alternates: { canonical: '/reservar' },
   title: 'Reservar cita',
   description:
-    'Solicita tu cita en Ángeles Nails Salon, Los Olivos. Elige servicio, fecha y horario y te confirmamos disponibilidad por WhatsApp.',
+    'Solicita tu cita en Angeles Studio, Los Olivos. Elige servicio, fecha y horario preferidos. La disponibilidad se confirma por WhatsApp.',
 };
 
 const steps = [
@@ -32,7 +33,7 @@ export default async function BookingPage({ searchParams }: { searchParams: Prom
       <section className="booking booking-first" id="formulario">
         {/* El titular vive fuera del bloque de texto: en móvil encabeza la
             pantalla y el resto del acompañamiento queda debajo del formulario. */}
-        <h2 className="booking-title">Hagamos espacio <em>para ti</em></h2>
+        <h1 className="booking-title">Hagamos espacio <em>para ti</em></h1>
 
         <div className="booking-card">
           <p className="booking-card-title">Solicita tu cita</p>
