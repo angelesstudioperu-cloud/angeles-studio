@@ -3,6 +3,43 @@
 Fecha de revisión: 18 de octubre de 2026. Este es el informe vigente; sustituye los
 pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 
+## Última comprobación: ficha pública y ubicación sincronizada
+
+Este apartado prevalece sobre los estados históricos conservados más abajo.
+
+- El usuario aplazó el registro del dominio. No comprar, registrar ni aceptar
+  condiciones hasta que lo retome. El titular indicado para ese futuro registro
+  es Junior Enrique Gonzáles Paico; no equivale a confirmar al proveedor legal.
+- Google Business muestra una empresa verificada en la cuenta de Angeles. Se
+  abrió su ficha pública desde «Ver tu perfil», evitando otro salón homónimo.
+  La ficha pública de Angeles Studio muestra teléfono 947 117 905, la web del
+  Worker, enlace a servicios y dirección `2W99+CXP, Los Olivos, 15304`.
+  Su identidad Maps es `0x801446c4908c4c43`; el punto público es
+  `-11.9814349, -77.0799713`. No se desplazó el pin de Google.
+- Se sincronizaron las coordenadas centrales de la web y sus enlaces con esa
+  ficha exacta. Publicado en Cloudflare, versión
+  `990d6ecc-83f4-4a3e-b6fe-25684d1e9e06`. Se comprobaron en producción el enlace
+  de contacto, la URL del mapa incrustado y los datos estructurados con el nuevo
+  punto. La carga visual del mapa externo no se confirmó; el acceso directo a
+  la ficha sí. La referencia conserva primer piso y letrero rosado, sin inventar
+  número de puerta.
+- `npm run qa`: lint, tipos, cuatro pruebas y compilación correctos. También
+  pasaron `cf:prepare` y `git diff --check`; permanecen avisos conocidos del
+  compilador. Contacto móvil a 390 × 844 revisado visualmente: portada, mapa
+  diferido y datos del local legibles, sin desbordamiento horizontal
+  (clientWidth y scrollWidth: 375). No se enviaron mensajes ni reservas.
+- Canva: doce bases más 36 variaciones, 48 diseños separados en la cuenta de
+  Angeles. Se conservaron sus enlaces en los catálogos locales; no duplicar
+  importaciones. No se produjo contenido real ni se publicaron posts.
+
+Evidencia: [contacto móvil](evidence/movil-contacto-publicado-390-2026-10-18.png)
+y [datos del local en móvil](evidence/movil-contacto-datos-390-2026-10-18.png).
+
+Pendientes que no deben declararse resueltos: dominio y correo corporativo
+aplazados; identidad del proveedor y procedimiento formal de reclamaciones;
+indexación efectiva de páginas (sitemap procesado no significa indexación);
+contenido real a cargo del usuario. RUC sin especificar por su indicación.
+
 ## Actualización vigente: dominio elegido, Google y plantillas
 
 - Web publicada y verificada con el lettering rosa definitivo y el subtítulo

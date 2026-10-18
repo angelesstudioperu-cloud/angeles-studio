@@ -30,9 +30,9 @@ export const business = {
     postalCode: '15304',
     country: 'PE',
   },
-  // Punto inferior señalado por el negocio en el mapa el 18/10/2026.
-  geo: { lat: -11.981506, lng: -77.079941 },
-  mapsUrl: 'https://www.google.com/maps/search/?api=1&query=-11.981506%2C-77.079941',
+  // Punto público de la ficha verificada de Google Maps, consultado el 18/10/2026.
+  geo: { lat: -11.9814349, lng: -77.0799713 },
+  mapsUrl: 'https://www.google.com/maps/place/Angeles+Studio/data=!4m2!3m1!1s0x0:0x801446c4908c4c43',
   streetViewUrl: 'https://maps.app.goo.gl/hgXztzrzmQxh5mCS6',
   locationReference: 'Primer piso, local con letrero rosado Angeles Studio.',
 
