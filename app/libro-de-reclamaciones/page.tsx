@@ -1,5 +1,6 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business, emailUrl, whatsappUrl } from '../content/business';
+import { LegalProvider } from '../components/LegalProvider';
 
 export const metadata = {
   title: 'Libro de reclamaciones',
@@ -22,16 +23,18 @@ export default function ComplaintsPage() {
         <div className="legal-placeholder">
           <strong>Pendiente de datos y habilitación</strong>
           <p>
-            Estamos pendientes de confirmar la identidad legal del proveedor y el procedimiento de atención.
+            Estamos pendientes de completar los datos de formalización y habilitar el procedimiento de atención.
             Mientras tanto, puedes comunicarte por WhatsApp al{' '}
             <a href={whatsappUrl} target="_blank" rel="noreferrer">{business.whatsappDisplay}</a> o al correo{' '}
             <a href={emailUrl}>{business.email}</a>. Estos canales de contacto no sustituyen el Libro de Reclamaciones.
           </p>
         </div>
 
+        <LegalProvider />
+
         <aside>
-          Esta página no publica un formulario legal con identidad empresarial inventada. Se habilitará en cuanto
-          el negocio proporcione los datos oficiales.
+          Este espacio todavía no permite registrar una hoja de reclamación ni obtener una constancia.
+          Se informará aquí cuando el Libro de Reclamaciones virtual esté habilitado.
         </aside>
       </article>
     </main>

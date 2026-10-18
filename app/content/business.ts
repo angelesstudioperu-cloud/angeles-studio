@@ -9,7 +9,7 @@
 export const business = {
   name: 'Angeles Studio',
   shortName: 'Angeles',
-  legalName: null, // pending: identidad del proveedor no documentada
+  legalName: 'Junior Enrique Gonzáles Paico', // Proveedor confirmado por el negocio el 18/10/2026.
   taxId: null, // El negocio confirmó que aún no tiene RUC; no publicar uno ficticio.
   tagline: 'A mal tiempo, uñas lindas.',
   description:
@@ -33,6 +33,8 @@ export const business = {
   // Punto público de la ficha verificada de Google Maps, consultado el 18/10/2026.
   geo: { lat: -11.9814349, lng: -77.0799713 },
   mapsUrl: 'https://www.google.com/maps/place/Angeles+Studio/data=!4m2!3m1!1s0x0:0x801446c4908c4c43',
+  // Código oficial de «Insertar un mapa»; términos autorizados por el usuario el 18/10/2026.
+  mapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3425.201125300782!2d-77.0799713!3d-11.9814349!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x82778e62e0a820d%3A0x801446c4908c4c43!2sAngeles%20Studio!5e1!3m2!1ses!2spe!4v1792366876674!5m2!1ses!2spe',
   streetViewUrl: 'https://maps.app.goo.gl/hgXztzrzmQxh5mCS6',
   locationReference: 'Primer piso, local con letrero rosado Angeles Studio.',
 

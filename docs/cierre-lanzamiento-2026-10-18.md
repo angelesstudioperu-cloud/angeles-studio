@@ -3,6 +3,38 @@
 Fecha de revisión: 18 de octubre de 2026. Este es el informe vigente; sustituye los
 pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 
+## Cierre más reciente: proveedor confirmado y mapa oficial publicado
+
+Este apartado prevalece sobre los estados históricos siguientes.
+
+- El usuario confirmó que Junior Enrique Gonzáles Paico también es el proveedor.
+  Se publicó su nombre y contacto en privacidad, términos y reclamaciones.
+  El RUC continúa sin especificar. El usuario y Junior atenderán provisionalmente
+  `angelesstudioperu@gmail.com`; no se cambiaron propietarios ni accesos.
+- El mapa anterior quedaba en blanco en la comprobación del navegador. Se obtuvo
+  el código oficial de «Insertar un mapa» desde la ficha correcta y el usuario
+  autorizó expresamente los términos de Google. El nuevo mapa ya carga
+  visualmente en producción, solo después de pulsar el botón. Se conserva además
+  un enlace directo permanente a la ficha. No se modificó el pin de Google.
+- Publicación Cloudflare confirmada: `efd3017e-185a-42a6-adf4-6ce3e1b783ce`.
+  Pasaron `npm run qa` (lint, tipos, 4 pruebas y compilación), `cf:prepare` y
+  `git diff --check`. Se verificaron las tres páginas legales publicadas y el
+  bloque del proveedor en móvil a 390 × 844; texto legible y sin recortes.
+- El Libro de Reclamaciones sigue sin formulario ni constancia. Se identifican
+  claramente sus limitaciones; Gmail y WhatsApp no lo sustituyen. Falta completar
+  RUC, procedimiento, registro y entrega de copia, con revisión legal final.
+- El registro del dominio continúa aplazado por el usuario. Se conserva abierta
+  su pestaña y no se aceptaron condiciones ni se efectuó compra. Quedan pendientes
+  dominio/DNS/HTTPS definitivo, Zoho y autenticación del correo, Search Console
+  del dominio e indexación efectiva. No se repitió la solicitud con cuota agotada.
+- Siguen disponibles 48 diseños de Canva separados en la cuenta de Angeles.
+  No se publicó contenido ni se modificaron logos de redes. Se cerraron las
+  pestañas de diagnóstico del mapa, la comprobación legal y Facebook duplicado.
+
+Evidencia: [mapa oficial publicado](evidence/mapa-oficial-publicado-2026-10-18.png),
+[proveedor publicado](evidence/proveedor-confirmado-publicado-2026-10-18.png) y
+[proveedor y reclamos en móvil](evidence/proveedor-reclamos-movil-2026-10-18.png).
+
 ## Última comprobación: ficha pública y ubicación sincronizada
 
 Este apartado prevalece sobre los estados históricos conservados más abajo.

@@ -1,5 +1,6 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business, emailUrl, whatsappUrl } from '../content/business';
+import { LegalProvider } from '../components/LegalProvider';
 
 export const metadata = { title: 'Política de privacidad', alternates: { canonical: '/privacidad' } };
 
@@ -11,6 +12,7 @@ export default function PrivacyPage() {
         <p className="eyebrow">Legal</p>
         <h1>Política de privacidad</h1>
         <p className="legal-date">Versión preliminar · setiembre de 2026</p>
+        <LegalProvider />
 
         <h2>Qué datos recibimos</h2>
         <p>

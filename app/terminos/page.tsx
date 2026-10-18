@@ -1,5 +1,6 @@
 import { NativeLink as Link } from '../components/NativeLink';
 import { business } from '../content/business';
+import { LegalProvider } from '../components/LegalProvider';
 
 export const metadata = { title: 'Términos del servicio', alternates: { canonical: '/terminos' } };
 
@@ -11,6 +12,7 @@ export default function TermsPage() {
         <p className="eyebrow">Legal</p>
         <h1>Términos del servicio</h1>
         <p className="legal-date">Versión preliminar · setiembre de 2026</p>
+        <LegalProvider />
 
         <h2>Solicitudes de cita</h2>
         <p>
