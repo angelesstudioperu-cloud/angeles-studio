@@ -1520,7 +1520,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   letter-spacing:.06em;
   transform:translate(10px,-2px);
 }
-.footer .brand-logo, .footer .brand-name, .footer .brand-sub { color:var(--brand-pink-soft); }
+.footer .brand-logo, .footer .brand-name, .footer .brand-sub { color:var(--brand-pink); }
 
 /* --- Cabecera: marca + una sola navegación ----------------------------- */
 .site-header { height:auto; grid-template-columns:auto 1fr; gap:20px; padding-block:18px; }
@@ -2822,7 +2822,7 @@ body,.legal-page,.faq { background:var(--mist); color:var(--evergreen); }
   .site-nav .nav-cta[aria-current=page] { color:#fff; background:var(--evergreen); }
 }
 .brand-logo .brand-name { font:400 clamp(20px,1.8vw,24px)/1 var(--font-display),Georgia,serif; letter-spacing:-.025em; white-space:nowrap; }
-.brand-logo .brand-sub { display:flex; align-items:center; gap:12px; width:100%; font:400 10px/1.1 var(--font-sans),sans-serif; letter-spacing:.18em; white-space:nowrap; }
+.brand-logo .brand-sub { display:flex; align-items:center; gap:12px; width:100%; font:400 10px/1.1 var(--font-sans),sans-serif; letter-spacing:.18em; white-space:nowrap; transform:none; }
 .brand-logo .brand-sub::before,.brand-logo .brand-sub::after { content:''; flex:1; height:1px; background:currentColor; opacity:.8; }
 .brand-logo-lg .brand-name { font-size:clamp(24px,2.4vw,32px); }
 .brand-logo-lg .brand-sub { font-size:11px; }

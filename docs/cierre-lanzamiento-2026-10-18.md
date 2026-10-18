@@ -3,7 +3,65 @@
 Fecha de revisión: 18 de octubre de 2026. Este es el informe vigente; sustituye los
 pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 
-## Cierre vigente: web publicada el 18/10/2026
+## Actualización vigente: dominio elegido, Google y plantillas
+
+- Web publicada y verificada con el lettering rosa definitivo y el subtítulo
+  centrado: versión Cloudflare `ff9f6675-15cb-45c4-a941-0a08ce9bb0fd`.
+  Las alas originales y sus fotogramas no se modificaron. Pasaron nuevamente
+  `npm run qa` (lint, tipos, 4/4 pruebas y build), `cf:prepare` y `git diff --check`.
+  Se conservan los avisos conocidos de compilación; no se declara auditoría integral.
+- Search Console: propiedad de prefijo URL del Worker verificada mediante etiqueta
+  HTML pública. Prueba en directo: «La URL está disponible para Google» y la
+  página se puede indexar. La solicitud manual de indexación devolvió «Cuota
+  superada»; no se reintentará el mismo día ni se declara indexación completada.
+  `sitemap.xml` se envió, pero la tabla mostró «No se ha podido obtener» en la
+  primera consulta. El endpoint público sí respondió HTTP 200 y XML con 23 URLs.
+  Queda pendiente comprobar su procesamiento, sin confundir envío con aceptación.
+- Google Business: se guardó el pin que el usuario había ajustado, sin desplazarlo.
+  Dirección mostrada en el editor: `2W99+CXP Los Olivos`, segunda línea
+  `Calle Los Olivos, primer piso`. Google confirmó revisión pendiente; no se
+  declara que ya sea visible al público ni que las coordenadas coincidan con la
+  web sin una comprobación adicional del punto finalmente aprobado.
+- Facebook: horario guardado de lunes a sábado, 10:00–20:30, domingo cerrado.
+  No se publicaron posts ni se modificaron los logos de redes.
+- Dominio elegido por el usuario: `angelesstudio.pe`. Punto.pe lo mostró libre
+  por S/110 durante un año, impuestos incluidos, y se añadió solo ese dominio
+  al carrito. No está comprado ni reservado. Faltan el titular legal y que el
+  usuario complete aprobación de condiciones y pago. No se crearon correos
+  corporativos antes de disponer del dominio.
+- Se crearon y validaron doce plantillas independientes: cinco historias,
+  cuatro posts verticales, dos posts cuadrados y una tarjeta de regalo.
+  Texto y formas editables; fondo general sin temática estacional y logo rosa.
+  No contienen fotos reales, promociones ni testimonios inventados. Archivos en
+  `C:\Users\Poliguag\Documents\Codex\2026-09-21\busca-en-esta-pc-todo-lo\output\plantillas-canva`.
+  Las doce quedaron importadas y guardadas como diseños separados en el Canva
+  de Junior/`angelesstudioperu@gmail.com`, no en el conector personal. El usuario
+  habilitó el acceso local que impedía la carga. Canva confirmó «12 artículos
+  subidos», todos con una página; se comprobó la edición nativa del título de
+  la primera historia (Arial, tamaño 69 y color editable). El catálogo JSON
+  local conserva los doce enlaces; no se publicaron contenidos en redes.
+- Auditoría adicional de Canodent: los elementos reutilizables principales ya
+  están adaptados (datos centralizados, servicios, FAQ, SEO y embudo WhatsApp).
+  Las landing pages de campañas quedan para ofertas concretas aprobadas; no se
+  crean páginas duplicadas sin una finalidad diferenciada.
+
+Evidencia: [logo público](evidence/web-lettering-rosa-final-2026-10-18.png),
+[pie de página](evidence/web-footer-rosa-final-2026-10-18.png),
+[propiedad verificada](evidence/search-console-verificado-2026-10-18.png),
+[cuota de indexación](evidence/search-console-cuota-indexacion-2026-10-18.png),
+[pin del usuario enviado](evidence/google-pin-usuario-enviado-2026-10-18.png) y
+[dominio en carrito](evidence/dominio-angelesstudio-pe-carrito-2026-10-18.png),
+[doce diseños en Canva](evidence/canva-doce-plantillas-2026-10-18.png) y
+[texto editable](evidence/canva-historia-editable-2026-10-18.png).
+
+Pendientes actuales: titular y compra del dominio; conexión DNS/HTTPS y nueva
+propiedad de Search Console del dominio; Zoho y correo de reclamos; identidad y
+procedimiento del Libro de Reclamaciones, manteniendo RUC sin especificar;
+aprobación de Google e indexación.
+Las fotos y videos reales los aporta el usuario. No se activaron Analytics,
+Pixel, campañas ni publicaciones sociales.
+
+## Registro previo: web publicada el 18/10/2026
 
 Esta sección sustituye los estados preliminares que se conservan más abajo como
 registro de la revisión. No hay que repetir sus antiguos bloqueos de publicación.

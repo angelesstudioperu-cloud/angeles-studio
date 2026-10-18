@@ -22,6 +22,7 @@ export const metadata: Metadata = {
   title: { default: title, template: `%s | ${business.name}` },
   description,
   applicationName: business.name,
+  verification: { google: '6zbpxsNmif6CUMmuKA3cH8KOOCDEkFxM4mG05O5xvqk' },
   robots: siteLaunchReady ? { index: true, follow: true } : { index: false, follow: false },
   icons: {
     icon: [{ url: '/favicon.png', sizes: '64x64', type: 'image/png' }, { url: '/icon-192.png', sizes: '192x192', type: 'image/png' }],
