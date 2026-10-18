@@ -9,7 +9,7 @@ Esta sección sustituye los estados preliminares que se conservan más abajo com
 registro de la revisión. No hay que repetir sus antiguos bloqueos de publicación.
 
 - Publicada y comprobada: https://angeles-studio.angelesstudioperu.workers.dev/.
-  Versión Cloudflare: `bf94df46-8636-4f4c-b1d2-936ebf4e46ae`.
+  Versión Cloudflare vigente: `9e049f42-a90b-452b-b152-be1d2e3a348b`.
   Cuenta confirmada: `angelesstudioperu@gmail.com`, Worker existente `angeles-studio`.
 - El propietario autorizó publicar y confirmó los datos comerciales heredados de
   la web. No se compró dominio, contrató plan ni ejecutó migración D1.
@@ -48,6 +48,50 @@ del punto/catálogo; identidad del proveedor y procedimiento del Libro de
 Reclamaciones (RUC sin especificar por indicación del propietario); Search Console;
 fotografías y videos reales. El Gmail o futuro correo de reclamos no sustituyen
 un Libro de Reclamaciones formal. No se activaron campañas, Pixel ni Analytics.
+
+## Ajuste posterior: cabecera y navegación
+
+- Se conservó el archivo original de las alas y los mismos fotogramas del vuelo.
+  El gesto de 500 ms del logo ahora también se activa al pulsar los enlaces del
+  menú, incluida la activación con Enter. Se respetan los modificadores para
+  abrir otra pestaña y la preferencia de movimiento reducido. Al restaurar una
+  página desde el historial se limpia el estado de vuelo.
+- En escritorio, el inicio del rosado pasó de 52% a 46%: unos 90 px hacia la
+  izquierda en la vista comprobada. No se alteró el corte móvil del 58%.
+- QA: tipos, 4/4 pruebas y compilación correctos; lint limpio después de retirar
+  una directiva obsoleta. Comprobados el vuelo del logo y del menú en navegador,
+  navegación con Enter y vista de 390 × 844 sin desbordamiento horizontal.
+  En producción se verificaron el gradiente nuevo y `wings-return-home` al
+  pulsar Servicios. No se modificaron datos comerciales ni redes sociales.
+- Publicado en el Worker existente, sin migraciones ni compras.
+  [Captura de la cabecera pública](evidence/web-cabecera-ajustada-2026-10-18.png).
+- Google sigue mostrando la ubicación como pendiente de revisión en la consulta
+  posterior. No se atribuyen resultados de posicionamiento todavía.
+- Se cerraron las ocho pestañas auxiliares/duplicadas del Chrome de Angeles.
+  Quedaron cinco: web, Google Business, Meta Business Suite, Facebook y Cloudflare.
+  No se cerraron aplicaciones ajenas. Las pestañas pueden recuperarse desde Chrome.
+
+### Siguiente etapa propuesta, sin aplicar cambios de contenido en redes
+
+1. Elegir y autorizar un dominio; después verificarlo y configurar los correos
+   corporativos y sus registros. La web actual puede seguir funcionando mientras.
+2. Completar identidad del proveedor, responsable y procedimiento del Libro de
+   Reclamaciones; dejar el RUC sin especificar hasta que lo entregue el propietario.
+3. Confirmar la aprobación del pin/catálogo de Google y aportar fotos reales del
+   acceso y del salón. Reunir además 10–15 trabajos propios con permiso de uso.
+4. Con autorización separada, unificar biografías y horarios de redes, crear
+   destacados de servicios, precios, ubicación, cuidados y reservas; confirmar si
+   se ofrecen extensiones de pestañas antes de ampliar el catálogo web.
+5. Conectar Search Console y enviar el sitemap; medir consultas y citas confirmadas.
+   No hay Analytics/Pixel ni calendario de disponibilidad en vivo implementados.
+6. Evaluar paquetes de servicio, visitas entre amigas o incentivos para horarios
+   de menor demanda según margen y capacidad, sin publicar descuentos inventados.
+
+Valoración: base profesional funcional para recibir consultas, comprobada en
+escritorio y móvil, no un sistema completo de reservas y cobros. Quedan pendientes
+contenido propio, operación/legal y medición. Persisten las 12 alertas de las
+herramientas de desarrollo detalladas abajo; las pruebas no equivalen a una
+auditoría integral de seguridad ni a resultados SEO demostrados.
 
 ## Registro de trabajo anterior al despliegue
 

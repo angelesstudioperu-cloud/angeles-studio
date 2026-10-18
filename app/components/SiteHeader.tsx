@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef, useState, type MouseEvent } from 'react';
 import { NativeLink as Link } from './NativeLink';
 import { AnimatedHomeLink } from './AnimatedHomeLink';
 import { BrandLogo } from './BrandLogo';
@@ -14,8 +17,41 @@ export const navLinks = [
 export type NavHref = (typeof navLinks)[number]['href'] | '/' | '/reservar';
 
 export function SiteHeader({ current, tone = 'light' }: { current?: NavHref; tone?: 'light' | 'dark' }) {
+  const [isNavigating, setIsNavigating] = useState(false);
+  const navigationTimer = useRef<number | null>(null);
+
+  useEffect(() => {
+    function resetAfterHistoryRestore(event: PageTransitionEvent) {
+      if (event.persisted) setIsNavigating(false);
+    }
+    window.addEventListener('pageshow', resetAfterHistoryRestore);
+    return () => {
+      if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+      window.removeEventListener('pageshow', resetAfterHistoryRestore);
+    };
+  }, []);
+
+  function handleNavigation(event: MouseEvent<HTMLElement>) {
+    // El logo conserva su propio vuelo. Solo extendemos ese gesto al menú.
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const target = event.target;
+    const link = target instanceof Element ? target.closest<HTMLAnchorElement>('.site-nav a') : null;
+    if (!link || link.hasAttribute('download') || (link.target && link.target !== '_self')) return;
+    const destination = new URL(link.href);
+    if (destination.origin !== window.location.origin) return;
+
+    event.preventDefault();
+    if (navigationTimer.current !== null) return;
+    setIsNavigating(true);
+    navigationTimer.current = window.setTimeout(() => {
+      navigationTimer.current = null;
+      window.location.assign(destination.href);
+    }, 500);
+  }
+
   return (
-    <header className={`site-header site-header-${tone}`} role="banner">
+    <header className={`site-header site-header-${tone}${isNavigating ? ' is-navigating' : ''}`} role="banner" onClick={handleNavigation}>
       <AnimatedHomeLink ariaLabel={`${business.name}, inicio`}>
         <BrandLogo />
       </AnimatedHomeLink>

@@ -14,8 +14,15 @@ export function AnimatedHomeLink({ ariaLabel, children }: AnimatedHomeLinkProps)
   const [isFlying, setIsFlying] = useState(false);
   const navigationTimer = useRef<number | null>(null);
 
-  useEffect(() => () => {
-    if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+  useEffect(() => {
+    function resetAfterHistoryRestore(event: PageTransitionEvent) {
+      if (event.persisted) setIsFlying(false);
+    }
+    window.addEventListener('pageshow', resetAfterHistoryRestore);
+    return () => {
+      if (navigationTimer.current !== null) window.clearTimeout(navigationTimer.current);
+      window.removeEventListener('pageshow', resetAfterHistoryRestore);
+    };
   }, []);
 
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
@@ -28,8 +35,11 @@ export function AnimatedHomeLink({ ariaLabel, children }: AnimatedHomeLinkProps)
 
     setIsFlying(true);
     // Navegación nativa intencional: evita el router cliente de Next en el runtime Vinext.
-    // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-    navigationTimer.current = window.setTimeout(() => window.location.assign('/'), FLIGHT_TIME);
+    navigationTimer.current = window.setTimeout(() => {
+      navigationTimer.current = null;
+      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
+      window.location.assign('/');
+    }, FLIGHT_TIME);
   }
 
   return (
