@@ -3,6 +3,25 @@
 Fecha de revisión: 18 de octubre de 2026. Este es el informe vigente; sustituye los
 pendientes históricos de `handoff-codex.md`. No contiene credenciales.
 
+## Último ajuste: mapa automático
+
+Este apartado sustituye las referencias históricas a la carga mediante botón.
+
+- A petición del usuario se eliminó el botón de consentimiento y el mapa oficial
+  carga automáticamente en inicio y contacto, sin interacción. Se conserva el
+  enlace permanente a Google Maps y la ficha correcta; no se desplazó el pin.
+- Se actualizó privacidad para informar de la conexión automática con Google.
+  La carga diferida quedó en blanco en la revisión del navegador; se sustituyó
+  por carga directa (`eager`) y se confirmó visualmente en el inicio publicado.
+- Publicación final: `c7a08c9d-4172-4dce-8cb7-99853d7f60c9`.
+  Pasaron `npm run qa` (lint, tipos, 4 pruebas y compilación), `cf:prepare` y
+  `qa:public` (23 rutas, metadatos, robots, sitemap y cabeceras).
+- Evidencia: [mapa automático publicado](evidence/mapa-automatico-publicado-2026-10-18.png).
+- Dominio, correo propio y RUC no bloquean otros ajustes técnicos o de diseño.
+  El dominio sigue aplazado por el usuario; el Libro de Reclamaciones continúa
+  pendiente y no debe declararse formalmente habilitado. La indexación efectiva
+  depende de Google y no está garantizada por el sitemap ni por comprar dominio.
+
 ## Comprobación operativa de la publicación
 
 - Se añadió `npm run qa:public`, comprobación de solo lectura ejecutada contra

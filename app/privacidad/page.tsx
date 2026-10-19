@@ -35,8 +35,9 @@ export default function PrivacyPage() {
 
         <h2>Servicios externos</h2>
         <p>
-          El mapa de Google se carga solo si lo solicitas. Al cargarlo o abrir enlaces externos, esos
-          proveedores pueden recibir datos técnicos como tu dirección IP y aplicar sus propias políticas.
+          El mapa de Google se carga automáticamente en las páginas que muestran la ubicación. Al cargarse
+          o al abrir enlaces externos, esos proveedores pueden recibir datos técnicos como tu dirección IP
+          y aplicar sus propias políticas.
           Esta web no incorpora píxeles publicitarios ni herramientas de analítica de terceros.
         </p>
         <h2>Con quién se comparten</h2>
